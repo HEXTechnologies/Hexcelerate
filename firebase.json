@@ -1,10 +1,48 @@
 {
   "hosting": {
-    "public": "dist",
-    "ignore": [
-      "firebase.json"
-    ],
+    "public": "out",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
+      {
+        "source": "/Admin",
+        "destination": "/Admin.html"
+      },
+      {
+        "source": "/Dashboard",
+        "destination": "/Dashboard.html"
+      },
+      {
+        "source": "/Project",
+        "destination": "/Project.html"
+      },
+      {
+        "source": "/Project-Management",
+        "destination": "/Project-Management.html"
+      },
+      {
+        "source": "/security-report",
+        "destination": "/security-report.html"
+      },
+      {
+        "source": "/Categories/community",
+        "destination": "/Categories/community.html"
+      },
+      {
+        "source": "/Categories/transportation",
+        "destination": "/Categories/transportation.html"
+      },
+      {
+        "source": "/Categories/school",
+        "destination": "/Categories/school.html"
+      },
+      {
+        "source": "/Categories/employment",
+        "destination": "/Categories/employment.html"
+      },
+      {
+        "source": "/Categories/publicSafety",
+        "destination": "/Categories/publicSafety.html"
+      },
       {
         "source": "**",
         "destination": "/index.html"
