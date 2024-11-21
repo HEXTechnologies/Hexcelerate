@@ -1,0 +1,155 @@
+/* General Body Styling */
+body {
+  background-color: #f5f5f5; /* Light cream background */
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden; /* Prevent body from scrolling */
+}
+
+.dashboard-header {
+  font-family: 'Arial', sans-serif; /* Change to your preferred font */
+  font-size: 2rem; /* Larger font size */
+  font-weight: 700; /* Bold text */
+  color: #004d00; /* Dark green color */
+  text-align: center; /* Center alignment */
+  margin: 20px 0; /* Margin to separate from other elements */
+  padding: 10px 20px; /* Padding around the text */
+  background-color: #e8f5e9; /* Light green background */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Text shadow for better readability */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and transform */
+}
+
+.login-header {
+  font-family: 'Arial', sans-serif; /* Change to your preferred font */
+  font-size: 1.5rem; /* Larger font size */
+  font-weight: 700; /* Bold text */
+  color: #004d00; /* Dark green color */
+  text-align: center; /* Center alignment */
+  margin: 20px 0; /* Margin to separate from other elements */
+  padding: 10px 20px; /* Padding around the text */
+  background-color: #e8f5e9; /* Light green background */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Text shadow for better readability */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and transform */
+}
+
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; /* Hide overflow here */
+}
+
+/* Inner Container with Scroll */
+.container {
+  background-color: #fff; /* White background for forms and dashboard */
+  border-radius: 8px;
+  padding: 10px; /* Reduced padding */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Slightly reduced shadow */
+  flex: 1;
+  overflow: auto; /* Enable scrolling within this container */
+}
+
+.login-form {
+  max-width: 400px; /* Optional: limit the form width */
+  max-height: 450px;
+  width: 100%; /* Ensure form takes up full width up to max-width */
+  padding: 20px; /* Add padding for better spacing */
+  border-radius: 8px; /* Optional: rounded corners for the form */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: shadow for better visibility */
+}
+
+.admin-dashboard {
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Button Styling */
+.btn-success {
+  background-color: #004d00; /* Dark green color */
+  border-color: #004d00;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #003300;
+  border-color: #002200;
+}
+
+/* Scrollable Content */
+.scrollable-content {
+  max-height: 80vh; /* Adjust based on your design */
+  overflow-y: auto;
+}
+
+/* Table Styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #004d00; /* Dark green header */
+  color: #fff;
+  font-size: 0.9rem; /* Smaller font size */
+}
+
+.table td {
+  font-size: 0.8rem; /* Smaller font size */
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Alternating row colors */
+}
+
+.table tr:hover {
+  background-color: #f1f1f1; /* Light grey on hover */
+}
+
+/* Specific Column Widths */
+.table th:nth-child(1), .table td:nth-child(1) {
+  min-width: 80px; /* Image column */
+}
+
+.table th:nth-child(2), .table td:nth-child(2) {
+  min-width: 80px; /* Hover Image column */
+}
+
+.table th:nth-child(3), .table td:nth-child(3) {
+  min-width: 80px; /* Category column */
+}
+
+.table th:nth-child(4), .table td:nth-child(4) {
+  min-width: 80px; /* Name column */
+}
+
+.table th:nth-child(5), .table td:nth-child(5) {
+  min-width: 50px; /* Price column */
+}
+
+.table th:nth-child(6), .table td:nth-child(6) {
+  min-width: 300px; /* Description column */
+}
+
+.table th:nth-child(7), .table td:nth-child(7) {
+  max-width: 100px; /* Actions column */
+}
+
+/* Center the product listings header */
+.product-list-header {
+  text-align: center;
+  font-size: 1rem; /* Smaller font size */
+}
+
+
