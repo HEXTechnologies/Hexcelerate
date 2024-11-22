@@ -1,0 +1,28 @@
+{
+  "rules": {
+    "users": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "AI": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "Admin": {
+      ".read": true,
+      "$fileId": {
+        ".write": "(auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin') || (newData.exists() && newData.child('views').exists() && newData.child('views').isNumber())"
+      }
+    },
+    "Security": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+      ".write": true
+    },
+    "Projects": {
+      ".read": true,
+      "$fileId": {
+        ".write": "auth != null || (newData.exists() && newData.child('views').exists() && newData.child('views').isNumber())"
+      }
+    }
+  }
+}
