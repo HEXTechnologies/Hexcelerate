@@ -240,7 +240,7 @@ const ChatBotsDesign: React.FC = () => {
       >
         {isCompanyView
           ? "READY TO SKYROCKET YOUR HIRING PROCESS?"
-          : "READY TO MATCH WITH YOUR NEXT JOB?"}
+          : "READY TO MATCH WITH THE RIGHT COMPANY?"}
       </h1>
       <button
         onClick={handleNavigation}
