@@ -13,9 +13,9 @@ const HowItWorks: React.FC = () => {
       subheading:
         "Fast, Smart, and Precise! Discover how we help you connect with the perfect candidates for your team...",
       steps: [
-        { number: 1, text: "SELECT YOUR INDUSTRY", link: "" },
-        { number: 2, text: "EXPLORE CANDIDATE MATCHES", link: "" },
-        { number: 3, text: "CONNECT WITH TOP TALENT", link: "" },
+        { number: 1, text: "SELECT YOUR INDUSTRY", link: "Waitlist" },
+        { number: 2, text: "EXPLORE CANDIDATE MATCHES", link: "Waitlist" },
+        { number: 3, text: "CONNECT WITH TOP TALENT", link: "Waitlist" },
       ],
     },
     candidate: {
@@ -23,13 +23,13 @@ const HowItWorks: React.FC = () => {
       subheading:
         "Connect your LinkedIn profile and instantly start interviewing with your perfect company matches...",
       steps: [
-        { number: 1, text: "CONNECT YOUR LINKEDIN", link: "" },
+        { number: 1, text: "CONNECT YOUR LINKEDIN", link: "Waitlist" },
         {
           number: 2,
           text: "GET MATCHED WITH COMPANIES",
-          link: "",
+          link: "Waitlist",
         },
-        { number: 3, text: "START INSTANT AI INTERVIEWS", link: "" },
+        { number: 3, text: "START INSTANT AI INTERVIEWS", link: "Waitlist" },
       ],
     },
   };

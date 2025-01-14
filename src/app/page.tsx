@@ -313,7 +313,7 @@ const CombinedDisplay: React.FC<{ isLightMode: boolean }> = React.memo(() => {
           <Link
             key={item.id}
             //href={item.link}
-            href=""
+            href="Waitlist"
             className={`category-box ${
               index === centeredIndex ? "centered" : ""
             }`}
