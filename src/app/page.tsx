@@ -21,7 +21,11 @@ import {
   Shield,
   CaretLeftFill,
   CaretRightFill,
-  ChatRight,
+  BriefcaseFill,
+  AwardFill,
+  StarFill,
+  TrophyFill,
+  MortarboardFill,
 } from "react-bootstrap-icons";
 import Link from "next/link";
 import Footer from "../components/footer";
@@ -37,7 +41,7 @@ const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [text, setText] = useState("");
   const fullText =
-    "Unlocking Hawaii's Solutions for Personalized Analytics and Collaborative Engagement";
+    "Empowering Smarter Hiring with AI-Enhanced LinkedIn Insights";
   const [isTyping, setIsTyping] = useState(true);
   const [showCursor, setShowCursor] = useState(true);
 
@@ -79,7 +83,7 @@ const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
 
   return (
     <div
-      id="Introduction"
+      id="Title"
       className="container-fluid HomeImageCt d-flex justify-content-center align-items-center pt-5"
     >
       <div className="row w-100">
@@ -90,7 +94,7 @@ const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
                 isLightMode ? "blue-text" : "gradient-text"
               }`}
             >
-              UHSPACE DATA HUB
+              HEXCELERATE
             </span>
           </h1>
 
@@ -162,15 +166,61 @@ const categoryData = [
   },
 ];
 
-const Categories: React.FC<{ isLightMode: boolean }> = React.memo(() => {
+const candidateData = [
+  {
+    id: "entry",
+    name: "Entry Level",
+    icon: <MortarboardFill className="fs-1" />,
+    description: "0-2 years experience",
+    link: "/Candidates/entry", // Added link
+  },
+  {
+    id: "mid",
+    name: "Mid Level",
+    icon: <BriefcaseFill className="fs-1" />,
+    description: "2-5 years experience",
+    link: "/Candidates/mid", // Added link
+  },
+  {
+    id: "senior",
+    name: "Senior Level",
+    icon: <AwardFill className="fs-1" />,
+    description: "5+ years experience",
+    link: "/Candidates/senior", // Added link
+  },
+  {
+    id: "expert",
+    name: "Expert Level",
+    icon: <StarFill className="fs-1" />,
+    description: "10+ years experience",
+    link: "/Candidates/expert", // Added link
+  },
+  {
+    id: "executive",
+    name: "Executive",
+    icon: <TrophyFill className="fs-1" />,
+    description: "Leadership roles",
+    link: "/Candidates/executive", // Added link
+  },
+];
+
+const CombinedDisplay: React.FC<{ isLightMode: boolean }> = React.memo(() => {
   const [rotation, setRotation] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const rotationStep = -360 / categoryData.length;
+  const [showCandidates, setShowCandidates] = useState(true);
+
+  const currentData = showCandidates ? candidateData : categoryData;
+  const rotationStep = -360 / currentData.length;
 
   const centeredIndex =
-    ((Math.round(rotation / rotationStep) % categoryData.length) +
-      categoryData.length) %
-    categoryData.length;
+    ((Math.round(rotation / rotationStep) % currentData.length) +
+      currentData.length) %
+    currentData.length;
+
+  useEffect(() => {
+    // Reset rotation when switching between categories and candidates
+    setRotation(0);
+  }, [showCandidates]);
 
   useEffect(() => {
     const navButtons = document.querySelector(".nav-buttons");
@@ -229,22 +279,32 @@ const Categories: React.FC<{ isLightMode: boolean }> = React.memo(() => {
     setRotation((prevRotation) => prevRotation - rotationStep);
   };
 
+  const toggleDisplay = () => {
+    setShowCandidates(!showCandidates);
+  };
+
   return (
     <div
       id="Category"
       className="circular-categories-container text-center py-5 container-fluid"
     >
-      <h1 className="custom-h1 mb-4 mt-4">CHOOSE A CATEGORY</h1>
-      <h4 className="custom-h4 mb-5">Explore Hundreds of Open Source Data!</h4>
+      <h1 className="custom-h1 mb-4 mt-4">
+        {showCandidates ? "FIND PROMISING CANDIDATES" : "FIND ACTIVELY HIRING COMPANIES"}
+      </h1>
+      <h4 className="custom-h4 mb-5">
+        {showCandidates
+          ? "Accelerate Your Hiring: Discover Top Candidates Tailored to Your Needs"
+          : "Land Your Dream Job: Guaranteed Skill-Based Matches You Can Trust"}
+      </h4>
 
       <div
         className="circular-display"
         style={{ transform: `rotateY(${rotation}deg)` }}
       >
-        {categoryData.map((category, index) => (
+        {currentData.map((item, index) => (
           <Link
-            key={category.id}
-            href={category.link}
+            key={item.id}
+            href={showCandidates ? `/Candidates/${item.id}` : item.link}
             className={`category-box ${
               index === centeredIndex ? "centered" : ""
             }`}
@@ -255,11 +315,12 @@ const Categories: React.FC<{ isLightMode: boolean }> = React.memo(() => {
               index === centeredIndex ? handleMouseLeave : undefined
             }
           >
-            <div className="category-icon">{category.icon}</div>
-            <strong>{category.name}</strong>
+            <div className="category-icon">{item.icon}</div>
+            <strong>{item.name}</strong>
           </Link>
         ))}
       </div>
+
       <div className="spotlight-center"></div>
       <div className="spotlight-left"></div>
       <div className="spotlight-right"></div>
@@ -278,14 +339,39 @@ const Categories: React.FC<{ isLightMode: boolean }> = React.memo(() => {
         <button
           onClick={handleBackward}
           className="btn btn-primary mx-2 gradient-button"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "40px",
+            height: "40px",
+            padding: "0",
+          }}
         >
-          <CaretLeftFill />
+          <CaretLeftFill size={20} />
+        </button>
+        <button
+          onClick={toggleDisplay}
+          className="btn btn-primary gradient-button px-4 py-2"
+          style={{
+            transition: "all 0.3s ease",
+          }}
+        >
+          Find {showCandidates ? "Companies" : "Candidates"}
         </button>
         <button
           onClick={handleForward}
           className="btn btn-primary mx-2 gradient-button"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "40px",
+            height: "40px",
+            padding: "0",
+          }}
         >
-          <CaretRightFill />
+          <CaretRightFill size={20} />
         </button>
       </div>
     </div>
@@ -307,7 +393,7 @@ export default function Home() {
       <Navbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} />
       <HomeImage isLightMode={isLightMode} />
       <Introduction />
-      <Categories isLightMode={isLightMode} />
+      <CombinedDisplay isLightMode={isLightMode} />
       <HowItWorks />
       <ChatBotsDesign />
       <AISticker />

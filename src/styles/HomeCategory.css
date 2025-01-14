@@ -99,8 +99,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 170px; /* Fixed width for uniform size */
-  height: 180px; /* Fixed height for uniform size */
+  width: 220px; /* Fixed width for uniform size */
+  height: 220px; /* Fixed height for uniform size */
   padding: 20px;
   background: linear-gradient(
     40deg,
@@ -111,7 +111,7 @@
     rgba(131, 49, 255, 0.477) 100%
   );
   color: #ffffff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   border-radius: 10px;
   transform: translate(-50%, -50%);
   transition: transform 0.3s ease;
@@ -147,7 +147,7 @@
 }
 
 .category-icon {
-  font-size: 3rem;
+  font-size: 4rem;
   margin-bottom: 15px;
 }
 
@@ -176,9 +176,9 @@
   }
 
   .category-box {
-    width: 130px;
-    height: 130px;
-    font-size: 1rem;
+    width: 200px;
+    height: 200px;
+    font-size: 0.9rem;
   }
 
   .category-icon {
@@ -193,9 +193,9 @@
   }
 
   .category-box {
-    width: 100px;
-    height: 100px;
-    font-size: 0.9rem;
+    width: 150px;
+    height: 150px;
+    font-size: 0.8rem;
   }
 
   .category-icon {
