@@ -18,6 +18,10 @@
       ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
       ".write": true
     },
+    "Waitlist": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('role').val() === 'admin'",
+      ".write": true
+    },
     "Projects": {
       ".read": true,
       "$fileId": {

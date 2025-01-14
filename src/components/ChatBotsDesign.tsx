@@ -53,7 +53,7 @@ const ChatBotsDesign: React.FC = () => {
   };
 
   const handleNavigation = () => {
-    window.location.href = "/Dashboard";
+    window.location.href = "/Waitlist";
   };
 
   useEffect(() => {

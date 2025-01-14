@@ -28,8 +28,9 @@ import {
   MortarboardFill,
 } from "react-bootstrap-icons";
 import Link from "next/link";
-import Footer from "../components/footer";
+// import Footer from "../components/footer";
 //import Navbar from "../components/navbar";
+import PreseedFooter from "../components/PreseedFooter";
 import PreseedNavbar from "../components/PreseedNavbar";
 import HowItWorks from "../components/howItWorks";
 import Introduction from "../components/introduction";
@@ -406,7 +407,8 @@ export default function Home() {
       <HowItWorks />
       <ChatBotsDesign />
       {/* <AISticker /> */}
-      <Footer />
+      {/* <Footer /> */}
+      <PreseedFooter />
     </main>
   );
 }
