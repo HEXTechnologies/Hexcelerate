@@ -1,8 +1,8 @@
 // src/app/layout.tsx
 import React from "react";
 export const metadata = {
-  title: "Hex Opendata App",
-  description: "An open data app built with Next.js",
+  title: "HEXCELERATE",
+  description: "Empowering Smarter Hiring with AI-Enhanced LinkedIn Insights",
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

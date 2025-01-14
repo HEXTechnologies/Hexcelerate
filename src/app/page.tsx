@@ -14,11 +14,11 @@ import "../styles/HomeHowItWorks.css";
 import "../styles/HomeChatbots.css";
 
 import {
-  PeopleFill,
-  BusFrontFill,
-  Book,
-  Briefcase,
-  Shield,
+  Hospital,
+  Shop,
+  Bank,
+  Mortarboard,
+  Cpu,
   CaretLeftFill,
   CaretRightFill,
   BriefcaseFill,
@@ -29,12 +29,13 @@ import {
 } from "react-bootstrap-icons";
 import Link from "next/link";
 import Footer from "../components/footer";
-import Navbar from "../components/navbar";
+//import Navbar from "../components/navbar";
+import PreseedNavbar from "../components/PreseedNavbar";
 import HowItWorks from "../components/howItWorks";
 import Introduction from "../components/introduction";
 import React, { useEffect, useState } from "react";
 import ChatBotsDesign from "@/components/ChatBotsDesign";
-import AISticker from "@/components/AISticker";
+//import AISticker from "@/components/AISticker";
 
 const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
   const words = ["RELIABLE", "RELEVANT", "READY"];
@@ -120,10 +121,9 @@ const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
         </div>
         <div className="col-md-6 d-flex justify-content-center align-items-center">
           <img
-            src="/HEX-HACC-2024-LIGHT-5.png"
+            src={isLightMode ? "/HEX-HACC-2024-LIGHT-5.png" : "/dark-graph.jpg"}
             alt="3D Graph"
             className="img-fluid right-image rounded fade-in"
-            style={{ width: "75%", height: "auto" }}
           />
         </div>
       </div>
@@ -135,34 +135,39 @@ const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
 
 const categoryData = [
   {
-    id: "community",
-    name: "Community",
-    icon: <PeopleFill className="fs-1" />,
-    link: "/Categories/community",
+    id: "technology",
+    name: "Technology",
+    icon: <Cpu className="fs-1" />, // Computer chip icon
+    description: "",
+    link: "/Company/technology",
   },
   {
-    id: "transportation",
-    name: "Transportation",
-    icon: <BusFrontFill className="fs-1" />,
-    link: "/Categories/transportation",
+    id: "finance",
+    name: "Finance",
+    icon: <Bank className="fs-1" />, // Bank/Finance icon
+    description: "",
+    link: "/Company/finance",
   },
   {
-    id: "school",
-    name: "School",
-    icon: <Book className="fs-1" />,
-    link: "/Categories/school",
+    id: "healthcare",
+    name: "Healthcare",
+    icon: <Hospital className="fs-1" />, // Medical icon
+    description: "",
+    link: "/Company/healthcare",
   },
   {
-    id: "employment",
-    name: "Employment",
-    icon: <Briefcase className="fs-1" />,
-    link: "/Categories/employment",
+    id: "education",
+    name: "Education",
+    icon: <Mortarboard className="fs-1" />, // Education/Academic icon
+    description: "",
+    link: "/Company/education",
   },
   {
-    id: "publicSafety",
-    name: "Safety",
-    icon: <Shield className="fs-1" />,
-    link: "/Categories/publicSafety",
+    id: "sales",
+    name: "Sales",
+    icon: <Shop className="fs-1" />, // Store/Shop icon
+    description: "",
+    link: "/Company/sales",
   },
 ];
 
@@ -171,36 +176,36 @@ const candidateData = [
     id: "entry",
     name: "Entry Level",
     icon: <MortarboardFill className="fs-1" />,
-    description: "0-2 years experience",
-    link: "/Candidates/entry", // Added link
+    description: "",
+    link: "/Candidates/entry",
   },
   {
     id: "mid",
     name: "Mid Level",
     icon: <BriefcaseFill className="fs-1" />,
-    description: "2-5 years experience",
-    link: "/Candidates/mid", // Added link
+    description: "",
+    link: "/Candidates/mid",
   },
   {
     id: "senior",
     name: "Senior Level",
     icon: <AwardFill className="fs-1" />,
-    description: "5+ years experience",
-    link: "/Candidates/senior", // Added link
+    description: "",
+    link: "/Candidates/senior",
   },
   {
     id: "expert",
     name: "Expert Level",
     icon: <StarFill className="fs-1" />,
-    description: "10+ years experience",
-    link: "/Candidates/expert", // Added link
+    description: "",
+    link: "/Candidates/expert",
   },
   {
-    id: "executive",
-    name: "Executive",
+    id: "management",
+    name: "Management",
     icon: <TrophyFill className="fs-1" />,
-    description: "Leadership roles",
-    link: "/Candidates/executive", // Added link
+    description: "",
+    link: "/Candidates/management",
   },
 ];
 
@@ -289,7 +294,9 @@ const CombinedDisplay: React.FC<{ isLightMode: boolean }> = React.memo(() => {
       className="circular-categories-container text-center py-5 container-fluid"
     >
       <h1 className="custom-h1 mb-4 mt-4">
-        {showCandidates ? "FIND PROMISING CANDIDATES" : "FIND ACTIVELY HIRING COMPANIES"}
+        {showCandidates
+          ? "FIND PROMISING CANDIDATES"
+          : "FIND ACTIVELY HIRING COMPANIES"}
       </h1>
       <h4 className="custom-h4 mb-5">
         {showCandidates
@@ -304,7 +311,8 @@ const CombinedDisplay: React.FC<{ isLightMode: boolean }> = React.memo(() => {
         {currentData.map((item, index) => (
           <Link
             key={item.id}
-            href={showCandidates ? `/Candidates/${item.id}` : item.link}
+            //href={item.link}
+            href=""
             className={`category-box ${
               index === centeredIndex ? "centered" : ""
             }`}
@@ -390,13 +398,14 @@ export default function Home() {
 
   return (
     <main>
-      <Navbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} />
+      <PreseedNavbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} />
+      {/* <Navbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} /> */}
       <HomeImage isLightMode={isLightMode} />
       <Introduction />
       <CombinedDisplay isLightMode={isLightMode} />
       <HowItWorks />
       <ChatBotsDesign />
-      <AISticker />
+      {/* <AISticker /> */}
       <Footer />
     </main>
   );

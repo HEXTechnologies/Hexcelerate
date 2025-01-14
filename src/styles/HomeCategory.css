@@ -171,8 +171,8 @@
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .circular-display {
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
   }
 
   .category-box {

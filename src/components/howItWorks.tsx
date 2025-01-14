@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -12,9 +13,9 @@ const HowItWorks: React.FC = () => {
       subheading:
         "Fast, Smart, and Precise! Discover how we help you connect with the perfect candidates for your team...",
       steps: [
-        { number: 1, text: "SELECT YOUR INDUSTRY", link: "#Category" },
-        { number: 2, text: "EXPLORE CANDIDATE MATCHES", link: "Dashboard" },
-        { number: 3, text: "CONNECT WITH TOP TALENT", link: "#Chatbot" },
+        { number: 1, text: "SELECT YOUR INDUSTRY", link: "" },
+        { number: 2, text: "EXPLORE CANDIDATE MATCHES", link: "" },
+        { number: 3, text: "CONNECT WITH TOP TALENT", link: "" },
       ],
     },
     candidate: {
@@ -22,13 +23,13 @@ const HowItWorks: React.FC = () => {
       subheading:
         "Connect your LinkedIn profile and instantly start interviewing with your perfect company matches...",
       steps: [
-        { number: 1, text: "CONNECT YOUR LINKEDIN", link: "#Category" },
+        { number: 1, text: "CONNECT YOUR LINKEDIN", link: "" },
         {
           number: 2,
           text: "GET MATCHED WITH COMPANIES",
-          link: "Dashboard",
+          link: "",
         },
-        { number: 3, text: "START INSTANT AI INTERVIEWS", link: "#Chatbot" },
+        { number: 3, text: "START INSTANT AI INTERVIEWS", link: "" },
       ],
     },
   };
@@ -119,20 +120,12 @@ const HowItWorks: React.FC = () => {
                 transition: "all 0.5s ease 0.4s",
               }}
             >
-              <video
+                <img
                 className="HowItWorksVideo"
                 style={{ width: "100%", height: "auto" }}
-                autoPlay
-                muted
-                loop
-                playsInline
-              >
-                <source
-                  src={isCompanyView ? "/Demo1.mp4" : "/Demo2.mp4"}
-                  type="video/mp4"
+                src={isCompanyView ? "/Company.png" : "/Employee.png"}
+                alt={isCompanyView ? "Employee matching" : "Company matching"}
                 />
-                Your browser does not support the video tag.
-              </video>
             </div>
           </Col>
         </Row>

@@ -67,7 +67,7 @@
 }
 
 .AI-image {
-  width: 90%; /* Makes image responsive to the box size */
+  width: 70%; /* Makes image responsive to the box size */
   height: auto;
   border-radius: 15px; /* Adjust the roundness */
   margin-top: 20px; /* Space between the image and "Left Box" text */

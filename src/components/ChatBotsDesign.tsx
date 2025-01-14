@@ -10,7 +10,7 @@ const ChatBotsDesign: React.FC = () => {
   const content = {
     company: {
       title: "AI INTERVIEW ASSISTANT",
-      buttonText: "Sign Up For Free!",
+      buttonText: "Join Our Pre-Seed Waitlist",
       mainTitle: "PERSONALIZED INTERVIEW BOT FOR YOUR COMPANY",
       largeBoxTitle: "CUSTOMIZED SCREENING FOR YOUR NEEDS",
       quickActions: ["SCREEN", "FILTER", "RANK", "ANALYZE"],
@@ -31,7 +31,7 @@ const ChatBotsDesign: React.FC = () => {
     },
     candidate: {
       title: "AI INTERVIEW PRACTICE",
-      buttonText: "Sign Up For Free!",
+      buttonText: "Join Our Pre-Seed Waitlist",
       mainTitle: "PRACTICE WITH COMPANY-SPECIFIC AI",
       largeBoxTitle: "TAILORED INTERVIEWS FOR YOUR GOALS",
       quickActions: ["PRACTICE", "LEARN", "IMPROVE", "TRACK"],
@@ -136,7 +136,7 @@ const ChatBotsDesign: React.FC = () => {
                 transition: "ease 0.6s",
               }}
             >
-              <img src="/AI.jpg" alt="AI" className="AI-image" />
+              <img src="/AI.png" alt="AI.jpg" className="AI-image" />
               <h3
                 className="fw-bold"
                 style={{
@@ -214,15 +214,10 @@ const ChatBotsDesign: React.FC = () => {
               style={{
                 opacity: 0,
                 transform: "translateY(20px)",
-                transition: "ease 0.1s",
+                transition: "ease 0.5s",
               }}
             >
-              <img
-                src="/text.png"
-                alt="Text"
-                className="Text-image"
-                style={{ marginTop: "15px", width: "60%" }}
-              />
+              <img src="/text.png" alt="Text" className="Text-image" />
               <h3
                 className="fw-bold"
                 style={{ marginTop: "-20px", fontSize: "20px" }}
@@ -247,30 +242,30 @@ const ChatBotsDesign: React.FC = () => {
           ? "READY TO SKYROCKET YOUR HIRING PROCESS?"
           : "READY TO MATCH WITH YOUR NEXT JOB?"}
       </h1>
-        <button
-          onClick={handleNavigation}
-          className="btn btn-primary gradient-button mx-2"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontWeight: "bold",
-            padding: "10px 20px",
-          }}
-        >
-          {currentContent.buttonText}
-        </button>
-        <button
-          onClick={() => setIsCompanyView(!isCompanyView)}
-          className="btn btn-primary gradient-button px-4 py-2 mb-4"
-          style={{
-            borderRadius: "20px",
-            transition: "all 0.3s ease",
-            marginTop: "30px",
-          }}
-        >
-          <BsArrowLeftRight size={12} />
-        </button>
+      <button
+        onClick={handleNavigation}
+        className="btn btn-primary gradient-button mx-2"
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontWeight: "bold",
+          padding: "10px 20px",
+        }}
+      >
+        {currentContent.buttonText}
+      </button>
+      <button
+        onClick={() => setIsCompanyView(!isCompanyView)}
+        className="btn btn-primary gradient-button px-4 py-2 mb-4"
+        style={{
+          borderRadius: "20px",
+          transition: "all 0.3s ease",
+          marginTop: "30px",
+        }}
+      >
+        <BsArrowLeftRight size={12} />
+      </button>
     </div>
   );
 };
