@@ -11,7 +11,7 @@ import "../styles/Lightmode.css";
 import "../styles/HomeTopandIntro.css";
 import "../styles/HomeCategory.css";
 import "../styles/HomeHowItWorks.css";
-import "../styles/HomeChatbots.css";
+import "../styles/HomeChatBots.css";
 
 import {
   Hospital,
