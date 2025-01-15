@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import { fetchUncleHexResponse } from "../app/api";
-import { database, storage } from "../../.firebase/firebase"; // Import storage
+import { database, storage } from "../../firebaseConfig/firebase"; // Import storage
 import { ref, onValue } from "firebase/database";
 import { ref as storageRef, getBlob } from "firebase/storage"; // Import storage functions
 import Select from "react-select";
 import UserUpload from "./UserUpload";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/UncleChatbot.css";
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth'; // Add these imports
-import { MessageSquare, Upload, HelpCircle, Send, XCircle } from 'lucide-react';
+import { getAuth, onAuthStateChanged, User } from "firebase/auth"; // Add these imports
+import { MessageSquare, Upload, HelpCircle, Send, XCircle } from "lucide-react";
 import Switch from "react-switch";
 
 const UncleChatbot: React.FC = () => {
@@ -31,7 +31,6 @@ const UncleChatbot: React.FC = () => {
   const [showUpload, setShowUpload] = useState<boolean>(false); // Toggle instructions
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isPidginEnabled, setIsPidginEnabled] = useState<boolean>(true); // Add this state
-
 
   // Fetch available files from Firebase Realtime Database and parse them for the select dropdown
   useEffect(() => {
@@ -77,16 +76,16 @@ const UncleChatbot: React.FC = () => {
       background: "#f8fafc",
       borderColor: "rgba(37, 99, 235, 0.2)",
       "&:hover": {
-        borderColor: "#2563eb"
-      }
+        borderColor: "#2563eb",
+      },
     }),
-    option: (base: any, state: { isSelected: any; }) => ({
+    option: (base: any, state: { isSelected: any }) => ({
       ...base,
       background: state.isSelected ? "#2563eb" : "white",
       "&:hover": {
-        background: state.isSelected ? "#2563eb" : "#f8fafc"
-      }
-    })
+        background: state.isSelected ? "#2563eb" : "#f8fafc",
+      },
+    }),
   };
 
   // Extract the file name from its URL
@@ -182,7 +181,7 @@ const UncleChatbot: React.FC = () => {
           <MessageSquare size={24} />
           Chat with Uncle HEX
         </h3>
-        
+
         <div className="d-flex gap-2 mt-3">
           <button
             type="button"
@@ -214,9 +213,18 @@ const UncleChatbot: React.FC = () => {
         <div className="instructions-panel">
           <h4 className="mb-3">Quick Guide</h4>
           <ol className="instruction-list">
-            <li>For the best results, filter your data with the HEX CSV Data Visualizer and Cleaner—better data, sharper insights!</li>
-            <li>Upload or select a file to analyze, or just chat directly with Uncle HEX</li>
-            <li>Ask questions about your data or any topic you would like to discuss</li>
+            <li>
+              For the best results, filter your data with the HEX CSV Data
+              Visualizer and Cleaner—better data, sharper insights!
+            </li>
+            <li>
+              Upload or select a file to analyze, or just chat directly with
+              Uncle HEX
+            </li>
+            <li>
+              Ask questions about your data or any topic you would like to
+              discuss
+            </li>
             <li>Get detailed responses and insights from Uncle HEX</li>
           </ol>
         </div>
@@ -227,7 +235,11 @@ const UncleChatbot: React.FC = () => {
           <div className="empty-state">
             <MessageSquare size={40} className="text-muted mb-3" />
             <h4>Howzit! Jus tell Uncle wat you need help wit!</h4>
-            <p className="text-muted">Can ask me about your data or jus talk story. No shame, ask away! But if get one error, no blame me—might be cause yo data stay too big!</p>
+            <p className="text-muted">
+              Can ask me about your data or jus talk story. No shame, ask away!
+              But if get one error, no blame me—might be cause yo data stay too
+              big!
+            </p>
           </div>
         ) : (
           chatHistory.map((chat, index) => (
@@ -245,7 +257,9 @@ const UncleChatbot: React.FC = () => {
                 </button>
               </div>
               <div className="assistant-message mt-2">
-                <span dangerouslySetInnerHTML={{ __html: chat.response || "" }} />
+                <span
+                  dangerouslySetInnerHTML={{ __html: chat.response || "" }}
+                />
               </div>
             </div>
           ))
@@ -255,62 +269,65 @@ const UncleChatbot: React.FC = () => {
       <form onSubmit={handleSubmit} className="chatbox-form mt-4">
         <div className="input-group mb-3">
           <Select
-              options={fileNames}
-              value={selectedFile}
-              onChange={handleFileSelection}
-              placeholder="Search and select a file to analyze"
-              className="file-select"
-              isClearable
-              styles={selectStyles}
+            options={fileNames}
+            value={selectedFile}
+            onChange={handleFileSelection}
+            placeholder="Search and select a file to analyze"
+            className="file-select"
+            isClearable
+            styles={selectStyles}
           />
         </div>
 
-        <div className="pidgin-toggle d-flex align-items-center gap-2" style={{ paddingBottom: "8px" }}>
+        <div
+          className="pidgin-toggle d-flex align-items-center gap-2"
+          style={{ paddingBottom: "8px" }}
+        >
           <span>Pidgin</span>
           <Switch
-              onChange={handlePidginToggle}
-              checked={isPidginEnabled}
-              onColor="#2563eb"
-              uncheckedIcon={false}
-              checkedIcon={false}
+            onChange={handlePidginToggle}
+            checked={isPidginEnabled}
+            onColor="#2563eb"
+            uncheckedIcon={false}
+            checkedIcon={false}
           />
         </div>
 
         <div className="message-input-group">
           <input
-              type="text"
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              placeholder="Ask Uncle HEX anything..."
-              required
-              className="form-control"
+            type="text"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            placeholder="Ask Uncle HEX anything..."
+            required
+            className="form-control"
           />
           <button
-              type="submit"
-              disabled={loading}
-              className="btn btn-primary d-flex align-items-center gap-2 mt-3"
+            type="submit"
+            disabled={loading}
+            className="btn btn-primary d-flex align-items-center gap-2 mt-3"
           >
             {loading ? (
-                <>
-                  <div className="spinner-border spinner-border-sm" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                  <span>Thinking...</span>
-                </>
+              <>
+                <div className="spinner-border spinner-border-sm" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                <span>Thinking...</span>
+              </>
             ) : (
-                <>
-                  <Send size={18}/>
-                  <span>Send to Uncle HEX</span>
-                </>
+              <>
+                <Send size={18} />
+                <span>Send to Uncle HEX</span>
+              </>
             )}
           </button>
         </div>
 
         {error && (
-            <div className="alert alert-danger mt-3 d-flex align-items-center gap-2">
-              <XCircle size={18}/>
-              <span>{error}</span>
-            </div>
+          <div className="alert alert-danger mt-3 d-flex align-items-center gap-2">
+            <XCircle size={18} />
+            <span>{error}</span>
+          </div>
         )}
       </form>
     </div>

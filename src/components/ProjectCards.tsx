@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Image, Container, Col, Row } from "react-bootstrap";
 import { ref as dbRef, onValue, update, get } from "firebase/database";
-import { database } from "../../.firebase/firebase";
+import { database } from "../../firebaseConfig/firebase";
 import { Download } from "react-bootstrap-icons";
 import SearchBar from "./SearchFilter";
 import "../styles/DataCard.css";

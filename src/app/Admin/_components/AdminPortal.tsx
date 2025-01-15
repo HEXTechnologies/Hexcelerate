@@ -11,8 +11,8 @@ import {
   toggleSignOut,
   stateChange,
   checkAdminRole,
-} from "../../../../.firebase/auth";
-import { storage, database, auth } from "../../../../.firebase/firebase";
+} from "../../../../firebaseConfig/auth";
+import { storage, database, auth } from "../../../../firebaseConfig/firebase";
 import {
   ref,
   uploadBytesResumable,
@@ -1141,7 +1141,10 @@ const AdminPortal: React.FC = () => {
                     style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
                   >
                     <div className="modal-dialog modal-lg">
-                      <div className="modal-content" style={{ backgroundColor: "white" }}>
+                      <div
+                        className="modal-content"
+                        style={{ backgroundColor: "white" }}
+                      >
                         <div className="modal-header bg-dark text-info">
                           <h5 className="modal-title">Edit Record</h5>
                           <button
@@ -1219,12 +1222,13 @@ const AdminPortal: React.FC = () => {
                             </select>
                           </div>
                           <div className="mb-3">
-
                             {/* Existing Files */}
                             {Object.entries(editFiles).map(
                               ([fileType, files]) => (
                                 <div key={fileType} className="mb-3">
-                                  <h6 className="text-center"><u>{fileType} Files:</u></h6>
+                                  <h6 className="text-center">
+                                    <u>{fileType} Files:</u>
+                                  </h6>
 
                                   {/* Existing Files List */}
                                   {files.existing.length > 0 && (

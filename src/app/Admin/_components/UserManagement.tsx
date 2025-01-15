@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { getAuth } from "firebase/auth";
 import { ref as dbRef, update, remove, onValue, get } from "firebase/database";
-import { database } from "../../../../.firebase/firebase";
+import { database } from "../../../../firebaseConfig/firebase";
 
 interface UserData {
   uid: string;
@@ -150,7 +150,11 @@ const UserManagement: React.FC = () => {
           deactivatedAt: new Date().toISOString(),
         });
 
-        Swal.fire("Success", "User account deactivated successfully", "success");
+        Swal.fire(
+          "Success",
+          "User account deactivated successfully",
+          "success"
+        );
       } catch (error: any) {
         console.error("Error deactivating user:", error);
         Swal.fire("Error", error.message, "error");
@@ -205,7 +209,11 @@ const UserManagement: React.FC = () => {
           deactivatedAt: null,
         });
 
-        Swal.fire("Success", "User account reactivated successfully", "success");
+        Swal.fire(
+          "Success",
+          "User account reactivated successfully",
+          "success"
+        );
       } catch (error: any) {
         console.error("Error reactivating user:", error);
         Swal.fire("Error", error.message, "error");

@@ -2,7 +2,7 @@
 
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import { storage, database, auth } from "../../.firebase/firebase";
+import { storage, database, auth } from "../../firebaseConfig/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { ref as dbRef, get, push, set } from "firebase/database";
 import { Upload, RefreshCw, AlertCircle, LogOut } from "lucide-react";

@@ -6,8 +6,12 @@
 import dynamic from "next/dynamic";
 import React, { useState, useEffect, useRef } from "react";
 import Swal from "sweetalert2";
-import { toggleSignOut, stateChange, userRole } from "../../.firebase/auth";
-import { storage, database, auth } from "../../.firebase/firebase";
+import {
+  toggleSignOut,
+  stateChange,
+  userRole,
+} from "../../firebaseConfig/auth";
+import { storage, database, auth } from "../../firebaseConfig/firebase";
 import {
   ref,
   uploadBytesResumable,
@@ -1261,8 +1265,11 @@ const UserUploadManagement: React.FC = () => {
                   className="modal show d-block"
                   style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
                 >
-                  <div className="modal-dialog modal-lg" >
-                    <div className="modal-content" style={{ backgroundColor: "white", width: "800px" }}>
+                  <div className="modal-dialog modal-lg">
+                    <div
+                      className="modal-content"
+                      style={{ backgroundColor: "white", width: "800px" }}
+                    >
                       <div className="modal-header bg-dark text-info">
                         <h5 className="modal-title">Edit Record</h5>
                         <button

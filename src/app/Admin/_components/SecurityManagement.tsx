@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import { database } from "../../../../.firebase/firebase";
+import { database } from "../../../../firebaseConfig/firebase";
 import { ref, onValue, update } from "firebase/database";
 import { Mail, Calendar, User, Shield } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -100,7 +100,9 @@ const SecurityManagement: React.FC = () => {
         <div className="col-12 mb-4">
           <div className="card">
             <div className="card-header d-flex flex-column flex-md-row justify-content-between align-items-center bg-dark text-white">
-              <h3 className="text-info m-0 mb-3 mb-md-0">Security Reports Management</h3>
+              <h3 className="text-info m-0 mb-3 mb-md-0">
+                Security Reports Management
+              </h3>
               <div className="btn-group d-flex flex-wrap gap-1">
                 <button
                   className={`btn btn-sm px-3 py-2 ${

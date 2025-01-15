@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { ArrowLeft, Send, HelpCircle } from "lucide-react";
-import { database } from "../../../.firebase/firebase";
+import { database } from "../../../firebaseConfig/firebase";
 import { ref, push } from "firebase/database";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";

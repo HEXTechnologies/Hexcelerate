@@ -1,18 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-} from 'firebase/auth';
-import { 
-  ref as dbRef, 
-  set, 
-  update,
-  get,
-  onValue, 
-} from 'firebase/database';
-import { auth, database } from '../../../../.firebase/firebase';
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { ref as dbRef, set, update, get, onValue } from "firebase/database";
+import { auth, database } from "../../../../firebaseConfig/firebase";
 
 interface UserData {
   uid: string;
@@ -23,21 +14,22 @@ interface UserData {
 }
 
 const AdminManagement: React.FC = () => {
-  const [newAdminEmail, setNewAdminEmail] = useState('');
-  const [newAdminPassword, setNewAdminPassword] = useState('');
-  const [newAdminName, setNewAdminName] = useState('');
+  const [newAdminEmail, setNewAdminEmail] = useState("");
+  const [newAdminPassword, setNewAdminPassword] = useState("");
+  const [newAdminName, setNewAdminName] = useState("");
   const [adminUsers, setAdminUsers] = useState<UserData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch existing admin users
   useEffect(() => {
-    const usersRef = dbRef(database, 'users');
+    const usersRef = dbRef(database, "users");
     const unsubscribe = onValue(usersRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
         // Filter users to only include admins
-        const adminsList = Object.values(data as Record<string, UserData>)
-          .filter(user => user.role === 'admin');
+        const adminsList = Object.values(
+          data as Record<string, UserData>
+        ).filter((user) => user.role === "admin");
         setAdminUsers(adminsList);
       } else {
         setAdminUsers([]);
@@ -55,24 +47,24 @@ const AdminManagement: React.FC = () => {
     try {
       // Validate inputs
       if (!newAdminEmail || !newAdminPassword) {
-        throw new Error('Please fill in all required fields');
+        throw new Error("Please fill in all required fields");
       }
 
       if (newAdminPassword.length < 6) {
-        throw new Error('Password must be at least 6 characters long');
+        throw new Error("Password must be at least 6 characters long");
       }
 
       // Check if email already exists
-      const usersRef = dbRef(database, 'users');
+      const usersRef = dbRef(database, "users");
       const usersSnapshot = await get(usersRef);
       const existingUsers = usersSnapshot.val() || {};
-      
+
       const emailExists = Object.values(existingUsers).some(
         (user: any) => user.email === newAdminEmail
       );
 
       if (emailExists) {
-        throw new Error('A user with this email already exists');
+        throw new Error("A user with this email already exists");
       }
 
       // Create the user in Firebase Auth
@@ -88,18 +80,18 @@ const AdminManagement: React.FC = () => {
         uid: user.uid,
         email: user.email,
         displayName: newAdminName || null,
-        role: 'admin',
+        role: "admin",
         createdAt: new Date().toISOString(),
       });
 
-      Swal.fire('Success', 'New admin user created successfully', 'success');
-      
+      Swal.fire("Success", "New admin user created successfully", "success");
+
       // Clear form
-      setNewAdminEmail('');
-      setNewAdminPassword('');
-      setNewAdminName('');
+      setNewAdminEmail("");
+      setNewAdminPassword("");
+      setNewAdminName("");
     } catch (error: any) {
-      Swal.fire('Error', error.message, 'error');
+      Swal.fire("Error", error.message, "error");
     } finally {
       setIsLoading(false);
     }
@@ -107,55 +99,67 @@ const AdminManagement: React.FC = () => {
 
   const removeAdminRole = async (user: UserData) => {
     const currentUser = auth.currentUser;
-  
+
     if (!currentUser) {
-      Swal.fire('Error', 'You must be logged in to perform this action', 'error');
+      Swal.fire(
+        "Error",
+        "You must be logged in to perform this action",
+        "error"
+      );
       return;
     }
-  
+
     // Check if trying to remove own admin privileges
     if (user.uid === currentUser.uid) {
       Swal.fire({
-        title: 'Not Allowed',
-        text: 'You cannot remove your own admin privileges',
-        icon: 'warning',
+        title: "Not Allowed",
+        text: "You cannot remove your own admin privileges",
+        icon: "warning",
       });
       return;
     }
-  
+
     // Verify current user is still an admin
     const currentUserRef = dbRef(database, `users/${currentUser.uid}`);
     const snapshot = await get(currentUserRef);
     const currentUserData = snapshot.val();
-  
-    if (!currentUserData || currentUserData.role !== 'admin') {
-      Swal.fire('Error', 'You do not have permission to perform this action', 'error');
+
+    if (!currentUserData || currentUserData.role !== "admin") {
+      Swal.fire(
+        "Error",
+        "You do not have permission to perform this action",
+        "error"
+      );
       return;
     }
-  
+
     const result = await Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: `Remove admin privileges from ${user.email}?`,
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, remove',
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, remove",
     });
-  
+
     if (result.isConfirmed) {
       setIsLoading(true);
       try {
         // Update user role to 'user' instead of deleting the record
         await update(dbRef(database, `users/${user.uid}`), {
-          role: 'user',
-          updatedAt: new Date().toISOString()
+          role: "user",
+          updatedAt: new Date().toISOString(),
         });
-  
-        Swal.fire('Success', 'Admin privileges removed successfully', 'success');
+
+        Swal.fire(
+          "Success",
+          "Admin privileges removed successfully",
+          "success"
+        );
       } catch (error: any) {
-        console.error('Error removing admin privileges:', error);
-        Swal.fire('Error', error.message, 'error');
+        console.error("Error removing admin privileges:", error);
+        Swal.fire("Error", error.message, "error");
       } finally {
         setIsLoading(false);
       }
@@ -211,16 +215,18 @@ const AdminManagement: React.FC = () => {
                 required
               />
             </div>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="btn btn-primary"
               disabled={isLoading}
             >
-              {isLoading ? 'Creating...' : 'Create New Admin'}
+              {isLoading ? "Creating..." : "Create New Admin"}
             </button>
           </form>
-          <span className="text-danger">Note: For enhanced security, you will be LOGGED OUT after creating a new admin.</span>
-
+          <span className="text-danger">
+            Note: For enhanced security, you will be LOGGED OUT after creating a
+            new admin.
+          </span>
 
           {/* Admin Users List */}
           <div className="mt-4">
@@ -249,14 +255,17 @@ const AdminManagement: React.FC = () => {
                       <tbody>
                         {adminUsers.map((user) => (
                           <tr key={user.uid}>
-                            <td>{user.displayName || 'N/A'}</td>
+                            <td>{user.displayName || "N/A"}</td>
                             <td>{user.email}</td>
                             <td>
-                              {new Date(user.createdAt).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric',
-                              })}
+                              {new Date(user.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                }
+                              )}
                             </td>
                             <td>
                               <button

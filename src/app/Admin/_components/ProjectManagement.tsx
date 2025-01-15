@@ -10,8 +10,8 @@ import {
   toggleSignOut,
   stateChange,
   userRole,
-} from "../../../../.firebase/auth";
-import { storage, database, auth } from "../../../../.firebase/firebase";
+} from "../../../../firebaseConfig/auth";
+import { storage, database, auth } from "../../../../firebaseConfig/firebase";
 import {
   ref,
   uploadBytesResumable,
