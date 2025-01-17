@@ -44,7 +44,7 @@ const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [text, setText] = useState("");
   const fullText =
-    "Empowering Smarter Hiring with AI-Enhanced LinkedIn Insights";
+    "AI-Driven Talent Acquisition & Project Development from Hawaii's Top Talent";
   const [isTyping, setIsTyping] = useState(true);
   const [showCursor, setShowCursor] = useState(true);
 
@@ -302,8 +302,8 @@ const CombinedDisplay: React.FC<{ isLightMode: boolean }> = React.memo(() => {
       </h1>
       <h4 className="custom-h4 mb-5">
         {showCandidates
-          ? "Accelerate Your Hiring: Discover Top Candidates Tailored to Your Needs"
-          : "Land Your Dream Job: Guaranteed Skill-Based Matches You Can Trust"}
+          ? "Accelerate Your Projects: Find Top Candidates Tailored to Your Needs"
+          : "Match With A Company: Guaranteed Skill-Based Matches You Can Trust"}
       </h4>
 
       <div
@@ -400,7 +400,10 @@ export default function Home() {
 
   return (
     <main>
-      <PreseedNavbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} />
+      <PreseedNavbar
+        isLightMode={isLightMode}
+        setIsLightMode={setIsLightMode}
+      />
       {/* <Navbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} /> */}
       <HomeImage isLightMode={isLightMode} />
       <Introduction />

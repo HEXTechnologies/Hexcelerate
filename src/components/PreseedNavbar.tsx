@@ -161,8 +161,13 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link href="#Services" style={{ fontSize: "1rem" }}>
+                    Services
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link href="#Category" style={{ fontSize: "1rem" }}>
-                    Category
+                    Discover
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -252,6 +257,16 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
                   style={{ fontSize: "1rem" }}
                 >
                   Category
+                </Link>
+              </li>
+              <li className="nav-item mb-2">
+                <Link
+                  href="#Services"
+                  className="nav-link"
+                  onClick={() => setIsOffcanvasOpen(false)}
+                  style={{ fontSize: "1rem" }}
+                >
+                  Services
                 </Link>
               </li>
               <li className="nav-item mb-2">

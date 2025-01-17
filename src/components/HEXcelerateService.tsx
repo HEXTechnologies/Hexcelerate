@@ -81,7 +81,7 @@ const DevelopmentIntro: React.FC = () => {
   const currentContent = isCompanyView ? content.company : content.candidate;
 
   return (
-    <div id="Development" className="IntroDiv px-4 pt-5">
+    <div id="Services" className="IntroDiv px-4 pt-5">
       <div className="text-center mb-5">
         <h1 className="text-white fw-bold mb-3">{currentContent.header}</h1>
         <h4 className="text-white">{currentContent.subheader}</h4>

@@ -11,7 +11,7 @@ const HowItWorks: React.FC = () => {
     company: {
       heading: "Find Your Next Star Employee with AI-Powered Matching!",
       subheading:
-      "Fast, Smart, and Flexible! Choose between hiring gold standard talent directly or having us manage your project with our elite UH Manoa developers...",
+      "Fast, Smart, and Flexible! Choose between hiring gold standard talent directly or having us manage your project with UH Manoa's top talent...",
       steps: [
         { number: 1, text: "EXPLORE CANDIDATE MATCHES", link: "Waitlist" },
         { number: 2, text: "ChOOSE MANAGEMENT STYLE", link: "Waitlist" },
