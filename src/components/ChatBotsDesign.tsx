@@ -14,7 +14,6 @@ import {
   LifeBuoy,
   Rocket,
   ArrowUpCircle,
-  User,
 } from "lucide-react";
 import { BsArrowLeftRight } from "react-icons/bs";
 import { database } from "../../firebaseConfig/firebase";
