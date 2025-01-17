@@ -106,14 +106,13 @@ const Experience = () => {
           backgroundColor: "white",
           borderRadius: "50%",
           padding: "5px",
-          boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           transition: "transform 0.2s ease",
         }}
       >
-        <ArrowLeft size={24} />
+        <ArrowLeft size={20} />
       </Link>
       <div id="Experience" className="experience-section">
         <div className="d-flex flex-column align-items-center justify-content-center">
