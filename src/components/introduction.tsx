@@ -8,43 +8,43 @@ const Introduction: React.FC = () => {
   const content = {
     company: {
       header: "For Companies",
-      subheader: "Discover How We Guarantee Gold Standard Talent",
+      subheader: "How We Deliver Gold-Standard Talent",
       features: [
         {
-          title: "AI-Powered Matching",
+          title: "AI-Driven Talent Discovery",
           description:
-            "Our advanced AI analyzes LinkedIn profiles to identify top talent that matches your company needs. Experience seamless candidate discovery through intelligent profile analysis and precise matching algorithms.",
+            "Our advanced AI analyzes LinkedIn profiles, filters candidates by skills and experience, and matches top talent to your specific needs. Intelligent algorithms ensure precise, efficient hiring.",
         },
         {
-          title: "Smart Filtering",
+          title: "Real-World Skill Assessments",
           description:
-            "Efficiently sort candidates using our advanced filtering system based on experience, skills, and potential. Our AI ranks each profile to ensure you find the perfect match for your team.",
+            "Evaluate candidates through real-world projects and tasks graded by our experts. Gain deeper insights into their capabilities and potential, ensuring informed hiring decisions.",
         },
         {
-          title: "Automated Interviews",
+          title: "Effortless Screening and Interviews",
           description:
-            "Deploy customized AI interview bots that reflect your company culture and requirements. Screen candidates automatically and efficiently while maintaining your unique hiring standards.",
+            "Save time with customized AI interview bots that reflect your company culture. Screen and assess candidates seamlessly while maintaining high standards.",
         },
       ],
     },
     candidate: {
       header: "For Candidates",
-      subheader: "Let AI Fast-Track Your Career Journey",
+      subheader: "AI to Fast-Track Your Career Success",
       features: [
         {
-          title: "LinkedIn Integration",
+          title: "Personalized Job Matching",
           description:
-            "Connect your LinkedIn profile to unlock AI-powered job matching tailored to your experience. Our system analyzes your professional background to find opportunities that match your career goals.",
+            "Sync your LinkedIn profile to unlock AI-powered job matches tailored to your skills and goals. Connect instantly with companies seeking your unique expertise.",
         },
         {
-          title: "Instant Matching",
+          title: "Skill Showcasing Projects",
           description:
-            "Receive immediate connections with companies seeking your specific skills and experience level. Our AI ensures precise matching by analyzing both your profile and company requirements.",
+            "Complete real-world tasks and projects to demonstrate your abilities. Graded assessments enhance your profile and help you stand out to top employers.",
         },
         {
-          title: "AI-Powered Interviews",
+          title: "AI-Powered Interview Preparation",
           description:
-            "Start interviewing instantly with company-specific AI chatbots designed to assess your fit. Experience personalized conversations that prepare you for your next career opportunity.",
+            "Engage with company-specific AI chatbots for personalized interview experiences. Get evaluated while gaining insights to prepare for your next big opportunity.",
         },
       ],
     },
