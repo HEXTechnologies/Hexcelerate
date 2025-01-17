@@ -14,7 +14,7 @@ const HowItWorks: React.FC = () => {
       "Fast, Smart, and Flexible! Choose between hiring gold standard talent directly or having us manage your project with UH Manoa's top talent...",
       steps: [
         { number: 1, text: "EXPLORE CANDIDATE MATCHES", link: "Waitlist" },
-        { number: 2, text: "ChOOSE MANAGEMENT STYLE", link: "Waitlist" },
+        { number: 2, text: "CHOOSE MANAGEMENT STYLE", link: "Waitlist" },
         { number: 3, text: "GET STARTED WITH TOP TALENT", link: "Waitlist" },
       ],
     },

@@ -156,18 +156,13 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
               {/* Navigation Links - Left Aligned */}
               <ul className="navbar-nav d-flex flex-row align-items-center">
                 <li className="nav-item">
-                  <Link href="#Introduction" style={{ fontSize: "1rem" }}>
-                    Introduction
-                  </Link>
-                </li>
-                <li className="nav-item">
                   <Link href="#Services" style={{ fontSize: "1rem" }}>
                     Services
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link href="#Category" style={{ fontSize: "1rem" }}>
-                    Discover
+                    Category
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -178,6 +173,11 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
                 <li className="nav-item">
                   <Link href="#Chatbot" style={{ fontSize: "1rem" }}>
                     AI Tools
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link href="/Experience" style={{ fontSize: "1rem" }}>
+                    Credibility
                   </Link>
                 </li>
               </ul>

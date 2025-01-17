@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { BsArrowLeftRight } from "react-icons/bs";
+import Link from "next/link";
 
 const DevelopmentIntro: React.FC = () => {
   const [isCompanyView, setIsCompanyView] = useState(true);
@@ -126,6 +127,24 @@ const DevelopmentIntro: React.FC = () => {
           </Col>
         ))}
       </Row>
+      <div className="d-flex justify-content-center mb-2">
+        <h3 className="text-white fw-bold">See Why Companies Trust Us</h3>
+      </div>
+      <div className="d-flex justify-content-center mb-5">
+        <Link href="/Experience">
+          <button
+            className="btn btn-primary gradient-button px-3 py-2"
+            style={{
+              borderRadius: "10px",
+              fontSize: "0.9rem",
+              transition: "transform 0.2s ease",
+              marginTop: "10px",
+            }}
+          >
+            View Previous Projects
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
