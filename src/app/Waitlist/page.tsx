@@ -39,28 +39,28 @@ export default function Waitlist() {
   });
 
   const roleOptions = {
-    "Hiring Companies": [
-      "Company actively hiring full-time",
-      "Company offering internships",
-      "Company seeking contractors",
-      "Startup building team",
+    Companies: [
+      "Company Hiring",
+      "Company Internships",
+      "Startup Building",
+      "Company Projects",
     ],
     "Job Seekers": [
-      "Professional seeking full-time role",
-      "Student seeking internship",
-      "Contractor seeking projects",
-      "Career transitioner",
+      "Professional Seeking Jobs",
+      "Student Seeking Internship",
+      "Career Transitioner",
+      "Project Seeker",
     ],
     Educational: [
-      "University/College representative",
-      "Career counselor",
-      "Educational institution",
-      "Training provider",
+      "University Partner",
+      "Educational Institution",
+      "Career Counselor",
+      "Educational Representative",
     ],
     Other: [
-      "Recruiter/Hiring agency",
-      "Industry researcher",
-      "Career coach",
+      "Industry Researcher",
+      "Career Coach",
+      "Professional Network",
       "Other",
     ],
   };

@@ -2,49 +2,49 @@ import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { BsArrowLeftRight } from "react-icons/bs";
 
-const Introduction: React.FC = () => {
+const DevelopmentIntro: React.FC = () => {
   const [isCompanyView, setIsCompanyView] = useState(true);
 
   const content = {
     company: {
-      header: "For Companies",
-      subheader: "Discover How We Guarantee Gold Standard Talent",
+      header: "Special Services We Offer",
+      subheader: "Partner with Gold Standard UH Manoa Talent",
       features: [
         {
-          title: "AI-Powered Matching",
+          title: "Guaranteed Excellence",
           description:
-            "Our advanced AI analyzes LinkedIn profiles to identify top talent that matches your company needs. Experience seamless candidate discovery through intelligent profile analysis and precise matching algorithms.",
+            "Access highly skilled UH Manoa students for your development needs. Our gold standard candidates are carefully selected based on their academic performance, technical skills, and potential to deliver exceptional results.",
         },
         {
-          title: "Smart Filtering",
+          title: "Flexible Management",
           description:
-            "Efficiently sort candidates using our advanced filtering system based on experience, skills, and potential. Our AI ranks each profile to ensure you find the perfect match for your team.",
+            "Choose your preferred level of involvement. Either manage the project directly with our talented developers, or opt for our full project management service where we handle everything while keeping you informed of progress.",
         },
         {
-          title: "Automated Interviews",
+          title: "Local Impact",
           description:
-            "Deploy customized AI interview bots that reflect your company culture and requirements. Screen candidates automatically and efficiently while maintaining your unique hiring standards.",
+            "Partner with Hawaii's top student developers while contributing to the local tech community. Our UH Manoa gold standard students bring fresh perspectives and innovative solutions to your projects.",
         },
       ],
     },
     candidate: {
-      header: "For Candidates",
-      subheader: "Let AI Fast-Track Your Career Journey",
+      header: "Opportunities We Provide Locally",
+      subheader: "Your Path to Professional Excellence",
       features: [
         {
-          title: "LinkedIn Integration",
+          title: "Gold Standard Opportunity",
           description:
-            "Connect your LinkedIn profile to unlock AI-powered job matching tailored to your experience. Our system analyzes your professional background to find opportunities that match your career goals.",
+            "Join our elite team of UH Manoa developers. As a gold standard candidate, you'll have the opportunity to work on real projects and potentially secure direct employment with our company.",
         },
         {
-          title: "Instant Matching",
+          title: "Guaranteed Experience",
           description:
-            "Receive immediate connections with companies seeking your specific skills and experience level. Our AI ensures precise matching by analyzing both your profile and company requirements.",
+            "Gain hands-on experience with actual client projects. We ensure meaningful work experiences that contribute to your professional growth while making a real impact for local businesses.",
         },
         {
-          title: "AI-Powered Interviews",
+          title: "Professional Development",
           description:
-            "Start interviewing instantly with company-specific AI chatbots designed to assess your fit. Experience personalized conversations that prepare you for your next career opportunity.",
+            "Receive mentorship and guidance from experienced professionals. Our program is designed to help gold standard UH students transition successfully into their tech careers while working on exciting projects.",
         },
       ],
     },
@@ -81,7 +81,7 @@ const Introduction: React.FC = () => {
   const currentContent = isCompanyView ? content.company : content.candidate;
 
   return (
-    <div id="Introduction" className="IntroDiv px-4 pt-5">
+    <div id="Development" className="IntroDiv px-4 pt-5">
       <div className="text-center mb-5">
         <h1 className="text-white fw-bold mb-3">{currentContent.header}</h1>
         <h4 className="text-white">{currentContent.subheader}</h4>
@@ -130,4 +130,4 @@ const Introduction: React.FC = () => {
   );
 };
 
-export default Introduction;
+export default DevelopmentIntro;

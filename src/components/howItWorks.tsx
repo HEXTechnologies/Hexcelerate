@@ -11,17 +11,17 @@ const HowItWorks: React.FC = () => {
     company: {
       heading: "Find Your Next Star Employee with AI-Powered Matching!",
       subheading:
-        "Fast, Smart, and Precise! Discover how we help you connect with the perfect candidates for your team...",
+      "Fast, Smart, and Flexible! Choose between hiring gold standard talent directly or having us manage your project with our elite UH Manoa developers...",
       steps: [
-        { number: 1, text: "SELECT YOUR INDUSTRY", link: "Waitlist" },
-        { number: 2, text: "EXPLORE CANDIDATE MATCHES", link: "Waitlist" },
-        { number: 3, text: "CONNECT WITH TOP TALENT", link: "Waitlist" },
+        { number: 1, text: "EXPLORE CANDIDATE MATCHES", link: "Waitlist" },
+        { number: 2, text: "ChOOSE MANAGEMENT STYLE", link: "Waitlist" },
+        { number: 3, text: "GET STARTED WITH TOP TALENT", link: "Waitlist" },
       ],
     },
     candidate: {
       heading: "Fast-Track Your Career With AI-Powered Job Matching!",
       subheading:
-        "Connect your LinkedIn profile and instantly start interviewing with your perfect company matches...",
+      "Connect your LinkedIn profile to get matched with companies for direct hire, or join our elite development team for managed projects...",
       steps: [
         { number: 1, text: "CONNECT YOUR LINKEDIN", link: "Waitlist" },
         {

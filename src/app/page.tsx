@@ -36,6 +36,7 @@ import HowItWorks from "../components/howItWorks";
 import Introduction from "../components/introduction";
 import React, { useEffect, useState } from "react";
 import ChatBotsDesign from "@/components/ChatBotsDesign";
+import HEXcelerateService from "@/components/HEXcelerateService";
 //import AISticker from "@/components/AISticker";
 
 const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
@@ -296,8 +297,8 @@ const CombinedDisplay: React.FC<{ isLightMode: boolean }> = React.memo(() => {
     >
       <h1 className="custom-h1 mb-4 mt-4">
         {showCandidates
-          ? "FIND PROMISING CANDIDATES"
-          : "FIND ACTIVELY HIRING COMPANIES"}
+          ? "DISCOVER PROMISING CANDIDATES"
+          : "MATCH WITH LEADING COMPANIES"}
       </h1>
       <h4 className="custom-h4 mb-5">
         {showCandidates
@@ -403,6 +404,7 @@ export default function Home() {
       {/* <Navbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} /> */}
       <HomeImage isLightMode={isLightMode} />
       <Introduction />
+      <HEXcelerateService />
       <CombinedDisplay isLightMode={isLightMode} />
       <HowItWorks />
       <ChatBotsDesign />
