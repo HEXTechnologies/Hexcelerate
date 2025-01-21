@@ -53,7 +53,7 @@ const AdminPortal = () => {
     try {
       const auth = getAuth(app);
       await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
+    } catch {
       setError('Invalid login credentials');
     } finally {
       setLoading(false);
@@ -65,7 +65,7 @@ const AdminPortal = () => {
       const auth = getAuth(app);
       await signOut(auth);
       setWaitlistData([]);
-    } catch (error) {
+    } catch {
       setError('Error logging out');
     }
   };
@@ -74,7 +74,7 @@ const AdminPortal = () => {
     try {
       const db = getDatabase(app);
       await remove(ref(db, `Waitlist/${id}`));
-    } catch (error) {
+    } catch {
       setError('Error deleting entry');
     }
   };
