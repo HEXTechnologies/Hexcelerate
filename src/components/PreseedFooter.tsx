@@ -9,7 +9,7 @@ import {
     // Person,
     ShieldLock,
     // Pencil,
-    Check2
+    Check2, Person
 } from 'react-bootstrap-icons';
 
 const Footer: React.FC = () => {
@@ -35,9 +35,9 @@ const Footer: React.FC = () => {
                         <Link href="Waitlist" className="footer-icon custom-link ms-4" title="Join Our Waitlist">
                             <Check2/>
                         </Link>
-                        {/* <Link href="Admin" className="footer-icon custom-link ms-4" title="Go to Admin Portal">
+                         <Link href="Admin" className="footer-icon custom-link ms-4" title="Go to Admin Portal">
                             <Person/>
-                        </Link> */}
+                        </Link>
                     </Nav>
                 </Nav>
             </Container>
