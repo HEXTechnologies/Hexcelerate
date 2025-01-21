@@ -1,23 +1,33 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signOut, User } from 'firebase/auth';
 import { getDatabase, ref, onValue, remove } from 'firebase/database';
 import { Trash2, House } from 'lucide-react';
 import { app } from '../../../../firebaseConfig/firebase';
 import './AdminPortal.css';
 
+interface WaitlistEntry {
+  id: string;
+  name?: string;
+  email?: string;
+  organization?: string;
+  role?: string;
+  source?: string;
+  timestamp?: number;
+}
+
 const AdminPortal = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
-  const [waitlistData, setWaitlistData] = useState([]);
+  const [user, setUser] = useState<User | null>(null);
+  const [waitlistData, setWaitlistData] = useState<WaitlistEntry[]>([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const auth = getAuth(app);
 
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user: User | null) => {
       setUser(user);
       if (user) {
         fetchWaitlistData();
@@ -34,10 +44,17 @@ const AdminPortal = () => {
     onValue(waitlistRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        const waitlistArray = Object.entries(data).map(([id, values]) => ({
-          id,
-          ...values,
-        }));
+        const waitlistArray = Object.entries(data).map(([entryId, values]) => {
+          if (typeof values === 'object' && values !== null) {
+            const entry = values as Omit<WaitlistEntry, 'id'>;
+            return {
+              ...entry,
+              id: entryId
+            };
+          } else {
+            return { id: entryId } as WaitlistEntry;
+          }
+        });
         setWaitlistData(waitlistArray);
       } else {
         setWaitlistData([]);
@@ -45,7 +62,7 @@ const AdminPortal = () => {
     });
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
@@ -70,7 +87,7 @@ const AdminPortal = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     try {
       const db = getDatabase(app);
       await remove(ref(db, `Waitlist/${id}`));
@@ -154,7 +171,7 @@ const AdminPortal = () => {
               <td>{entry.organization}</td>
               <td>{entry.role}</td>
               <td>{entry.source}</td>
-              <td>{new Date(entry.timestamp).toLocaleDateString()}</td>
+              <td>{entry.timestamp ? new Date(entry.timestamp).toLocaleDateString() : ''}</td>
               <td>
                 <button
                   className="delete-button"
