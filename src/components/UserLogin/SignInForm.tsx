@@ -21,8 +21,8 @@ export default function SignUpForm() {
   return (
     <div className="signup-form-container">
       <div className="form-header">
-        <h1>Create an account</h1>
-        <p>Enter your information to get started</p>
+        <h1>Log In</h1>
+        <p>Enter your information</p>
       </div>
       <form onSubmit={onSubmit}>
         <div className="form-group">
@@ -58,7 +58,7 @@ export default function SignUpForm() {
         </button>
       </form>
       <p className="sign-in-link">
-        Already have an account? <a href="SignIn">Sign in</a>
+        Don&apos;t have an account? <a href="SignUp">Sign Up</a>
       </p>
     </div>
   );
