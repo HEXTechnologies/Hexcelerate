@@ -13,7 +13,7 @@ export default function Waitlist() {
     <div className="min-h-screen bg-black py-5">
       <div className="container">
         <Link
-          href="/"
+          href="/HomePage"
           className="text-white mb-5"
           style={{ display: "flex", alignItems: "center" }}
         >
