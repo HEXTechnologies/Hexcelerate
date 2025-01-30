@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
 import ReCAPTCHA from "react-google-recaptcha";
 
-export default function Waitlist() {
+export default function SignUp() {
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
   return (
