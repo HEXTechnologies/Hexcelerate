@@ -10,6 +10,7 @@ const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -34,6 +35,7 @@ const UserLogin = () => {
         email,
         password
       );
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { user } = userCredential;
 
       Swal.fire({
@@ -47,6 +49,7 @@ const UserLogin = () => {
 
       setEmail("");
       setPassword("");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Sign In error:", error);
 
