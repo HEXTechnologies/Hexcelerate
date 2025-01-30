@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
 import ReCAPTCHA from "react-google-recaptcha";
-import UserLogin from "../../components/UserCredentials/UserSignup";
+import RegisterAccount from "../../components/UserCredentials/UserSignup";
 
 export default function SignUp() {
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
@@ -28,7 +28,7 @@ export default function SignUp() {
               style={{ borderRadius: "1rem" }}
             >
               <div className="card-body p-4">
-                <UserLogin />
+                <RegisterAccount />
                 <div className="text-center mb-4">
                   <h2 className="text-3xl font-bold text-white">
                     Create Your Account
