@@ -1,40 +1,45 @@
 // .firebase/auth.ts
 
-import { auth, database } from "./firebase";
+import { auth, firestore } from "./firebase";
 import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   User,
 } from "firebase/auth";
-import { ref, get, set } from "firebase/database";
+import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore";
 
 // Check if user is an admin
 export const checkAdminRole = async (user: User): Promise<boolean> => {
   try {
-    const userRef = ref(database, `users/${user.uid}`);
-    const snapshot = await get(userRef);
-    const userData = snapshot.val();
-    return userData?.role === "admin";
+    const adminRef = doc(firestore, "Admin", user.uid);
+    const adminSnapshot = await getDoc(adminRef);
+    return adminSnapshot.exists();
   } catch (error) {
     console.error("Error checking admin role:", error);
     return false;
   }
 };
 
-export const userRole = async (user: User): Promise<boolean> => {
+export const userRole = async (user: User): Promise<string | null> => {
   try {
-    const userRef = ref(database, `users/${user.uid}`);
-    const snapshot = await get(userRef);
-    const userData = snapshot.val();
-    return (
-      userData?.role === "user" ||
-      userData?.role === "admin" ||
-      !!userData?.role
-    );
+    const adminRef = doc(firestore, "Admin", user.uid);
+    const companyRef = doc(firestore, "Companies", user.uid);
+    const candidateRef = doc(firestore, "Candidates", user.uid);
+
+    const [adminSnapshot, companySnapshot, candidateSnapshot] = await Promise.all([
+      getDoc(adminRef),
+      getDoc(companyRef),
+      getDoc(candidateRef),
+    ]);
+
+    if (adminSnapshot.exists()) return "admin";
+    if (companySnapshot.exists()) return "company";
+    if (candidateSnapshot.exists()) return "candidate";
+    return null;
   } catch (error) {
     console.error("Error checking log in:", error);
-    return false;
+    return null;
   }
 };
 
@@ -43,30 +48,36 @@ export const adminSignIn = async (
   email: string,
   password: string
 ): Promise<{ user: User; isAdmin: boolean }> => {
-  const userCredential = await signInWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
-  const isAdmin = await checkAdminRole(userCredential.user);
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const isAdmin = await checkAdminRole(userCredential.user);
 
-  if (!isAdmin) {
-    await signOut(auth);
-    throw new Error("Unauthorized: User is not an admin");
+    if(!isAdmin) {
+      await signOut(auth);
+      throw new Error("User is not an admin");
+    }
+
+    return { user: userCredential.user, isAdmin };
+  } catch (error) {
+    console.error("Error signing in:", error);
+    throw error;
   }
-
-  return { user: userCredential.user, isAdmin };
 };
 
 // Create or update admin user
 export const setAdminRole = async (uid: string, email: string) => {
-  const userRef = ref(database, `users/${uid}`);
-  await set(userRef, {
-    email,
-    role: "admin",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  });
+  try {
+    const adminRef = doc(firestore, "Admin", uid);
+    await setDoc(adminRef, {
+      email,
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
+    });
+    console.log("Admin role created for user:", uid);
+  } catch (error) {
+    console.error("Error creating admin role:", error);
+    throw error;
+  }
 };
 
 export const toggleSignIn = adminSignIn;
