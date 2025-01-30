@@ -1,6 +1,6 @@
 // .firebase/auth.ts
 
-import { auth, database } from "./firebase";
+import { auth, firestore } from "./firebase";
 import {
   signInWithEmailAndPassword,
   signOut,
@@ -8,13 +8,12 @@ import {
   User,
 } from "firebase/auth";
 import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore";
-import { update } from "lodash";
 
 // Check if user is an admin
 export const checkAdminRole = async (user: User): Promise<boolean> => {
   try {
-    const adminRef = doc(database, "Admin", user.uid);
-    const adminSnapshot = getDoc(adminRef);
+    const adminRef = doc(firestore, "Admin", user.uid);
+    const adminSnapshot = await getDoc(adminRef);
     return adminSnapshot.exists();
   } catch (error) {
     console.error("Error checking admin role:", error);
@@ -24,9 +23,9 @@ export const checkAdminRole = async (user: User): Promise<boolean> => {
 
 export const userRole = async (user: User): Promise<string | null> => {
   try {
-    const adminRef = doc(database, "Admin", user.uid);
-    const companyRef = doc(database, "Companies", user.uid);
-    const candidateRef = doc(database, "Candidates", user.uid);
+    const adminRef = doc(firestore, "Admin", user.uid);
+    const companyRef = doc(firestore, "Companies", user.uid);
+    const candidateRef = doc(firestore, "Candidates", user.uid);
 
     const [adminSnapshot, companySnapshot, candidateSnapshot] = await Promise.all([
       getDoc(adminRef),
@@ -68,7 +67,7 @@ export const adminSignIn = async (
 // Create or update admin user
 export const setAdminRole = async (uid: string, email: string) => {
   try {
-    const adminRef = doc(database, "Admin", uid);
+    const adminRef = doc(firestore, "Admin", uid);
     await setDoc(adminRef, {
       email,
       createdAt: Timestamp.now(),
