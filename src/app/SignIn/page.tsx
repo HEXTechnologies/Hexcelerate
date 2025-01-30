@@ -28,9 +28,7 @@ export default function Waitlist() {
             >
               <div className="card-body p-4">
                 <div className="text-center mb-4">
-                  <h2 className="text-3xl font-bold text-white">
-                    Log In To Your Account
-                  </h2>
+                  <h2 className="text-3xl font-bold text-white">Log In</h2>
                   <p className="text-white mt-2">
                     Enter your information to log in.
                   </p>
@@ -49,7 +47,7 @@ export default function Waitlist() {
                     type="submit"
                     className="btn btn-primary w-50 bg-blue border-white"
                   >
-                    Sign Up
+                    Sign In
                   </button>
                 </div>
                 <p className="text-center mt-3 text-white">
