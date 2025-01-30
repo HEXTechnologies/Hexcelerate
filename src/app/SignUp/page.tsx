@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
 import ReCAPTCHA from "react-google-recaptcha";
-import UserLogin from "../../components/UserLogin";
+import UserLogin from "../../components/UserCredentials/UserLogin";
 
 export default function SignUp() {
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);

@@ -1,7 +1,7 @@
 "use client";
 
 // import { doc, setDoc, Timestamp } from "firebase/firestore";
-import { auth } from "../../firebaseConfig/firebase";
+import { auth } from "../../../firebaseConfig/firebase";
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
