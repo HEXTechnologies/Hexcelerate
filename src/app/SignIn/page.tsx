@@ -7,7 +7,7 @@ import Link from "next/link";
 import ReCAPTCHA from "react-google-recaptcha";
 import UserLogin from "../../components/UserCredentials/UserLogin";
 
-export default function Waitlist() {
+export default function LogIn() {
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
   return (

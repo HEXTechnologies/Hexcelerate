@@ -1,21 +1,16 @@
 "use client";
 
-"use client";
-
 // import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { auth } from "../../../firebaseConfig/firebase";
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
-import { useRouter } from "next/router";
 
 const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
-
-  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +42,7 @@ const UserLogin = () => {
         icon: "success",
         confirmButtonText: "Go to Dashboard",
       }).then(() => {
-        router.push("/HomePage");
+        window.location.href = "/HomePage";
       });
 
       setEmail("");
