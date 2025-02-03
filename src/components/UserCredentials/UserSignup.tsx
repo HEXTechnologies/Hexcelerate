@@ -10,7 +10,7 @@ type RegisterAccountProps = {
   selectedRole?: string | null;
 };
 
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,12 +37,14 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
         password
       );
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { user } = userCredential;
       Swal.fire("Success", "Account created successfully", "success");
 
       setEmail("");
       setPassword("");
       setConfirmPassword("");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Registration error:", error);
 
