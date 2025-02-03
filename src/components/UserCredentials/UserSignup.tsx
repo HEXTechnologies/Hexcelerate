@@ -36,7 +36,6 @@ const RegisterAccount = () => {
 
       let errorMessage = "An unexpected error occurred. Please try again.";
 
-      // Customize error messages based on error codes
       if (error.code === "auth/email-already-in-use") {
         errorMessage = "This email is already in use. Please try logging in.";
       } else if (error.code === "auth/invalid-email") {
@@ -46,7 +45,6 @@ const RegisterAccount = () => {
           "The password is too weak. Please choose a stronger password.";
       }
 
-      // Error feedback
       Swal.fire("Registration Failed", errorMessage, "error");
     }
   };
@@ -55,7 +53,6 @@ const RegisterAccount = () => {
     <div className="register-container">
       <h2>Create an Account</h2>
       <form onSubmit={handleSignUp}>
-        {/* Email Input */}
         <div className="form-group">
           <label htmlFor="email">Email:</label>
           <input
@@ -68,7 +65,6 @@ const RegisterAccount = () => {
           />
         </div>
 
-        {/* Password Input */}
         <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input
