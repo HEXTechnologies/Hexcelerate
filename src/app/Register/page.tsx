@@ -48,7 +48,7 @@ export default function Register() {
                 <p className="text-center mb-4">
                   You will have access to all features
                 </p>
-                <div className="text-center">
+                <div className="text-center mb-3 mt-5">
                   <button
                     onClick={() => handleRoleSelection("Companies")}
                     className={`btn btn-outline-light m-2 ${
@@ -59,7 +59,7 @@ export default function Register() {
                     Companies
                   </button>
                 </div>
-                <div className="text-center">
+                <div className="text-center mb-3">
                   <button
                     onClick={() => handleRoleSelection("Candidates")}
                     className={`btn btn-outline-light m-2 ${
