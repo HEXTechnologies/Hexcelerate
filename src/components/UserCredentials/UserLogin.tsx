@@ -69,8 +69,12 @@ const UserLogin = () => {
   };
 
   return (
-    <div className="register-container">
-      <h2>Create an Account</h2>
+    <div className="login-container">
+      <h2 className="text-3xl font-bold text-white text-center">Log In</h2>
+      <p className="text-center text-white mb-4">
+        Enter your information to sign in.
+      </p>
+
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
