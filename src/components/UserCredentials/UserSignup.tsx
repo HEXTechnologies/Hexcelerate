@@ -46,8 +46,19 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
         password
       );
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { user } = userCredential;
+
+      const userData = {
+        email: email,
+        firebase_id: user.uid,
+        role: selectedRole,
+        created_date: new Date().toISOString(),
+        updated_date: new Date().toISOString(),
+      };
+
+      const userRef = doc(collection(firestore, selectedRole), user.uid);
+      await setDoc(userRef, userData);
+
       Swal.fire("Success", "Account created successfully", "success");
 
       setEmail("");
