@@ -20,46 +20,66 @@ export default function Register() {
   };
 
   return (
-    <div className="h-screen bg-black flex items-center justify-center py-5">
+    <div
+      className="min-vh-100 d-flex justify-content-center align-items-center py-5"
+      style={{ backgroundColor: "#000" }}
+    >
       <div className="container">
         <Link
           href="/HomePage"
-          className="text-white mb-5 flex items-center"
-          style={{ display: "flex", alignItems: "center" }}
+          className="text-white mb-4 d-flex align-items-center"
+          style={{ textDecoration: "none" }}
         >
-          <ArrowLeft size={20} className="mr-2" />
+          <ArrowLeft size={20} className="me-2" />
+          Back
         </Link>
-
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 col-lg-6">
             <div
-              className="card bg-black border border-blue-800"
-              style={{ borderRadius: "1rem" }}
+              className="card bg-dark text-white border border-primary"
+              style={{
+                borderRadius: "1rem",
+              }}
             >
               <div className="card-body p-4">
-                <div className="mb-4 d-flex justify-content-center">
-                  {" "}
-                  <div>
-                    <h2 className="text-3xl font-bold text-white text-center">
-                      Sign up to unlock the full experience
-                    </h2>
-                    <p className="text-center text-white mb-4">
-                      You will have access to all features
-                    </p>
-                    <button onClick={() => handleRoleSelection("Companies")}>
-                      Companies
-                    </button>
-                    <button onClick={() => handleRoleSelection("Candidates")}>
-                      Candidates
-                    </button>
-                    {selectedRole && (
-                      <div>
-                        <p>You selected {selectedRole}</p>
-                        <button onClick={handleSignUp}>Sign Up</button>
-                      </div>
-                    )}
-                  </div>
+                <h2 className="card-title text-center mb-3">
+                  Sign up to unlock the full experience
+                </h2>
+                <p className="text-center mb-4">
+                  You will have access to all features
+                </p>
+                <div className="text-center">
+                  <button
+                    onClick={() => handleRoleSelection("Companies")}
+                    className={`btn btn-outline-light m-2 ${
+                      selectedRole === "Companies" ? "active" : ""
+                    }`}
+                    style={{ borderRadius: "20px", padding: "10px 20px" }}
+                  >
+                    Companies
+                  </button>
+                  <button
+                    onClick={() => handleRoleSelection("Candidates")}
+                    className={`btn btn-outline-light m-2 ${
+                      selectedRole === "Candidates" ? "active" : ""
+                    }`}
+                    style={{ borderRadius: "20px", padding: "10px 20px" }}
+                  >
+                    Candidates
+                  </button>
                 </div>
+                {selectedRole && (
+                  <div className="text-center mt-4">
+                    <p>You selected {selectedRole}</p>
+                    <button
+                      onClick={handleSignUp}
+                      className="btn btn-primary"
+                      style={{ borderRadius: "20px", padding: "10px 30px" }}
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
