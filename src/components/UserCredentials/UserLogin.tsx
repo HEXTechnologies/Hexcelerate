@@ -132,6 +132,15 @@ const UserLogin = () => {
                 placeholder="Enter your password"
                 required
               />
+              <div className="d-flex justify-content-start mt-2">
+                <a
+                  href="/forgot-password"
+                  className="text-primary"
+                  style={{ fontSize: "0.9rem", textDecoration: "none" }}
+                >
+                  Forgot password?
+                </a>
+              </div>
             </div>
 
             <div className="mb-4 d-flex justify-content-center">
