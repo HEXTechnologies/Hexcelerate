@@ -75,7 +75,7 @@ export default function Register() {
                     <button
                       onClick={handleSignUp}
                       className="btn btn-primary"
-                      style={{ borderRadius: "20px", padding: "10px 165px" }}
+                      style={{ borderRadius: "20px", padding: "10px 162px" }}
                     >
                       Sign Up
                     </button>

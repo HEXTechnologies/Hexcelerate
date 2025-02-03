@@ -8,7 +8,10 @@ import UserLogin from "../../components/UserCredentials/UserLogin";
 
 export default function SignIn() {
   return (
-    <div className="h-screen bg-black flex items-center justify-center py-5">
+    <div
+      className="min-vh-100 d-flex justify-content-center align-items-center py-5"
+      style={{ backgroundColor: "#000" }}
+    >
       <div className="container">
         <Link
           href="/HomePage"
