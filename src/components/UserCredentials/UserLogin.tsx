@@ -76,15 +76,19 @@ const UserLogin = () => {
       </p>
 
       <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
+        <div className="mb-4">
+          <label className="form-label mb-2 text-white" htmlFor="email">
+            Email Address
+          </label>
           <input
             type="email"
             id="email"
+            className="form-control bg-black"
+            style={{ color: "white" }}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
             placeholder="Enter your email"
+            required
           />
         </div>
 

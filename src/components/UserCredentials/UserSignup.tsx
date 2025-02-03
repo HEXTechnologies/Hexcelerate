@@ -104,7 +104,7 @@ const RegisterAccount = () => {
             style={{ color: "white" }}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Confirm your password"
+            placeholder="Enter your password"
             required
           />
         </div>
