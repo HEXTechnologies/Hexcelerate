@@ -84,7 +84,14 @@ const RegisterAccount = () => {
           />
         </div>
 
-        <button type="submit">Register</button>
+        <div className="d-flex justify-content-center">
+          <button
+            type="submit"
+            className="btn btn-primary w-50 bg-blue border-white"
+          >
+            Sign Up
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -28,18 +28,6 @@ export default function SignUp() {
                 <RegisterAccount />
 
                 <div className="mb-4 d-flex justify-content-center"></div>
-
-                <div className="d-flex justify-content-center">
-                  <button
-                    type="submit"
-                    className="btn btn-primary w-50 bg-blue border-white"
-                  >
-                    Sign Up
-                  </button>
-                </div>
-                <p className="text-center mt-3 text-white">
-                  Already have an account? <a href="SignIn">Sign In</a>
-                </p>
               </div>
             </div>
           </div>
