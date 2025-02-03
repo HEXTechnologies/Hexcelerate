@@ -126,6 +126,9 @@ const RegisterAccount = () => {
           </button>
         </div>
       </form>
+      <p className="text-center mt-3 text-white">
+        Already have an account? <a href="SignIn">Log In</a>
+      </p>
     </div>
   );
 };
