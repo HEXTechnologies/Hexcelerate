@@ -132,7 +132,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
               />
             </div>
 
-            <div className="mb-3 position-relative">
+            <div className="mb-5" style={{ position: "relative" }}>
               <label className="form-label" htmlFor="password">
                 Password
               </label>
@@ -146,7 +146,6 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
                   border: "1px solid #444",
                   borderRadius: "0.5rem",
                   padding: "0.75rem",
-                  paddingRight: "2.5rem",
                 }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -158,17 +157,18 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
                 style={{
                   position: "absolute",
                   right: "10px",
-                  top: "50%",
+                  top: "67%",
                   transform: "translateY(-50%)",
                   cursor: "pointer",
                   color: "#fff",
+                  padding: "0.30rem",
                 }}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
 
-            <div className="mb-5">
+            <div className="mb-5" style={{ position: "relative" }}>
               <label className="form-label" htmlFor="confirm-password">
                 Confirm Password
               </label>
@@ -193,10 +193,11 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
                 style={{
                   position: "absolute",
                   right: "10px",
-                  top: "50%",
+                  top: "67%",
                   transform: "translateY(-50%)",
                   cursor: "pointer",
                   color: "#fff",
+                  padding: "0.30rem",
                 }}
               >
                 {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}

@@ -115,7 +115,7 @@ const UserLogin = () => {
               />
             </div>
 
-            <div className="mb-5">
+            <div className="mb-5" style={{ position: "relative" }}>
               <label className="form-label" htmlFor="password">
                 Password
               </label>
@@ -144,10 +144,12 @@ const UserLogin = () => {
                   transform: "translateY(-50%)",
                   cursor: "pointer",
                   color: "#fff",
+                  padding: "0.30rem",
                 }}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
+
               <div className="d-flex justify-content-start mt-2">
                 <a
                   href="/forgot-password"
