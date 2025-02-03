@@ -41,6 +41,13 @@ export default function Register() {
                   <div>
                     <h1>Sign up to unlock the full experience</h1>
                     <p>You will have access to all features</p>
+                    <button onClick={() => handleRoleSelection("Companies")}>
+                      Companies
+                    </button>
+                    <button onClick={() => handleRoleSelection("Candidates")}>
+                      Candidates
+                    </button>
+                
                   </div>
                 </div>
               </div>
