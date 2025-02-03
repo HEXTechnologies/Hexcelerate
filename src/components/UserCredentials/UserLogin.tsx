@@ -9,7 +9,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
@@ -23,11 +22,6 @@ const UserLogin = () => {
     try {
       if (!email.trim() || !password.trim()) {
         Swal.fire("Error", "Please fill in all fields", "error");
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        Swal.fire("Error", "Passwords do not match", "error");
         return;
       }
 
@@ -112,22 +106,6 @@ const UserLogin = () => {
             style={{ color: "white" }}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="form-label mb-2 text-white" htmlFor="password">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="form-control bg-black"
-            style={{ color: "white" }}
-            value={password}
-            onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Enter your password"
             required
           />

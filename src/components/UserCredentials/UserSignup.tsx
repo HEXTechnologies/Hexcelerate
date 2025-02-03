@@ -111,10 +111,10 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
           </label>
           <input
             type="password"
-            id="password"
+            id="confirm-password"
             className="form-control bg-black"
             style={{ color: "white" }}
-            value={password}
+            value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Enter your password"
             required
