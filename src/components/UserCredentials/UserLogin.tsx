@@ -4,10 +4,12 @@ import { auth } from "../../../firebaseConfig/firebase";
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const UserLogin = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");\
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
