@@ -1,0 +1,93 @@
+"use client";
+
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useRouter } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+
+export default function Register() {
+  const [selectedRole, setSelectedRole] = useState("");
+  const router = useRouter();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleRoleSelection = (role: any) => {
+    setSelectedRole(role);
+  };
+
+  const handleSignUp = () => {
+    router.push(`/SignUp?selectedRole=${encodeURIComponent(selectedRole)}`);
+  };
+
+  return (
+    <div
+      className="min-vh-100 d-flex justify-content-center align-items-start py-5"
+      style={{ backgroundColor: "#000" }}
+    >
+      <div className="container">
+        <Link
+          href="/HomePage"
+          className="text-white mb-5 flex items-center"
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <ArrowLeft size={20} className="me-2" />
+        </Link>
+        <div className="row justify-content-center pt-5">
+          <div className="col-12 col-md-8 col-lg-6">
+            <div
+              className="card bg-black text-white border"
+              style={{
+                borderRadius: "1rem",
+              }}
+            >
+              <div className="card-body p-4">
+                <h2 className="card-title text-center mb-3">
+                  Select a role to continue
+                </h2>
+                <p className="text-center mb-4">
+                  Discover advanced features designed just for you.
+                </p>
+                <div className="text-center mb-3 mt-5">
+                  <button
+                    onClick={() => handleRoleSelection("Companies")}
+                    className={`btn btn-outline-light m-2 ${
+                      selectedRole === "Companies" ? "active" : ""
+                    }`}
+                    style={{ borderRadius: "20px", padding: "10px 150px" }}
+                  >
+                    Companies
+                  </button>
+                </div>
+                <div className="text-center mb-5">
+                  <button
+                    onClick={() => handleRoleSelection("Candidates")}
+                    className={`btn btn-outline-light m-2 ${
+                      selectedRole === "Candidates" ? "active" : ""
+                    }`}
+                    style={{ borderRadius: "20px", padding: "10px 150px" }}
+                  >
+                    Candidates
+                  </button>
+                </div>
+                {selectedRole && (
+                  <div className="text-center mt-4 mb-4">
+                    <button
+                      onClick={handleSignUp}
+                      className="btn btn-primary"
+                      style={{ borderRadius: "20px", padding: "10px 162px" }}
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                )}
+                <p className="text-center mt-3 mb-4 text-white">
+                  Already have an account? <a href="SignIn">Log In</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
