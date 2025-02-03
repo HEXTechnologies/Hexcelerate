@@ -119,10 +119,11 @@ const UserLogin = () => {
           />
         </div>
 
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center  text-center">
           <button
             type="submit"
-            className="btn btn-primary w-50 bg-blue border-white"
+            className="btn btn-primary"
+            style={{ borderRadius: "20px", padding: "10px 180px" }}
           >
             Log In
           </button>

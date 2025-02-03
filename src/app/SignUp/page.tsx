@@ -12,28 +12,21 @@ export default function SignUp() {
   const selectedRole = searchParams.get("selectedRole");
 
   return (
-    <div className="h-screen bg-black flex items-center justify-center py-5">
+    <div
+      className="min-vh-100 d-flex justify-content-center align-items-start py-5"
+      style={{ backgroundColor: "#000" }}
+    >
       <div className="container">
         <Link
           href="/HomePage"
           className="text-white mb-5 flex items-center"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <ArrowLeft size={20} className="mr-2" />
+          <ArrowLeft size={20} className="me-2" />
         </Link>
 
         <div className="row justify-content-center">
-          <div className="col-12 col-md-8 col-lg-6">
-            <div
-              className="card bg-black border border-blue-800"
-              style={{ borderRadius: "1rem" }}
-            >
-              <div className="card-body p-4">
-                <RegisterAccount selectedRole={selectedRole} />
-                <div className="mb-4 d-flex justify-content-center"></div>
-              </div>
-            </div>
-          </div>
+          <RegisterAccount selectedRole={selectedRole} />
         </div>
       </div>
     </div>

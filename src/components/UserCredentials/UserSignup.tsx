@@ -10,7 +10,7 @@ type RegisterAccountProps = {
   selectedRole?: string | null;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,14 +37,12 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
         password
       );
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { user } = userCredential;
-
       Swal.fire("Success", "Account created successfully", "success");
 
       setEmail("");
       setPassword("");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setConfirmPassword("");
     } catch (error: any) {
       console.error("Registration error:", error);
 
@@ -64,83 +62,117 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
   };
 
   return (
-    <div className="register-container">
-      <h2 className="text-3xl font-bold text-white text-center">
-        Create Your Account
-      </h2>
-      <p className="text-center text-white mb-4">
-        Enter your information to get started.
-      </p>
-
-      <form onSubmit={handleSignUp}>
-        <div className="mb-4">
-          <label className="form-label mb-2 text-white" htmlFor="email">
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="form-control bg-black"
-            style={{ color: "white" }}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            required
-          />
+    <div
+      className="d-flex justify-content-center align-items-center min-vh-100"
+      style={{ backgroundColor: "#000" }}
+    >
+      <div
+        className="card bg-dark text-white"
+        style={{
+          borderRadius: "1rem",
+          border: "1px solid #1E90FF",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.5)",
+          width: "100%",
+          maxWidth: "500px",
+        }}
+      >
+        <div className="card-body">
+          <h2 className="card-title text-center mb-3">Create Your Account</h2>
+          <p className="text-center mb-4">
+            Enter your information to get started.
+          </p>
+          <form onSubmit={handleSignUp}>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="email">
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="form-control"
+                style={{
+                  backgroundColor: "#000",
+                  color: "#fff",
+                  border: "1px solid #444",
+                  borderRadius: "0.5rem",
+                  padding: "0.75rem",
+                }}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="password">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="form-control"
+                style={{
+                  backgroundColor: "#000",
+                  color: "#fff",
+                  border: "1px solid #444",
+                  borderRadius: "0.5rem",
+                  padding: "0.75rem",
+                }}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="confirm-password">
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                id="confirm-password"
+                className="form-control"
+                style={{
+                  backgroundColor: "#000",
+                  color: "#fff",
+                  border: "1px solid #444",
+                  borderRadius: "0.5rem",
+                  padding: "0.75rem",
+                }}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Re-enter your password"
+                required
+              />
+            </div>
+            <div className="mb-4 d-flex justify-content-center">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+                theme="dark"
+              />
+            </div>
+            <div className="d-grid gap-2">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                style={{
+                  borderRadius: "20px",
+                  padding: "10px",
+                }}
+              >
+                Sign Up
+              </button>
+            </div>
+          </form>
+          <p className="text-center mt-3">
+            Already have an account?{" "}
+            <a href="SignIn" className="text-primary text-decoration-none">
+              Log In
+            </a>
+          </p>
         </div>
-
-        <div className="mb-4">
-          <label className="form-label mb-2 text-white" htmlFor="password">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="form-control bg-black"
-            style={{ color: "white" }}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="form-label mb-2 text-white" htmlFor="password">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            id="confirm-password"
-            className="form-control bg-black"
-            style={{ color: "white" }}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-
-        <div className="mb-4 d-flex justify-content-center">
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-            theme="dark"
-          />
-        </div>
-
-        <div className="d-flex justify-content-center">
-          <button
-            type="submit"
-            className="btn btn-primary w-50 bg-blue border-white"
-          >
-            Sign Up
-          </button>
-        </div>
-      </form>
-      <p className="text-center mt-3 text-white">
-        Already have an account? <a href="SignIn">Log In</a>
-      </p>
+      </div>
     </div>
   );
 };
