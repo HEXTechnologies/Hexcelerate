@@ -65,14 +65,13 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center min-vh-100"
+      className="d-flex justify-content-center align-items-center py-5"
       style={{ backgroundColor: "#000" }}
     >
       <div
-        className="card bg-dark text-white"
+        className="card bg-black text-white border"
         style={{
           borderRadius: "1rem",
-          border: "1px solid #1E90FF",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.5)",
           width: "100%",
           maxWidth: "500px",
@@ -80,7 +79,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
       >
         <div className="card-body">
           <h2 className="card-title text-center mb-3">Create Your Account</h2>
-          <p className="text-center mb-4">
+          <p className="text-center mb-5">
             Enter your information to get started.
           </p>
           <form onSubmit={handleSignUp}>
@@ -126,7 +125,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
                 required
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-5">
               <label className="form-label" htmlFor="confirm-password">
                 Confirm Password
               </label>
