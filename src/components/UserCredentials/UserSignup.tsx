@@ -1,6 +1,5 @@
 "use client";
 
-// import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { auth } from "../../../firebaseConfig/firebase";
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -35,7 +34,6 @@ const RegisterAccount = () => {
     } catch (error: any) {
       console.error("Registration error:", error);
 
-      // Extract error message
       let errorMessage = "An unexpected error occurred. Please try again.";
 
       // Customize error messages based on error codes
