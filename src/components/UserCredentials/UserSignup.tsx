@@ -53,7 +53,12 @@ const RegisterAccount = () => {
 
   return (
     <div className="register-container">
-      <h2>Create an Account</h2>
+      <h2 className="text-3xl font-bold text-white text-center">
+        Create Your Account
+      </h2>
+      <p className="text-center text-white mb-4">
+        Enter your information to get started.
+      </p>
       <form onSubmit={handleSignUp}>
         <div className="form-group">
           <label htmlFor="email">Email:</label>

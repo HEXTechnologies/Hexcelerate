@@ -26,14 +26,6 @@ export default function SignUp() {
             >
               <div className="card-body p-4">
                 <RegisterAccount />
-                <div className="text-center mb-4">
-                  <h2 className="text-3xl font-bold text-white">
-                    Create Your Account
-                  </h2>
-                  <p className="text-white mt-2">
-                    Enter your information to get started.
-                  </p>
-                </div>
 
                 <div className="mb-4 d-flex justify-content-center"></div>
 
