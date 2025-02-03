@@ -47,7 +47,6 @@ export default function Register() {
                     <button onClick={() => handleRoleSelection("Candidates")}>
                       Candidates
                     </button>
-                
                   </div>
                 </div>
               </div>
