@@ -8,11 +8,11 @@ import RegisterAccount from "../../components/UserCredentials/UserSignup";
 
 export default function SignUp() {
   return (
-    <div className="min-h-screen bg-black py-5">
+    <div className="h-screen bg-black flex items-center justify-center py-5">
       <div className="container">
         <Link
           href="/HomePage"
-          className="text-white mb-5"
+          className="text-white mb-5 flex items-center"
           style={{ display: "flex", alignItems: "center" }}
         >
           <ArrowLeft size={20} className="mr-2" />
