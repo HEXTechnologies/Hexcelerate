@@ -108,6 +108,22 @@ const UserLogin = () => {
           />
         </div>
 
+        <div className="mb-4">
+          <label className="form-label mb-2 text-white" htmlFor="password">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="form-control bg-black"
+            style={{ color: "white" }}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
         <button type="submit">Login</button>
       </form>
     </div>
