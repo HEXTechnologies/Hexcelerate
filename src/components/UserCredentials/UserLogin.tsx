@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const UserLogin = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ const UserLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const router = useRouter();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
@@ -43,14 +45,7 @@ const UserLogin = () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { user } = userCredential;
 
-      Swal.fire({
-        title: "Success",
-        text: "You have successfully signed in!",
-        icon: "success",
-        confirmButtonText: "Go to Dashboard",
-      }).then(() => {
-        window.location.href = "/HomePage";
-      });
+      router.push("/HomePage");
 
       setEmail("");
       setPassword("");

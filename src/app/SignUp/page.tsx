@@ -27,7 +27,7 @@ export default function SignUp() {
     >
       <div className="container">
         <Link
-          href="/HomePage"
+          href="/Register"
           className="text-white mb-5 flex items-center"
           style={{ display: "flex", alignItems: "center" }}
         >
