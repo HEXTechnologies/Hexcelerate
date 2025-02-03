@@ -144,7 +144,7 @@ const UserLogin = () => {
         </div>
       </form>
       <p className="text-center mt-3 text-white">
-        Don&apos;t have an account? <a href="SignUp">Sign Up</a>
+        Don&apos;t have an account? <a href="Register">Sign Up</a>
       </p>
     </div>
   );

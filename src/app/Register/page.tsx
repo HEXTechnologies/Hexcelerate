@@ -10,6 +10,7 @@ export default function Register() {
   const [selectedRole, setSelectedRole] = useState("");
   const router = useRouter();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleRoleSelection = (role: any) => {
     setSelectedRole(role);
   };
@@ -47,6 +48,12 @@ export default function Register() {
                     <button onClick={() => handleRoleSelection("Candidates")}>
                       Candidates
                     </button>
+                    {selectedRole && (
+                      <div>
+                        <p>You selected {selectedRole}</p>
+                        <button onClick={handleSignUp}>Sign Up</button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
