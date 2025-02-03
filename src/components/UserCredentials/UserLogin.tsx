@@ -5,10 +5,13 @@ import React, { useState, useRef } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
