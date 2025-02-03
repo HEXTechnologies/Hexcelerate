@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { ArrowLeft } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import RegisterAccount from "../../components/UserCredentials/UserSignup";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-export default function SignUp() {
+function SignUpContent() {
   const searchParams = useSearchParams();
   const selectedRole = searchParams.get("selectedRole");
   const router = useRouter();
@@ -39,5 +39,13 @@ export default function SignUp() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignUp() {
+  return (
+    <Suspense fallback="Loading...">
+      <SignUpContent />
+    </Suspense>
   );
 }
