@@ -8,6 +8,9 @@ import RegisterAccount from "../../components/UserCredentials/UserSignup";
 import { useSearchParams } from "next/navigation";
 
 export default function SignUp() {
+  const searchParams = useSearchParams();
+  const selectedRole = searchParams.get("selectedRole");
+  
   return (
     <div className="h-screen bg-black flex items-center justify-center py-5">
       <div className="container">
@@ -26,7 +29,7 @@ export default function SignUp() {
               style={{ borderRadius: "1rem" }}
             >
               <div className="card-body p-4">
-                <RegisterAccount />
+                <RegisterAccount selectedRole={selectedRole} />
                 <div className="mb-4 d-flex justify-content-center"></div>
               </div>
             </div>

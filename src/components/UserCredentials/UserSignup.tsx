@@ -6,6 +6,10 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
 
+type RegisterAccountProps = {
+  selectedRole?: string | null;
+};
+
 const RegisterAccount = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
