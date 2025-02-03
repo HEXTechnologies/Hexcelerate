@@ -9,6 +9,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -21,6 +23,11 @@ const UserLogin = () => {
     try {
       if (!email.trim() || !password.trim()) {
         Swal.fire("Error", "Please fill in all fields", "error");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        Swal.fire("Error", "Passwords do not match", "error");
         return;
       }
 
@@ -120,7 +127,7 @@ const UserLogin = () => {
             className="form-control bg-black"
             style={{ color: "white" }}
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Enter your password"
             required
           />
