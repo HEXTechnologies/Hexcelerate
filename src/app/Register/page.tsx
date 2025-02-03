@@ -7,6 +7,11 @@ import { useRouter } from "next/router";
 export default function Register() {
     const [selectedRole, setSelectedRole] = useState("");
     const router = useRouter();
+
+    const handleRoleSelection = (role: any) => {
+        setSelectedRole(role);
+    };
+    
     return (
         
     );
