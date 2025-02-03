@@ -18,6 +18,8 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const router = useRouter();
 
@@ -134,7 +136,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
                 Password
               </label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 className="form-control"
                 style={{
