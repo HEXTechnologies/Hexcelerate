@@ -72,66 +72,78 @@ const UserLogin = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2 className="text-3xl font-bold text-white text-center">Log In</h2>
-      <p className="text-center text-white mb-4">
-        Enter your information to sign in.
-      </p>
+    <div
+      className="d-flex justify-content-center align-items-center py-5"
+      style={{ backgroundColor: "#000" }}
+    >
+      <div
+        className="card bg-black text-white border"
+        style={{
+          borderRadius: "1rem",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.5)",
+          width: "100%",
+          maxWidth: "500px",
+        }}
+      >
+        <div className="card-body">
+          <h2 className="card-title text-center mb-3">Log In</h2>
+          <p className="text-center mb-5">Enter your information to sign in.</p>
+          <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <label className="form-label mb-2 text-white" htmlFor="email">
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="form-control bg-black"
+                style={{ color: "white" }}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+              />
+            </div>
 
-      <form onSubmit={handleLogin}>
-        <div className="mb-4">
-          <label className="form-label mb-2 text-white" htmlFor="email">
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="form-control bg-black"
-            style={{ color: "white" }}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            required
-          />
-        </div>
+            <div className="mb-4">
+              <label className="form-label mb-2 text-white" htmlFor="password">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="form-control bg-black"
+                style={{ color: "white" }}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+              />
+            </div>
 
-        <div className="mb-4">
-          <label className="form-label mb-2 text-white" htmlFor="password">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="form-control bg-black"
-            style={{ color: "white" }}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            required
-          />
-        </div>
+            <div className="mb-4 d-flex justify-content-center">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+                theme="dark"
+              />
+            </div>
 
-        <div className="mb-4 d-flex justify-content-center">
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-            theme="dark"
-          />
+            <div className="d-flex justify-content-center  text-center">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                style={{ borderRadius: "20px", padding: "10px 180px" }}
+              >
+                Log In
+              </button>
+            </div>
+          </form>
+          <p className="text-center mt-3 text-white">
+            Don&apos;t have an account? <a href="Register">Sign Up</a>
+          </p>
         </div>
-
-        <div className="d-flex justify-content-center  text-center">
-          <button
-            type="submit"
-            className="btn btn-primary"
-            style={{ borderRadius: "20px", padding: "10px 180px" }}
-          >
-            Log In
-          </button>
-        </div>
-      </form>
-      <p className="text-center mt-3 text-white">
-        Don&apos;t have an account? <a href="Register">Sign Up</a>
-      </p>
+      </div>
     </div>
   );
 };
