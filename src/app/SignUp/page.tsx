@@ -10,7 +10,7 @@ import { useSearchParams } from "next/navigation";
 export default function SignUp() {
   const searchParams = useSearchParams();
   const selectedRole = searchParams.get("selectedRole");
-  
+
   return (
     <div className="h-screen bg-black flex items-center justify-center py-5">
       <div className="container">
