@@ -167,7 +167,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
-            
+
             <div className="mb-5">
               <label className="form-label" htmlFor="confirm-password">
                 Confirm Password

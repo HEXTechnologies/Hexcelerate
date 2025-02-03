@@ -120,7 +120,7 @@ const UserLogin = () => {
                 Password
               </label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 className="form-control"
                 style={{
@@ -135,6 +135,19 @@ const UserLogin = () => {
                 placeholder="Enter your password"
                 required
               />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  color: "#fff",
+                }}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
               <div className="d-flex justify-content-start mt-2">
                 <a
                   href="/forgot-password"
