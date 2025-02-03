@@ -301,11 +301,11 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
               </li> */}
               <li className="nav-item mb-2">
                 <Link
-                  href="SignUp"
+                  href="SignIn"
                   className="btn btn-primary gradient-button text-white px-4 py-2"
                   style={{ fontSize: "0.9rem" }}
                 >
-                  Sign Up
+                  Sign In
                 </Link>
               </li>
             </ul>
