@@ -59,28 +59,53 @@ const RegisterAccount = () => {
       <p className="text-center text-white mb-4">
         Enter your information to get started.
       </p>
+
       <form onSubmit={handleSignUp}>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
+        <div className="mb-4">
+          <label className="form-label mb-2 text-white" htmlFor="email">
+            Email Address
+          </label>
           <input
             type="email"
             id="email"
+            className="form-control bg-black"
+            style={{ color: "white" }}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
             placeholder="Enter your email"
+            required
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
+        <div className="mb-4">
+          <label className="form-label mb-2 text-white" htmlFor="password">
+            Password
+          </label>
           <input
             type="password"
             id="password"
+            className="form-control bg-black"
+            style={{ color: "white" }}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
             placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="form-label mb-2 text-white" htmlFor="password">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="form-control bg-black"
+            style={{ color: "white" }}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Confirm your password"
+            required
           />
         </div>
 
