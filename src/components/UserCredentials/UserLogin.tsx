@@ -88,16 +88,23 @@ const UserLogin = () => {
         <div className="card-body">
           <h2 className="card-title text-center mb-3">Log In</h2>
           <p className="text-center mb-5">Enter your information to sign in.</p>
+
           <form onSubmit={handleLogin}>
-            <div className="mb-4">
-              <label className="form-label mb-2 text-white" htmlFor="email">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="email">
                 Email Address
               </label>
               <input
                 type="email"
                 id="email"
-                className="form-control bg-black"
-                style={{ color: "white" }}
+                className="form-control"
+                style={{
+                  backgroundColor: "#000",
+                  color: "#fff",
+                  border: "1px solid #444",
+                  borderRadius: "0.5rem",
+                  padding: "0.75rem",
+                }}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
@@ -105,15 +112,21 @@ const UserLogin = () => {
               />
             </div>
 
-            <div className="mb-4">
-              <label className="form-label mb-2 text-white" htmlFor="password">
+            <div className="mb-5">
+              <label className="form-label" htmlFor="password">
                 Password
               </label>
               <input
                 type="password"
                 id="password"
-                className="form-control bg-black"
-                style={{ color: "white" }}
+                className="form-control"
+                style={{
+                  backgroundColor: "#000",
+                  color: "#fff",
+                  border: "1px solid #444",
+                  borderRadius: "0.5rem",
+                  padding: "0.75rem",
+                }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
@@ -129,17 +142,20 @@ const UserLogin = () => {
               />
             </div>
 
-            <div className="d-flex justify-content-center  text-center">
+            <div className="d-grid gap-2">
               <button
                 type="submit"
                 className="btn btn-primary"
-                style={{ borderRadius: "20px", padding: "10px 180px" }}
+                style={{
+                  borderRadius: "20px",
+                  padding: "10px",
+                }}
               >
                 Log In
               </button>
             </div>
           </form>
-          <p className="text-center mt-3 text-white">
+          <p className="text-center mt-3">
             Don&apos;t have an account? <a href="Register">Sign Up</a>
           </p>
         </div>

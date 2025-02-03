@@ -22,9 +22,7 @@ export default function SignIn() {
         </Link>
 
         <div className="row justify-content-center">
-          <div className="card-body p-4">
-            <UserLogin />
-          </div>
+          <UserLogin />
         </div>
       </div>
     </div>
