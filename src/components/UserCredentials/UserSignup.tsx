@@ -132,7 +132,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
               />
             </div>
 
-            <div className="mb-5" style={{ position: "relative" }}>
+            <div className="mb-3" style={{ position: "relative" }}>
               <label className="form-label" htmlFor="password">
                 Password
               </label>
