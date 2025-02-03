@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
 import RegisterAccount from "../../components/UserCredentials/UserSignup";
+import { useSearchParams } from "next/navigation";
 
 export default function SignUp() {
   return (

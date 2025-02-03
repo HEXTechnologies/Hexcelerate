@@ -40,8 +40,12 @@ export default function Register() {
                 <div className="mb-4 d-flex justify-content-center">
                   {" "}
                   <div>
-                    <h1>Sign up to unlock the full experience</h1>
-                    <p>You will have access to all features</p>
+                    <h2 className="text-3xl font-bold text-white text-center">
+                      Sign up to unlock the full experience
+                    </h2>
+                    <p className="text-center text-white mb-4">
+                      You will have access to all features
+                    </p>
                     <button onClick={() => handleRoleSelection("Companies")}>
                       Companies
                     </button>
