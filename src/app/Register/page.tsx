@@ -21,19 +21,18 @@ export default function Register() {
 
   return (
     <div
-      className="min-vh-100 d-flex justify-content-center align-items-center py-5"
+      className="min-vh-100 d-flex justify-content-center align-items-start py-5"
       style={{ backgroundColor: "#000" }}
     >
       <div className="container">
         <Link
           href="/HomePage"
-          className="text-white mb-4 d-flex align-items-center"
-          style={{ textDecoration: "none" }}
+          className="text-white mb-5 flex items-center"
+          style={{ display: "flex", alignItems: "center" }}
         >
           <ArrowLeft size={20} className="me-2" />
-          Back
         </Link>
-        <div className="row justify-content-center">
+        <div className="row justify-content-center pt-5">
           <div className="col-12 col-md-8 col-lg-6">
             <div
               className="card bg-black text-white border"
