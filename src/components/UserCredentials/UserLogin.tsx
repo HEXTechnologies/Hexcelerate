@@ -134,7 +134,14 @@ const UserLogin = () => {
           />
         </div>
 
-        <button type="submit">Login</button>
+        <div className="d-flex justify-content-center">
+          <button
+            type="submit"
+            className="btn btn-primary w-50 bg-blue border-white"
+          >
+            Log In
+          </button>
+        </div>
       </form>
     </div>
   );
