@@ -26,7 +26,6 @@ export default function SignUp() {
             >
               <div className="card-body p-4">
                 <RegisterAccount />
-
                 <div className="mb-4 d-flex justify-content-center"></div>
               </div>
             </div>
