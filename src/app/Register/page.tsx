@@ -36,7 +36,13 @@ export default function Register() {
               style={{ borderRadius: "1rem" }}
             >
               <div className="card-body p-4">
-                <div className="mb-4 d-flex justify-content-center"></div>
+                <div className="mb-4 d-flex justify-content-center">
+                  {" "}
+                  <div>
+                    <h1>Sign up to unlock the full experience</h1>
+                    <p>You will have access to all features</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
