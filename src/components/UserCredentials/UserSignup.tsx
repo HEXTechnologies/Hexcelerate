@@ -4,6 +4,7 @@ import { auth } from "../../../firebaseConfig/firebase";
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const RegisterAccount = () => {
   const [email, setEmail] = useState("");
