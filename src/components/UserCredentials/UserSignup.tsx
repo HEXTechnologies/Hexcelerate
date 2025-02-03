@@ -21,25 +21,25 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email.trim() || !password.trim()) {
+      Swal.fire("Error", "Please fill in all fields", "error");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      Swal.fire("Error", "Passwords do not match", "error");
+      return;
+    }
+
+    if (
+      !selectedRole ||
+      (selectedRole !== "Companies" && selectedRole !== "Candidates")
+    ) {
+      Swal.fire("Error", "Invalid role selected", "error");
+      return;
+    }
+
     try {
-      if (!email.trim() || !password.trim()) {
-        Swal.fire("Error", "Please fill in all fields", "error");
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        Swal.fire("Error", "Passwords do not match", "error");
-        return;
-      }
-
-      if (
-        !selectedRole ||
-        (selectedRole !== "Companies" && selectedRole !== "Candidates")
-      ) {
-        Swal.fire("Error", "Invalid role selected", "error");
-        return;
-      }
-
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -51,7 +51,8 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
       const userData = {
         email: email,
         firebase_id: user.uid,
-        role: selectedRole,
+        linkedInUrl: "",
+        updatedAt: new Date().toISOString(),
         created_date: new Date().toISOString(),
         updated_date: new Date().toISOString(),
       };
