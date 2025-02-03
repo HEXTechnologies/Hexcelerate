@@ -58,6 +58,8 @@ export default function Register() {
                   >
                     Companies
                   </button>
+                </div>
+                <div className="text-center">
                   <button
                     onClick={() => handleRoleSelection("Candidates")}
                     className={`btn btn-outline-light m-2 ${
