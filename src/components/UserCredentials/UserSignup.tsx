@@ -10,6 +10,7 @@ type RegisterAccountProps = {
   selectedRole?: string | null;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
