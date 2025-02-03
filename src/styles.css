@@ -136,7 +136,7 @@ nav a {
 }
 
 .custom-navbar a:hover {
-  color: #8088ffd8; 
+  color: #8088ffd8;
 }
 
 /* Smaller text size for navbar links on smaller screens */
@@ -226,4 +226,3 @@ footer {
   width: 100%;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); /* Shadow effect */
 }
-
