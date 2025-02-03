@@ -1,8 +1,9 @@
 "use client";
 
-import { auth } from "../../../firebaseConfig/firebase";
+import { auth, firestore } from "../../../firebaseConfig/firebase";
 import React, { useState, useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc, collection } from "firebase/firestore";
 import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -28,6 +29,14 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
 
       if (password !== confirmPassword) {
         Swal.fire("Error", "Passwords do not match", "error");
+        return;
+      }
+
+      if (
+        !selectedRole ||
+        (selectedRole !== "Companies" && selectedRole !== "Candidates")
+      ) {
+        Swal.fire("Error", "Invalid role selected", "error");
         return;
       }
 
