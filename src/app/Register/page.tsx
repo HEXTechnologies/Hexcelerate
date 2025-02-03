@@ -36,7 +36,7 @@ export default function Register() {
         <div className="row justify-content-center">
           <div className="col-12 col-md-8 col-lg-6">
             <div
-              className="card bg-dark text-white border border-primary"
+              className="card bg-dark text-white border"
               style={{
                 borderRadius: "1rem",
               }}
@@ -54,7 +54,7 @@ export default function Register() {
                     className={`btn btn-outline-light m-2 ${
                       selectedRole === "Companies" ? "active" : ""
                     }`}
-                    style={{ borderRadius: "20px", padding: "10px 20px" }}
+                    style={{ borderRadius: "20px", padding: "10px 150px" }}
                   >
                     Companies
                   </button>
@@ -65,7 +65,7 @@ export default function Register() {
                     className={`btn btn-outline-light m-2 ${
                       selectedRole === "Candidates" ? "active" : ""
                     }`}
-                    style={{ borderRadius: "20px", padding: "10px 20px" }}
+                    style={{ borderRadius: "20px", padding: "10px 150px" }}
                   >
                     Candidates
                   </button>
@@ -76,7 +76,7 @@ export default function Register() {
                     <button
                       onClick={handleSignUp}
                       className="btn btn-primary"
-                      style={{ borderRadius: "20px", padding: "10px 30px" }}
+                      style={{ borderRadius: "20px", padding: "10px 150px" }}
                     >
                       Sign Up
                     </button>
