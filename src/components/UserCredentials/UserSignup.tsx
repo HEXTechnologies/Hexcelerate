@@ -131,7 +131,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
                 required
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-3 position-relative">
               <label className="form-label" htmlFor="password">
                 Password
               </label>
@@ -145,19 +145,33 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
                   border: "1px solid #444",
                   borderRadius: "0.5rem",
                   padding: "0.75rem",
+                  paddingRight: "2.5rem",
                 }}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 required
               />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  color: "#fff",
+                }}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
             </div>
             <div className="mb-5">
               <label className="form-label" htmlFor="confirm-password">
                 Confirm Password
               </label>
               <input
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 id="confirm-password"
                 className="form-control"
                 style={{
@@ -172,6 +186,19 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
                 placeholder="Re-enter your password"
                 required
               />
+              <span
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  color: "#fff",
+                }}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
             </div>
             <div className="mb-4 d-flex justify-content-center">
               <ReCAPTCHA
