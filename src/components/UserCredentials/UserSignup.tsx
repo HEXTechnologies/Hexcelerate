@@ -1,7 +1,7 @@
 "use client";
 
 import { auth } from "../../../firebaseConfig/firebase";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -9,6 +9,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 const RegisterAccount = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
