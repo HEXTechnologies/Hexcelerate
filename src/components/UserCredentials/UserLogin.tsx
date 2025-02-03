@@ -92,15 +92,19 @@ const UserLogin = () => {
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
+        <div className="mb-4">
+          <label className="form-label mb-2 text-white" htmlFor="password">
+            Password
+          </label>
           <input
             type="password"
             id="password"
+            className="form-control bg-black"
+            style={{ color: "white" }}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
             placeholder="Enter your password"
+            required
           />
         </div>
 
