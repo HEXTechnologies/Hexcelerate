@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [selectedRole, setSelectedRole] = useState("");
@@ -13,8 +13,13 @@ export default function Register() {
   };
 
   const handleSignUp = () => {
-    router.push("/SignUp?selectedRole=${encodeURIComponent(selectedRole)}");
+    router.push(`/SignUp?selectedRole=${encodeURIComponent(selectedRole)}`);
   };
 
-  return <div></div>;
+  return (
+    <div>
+      <h1>Sign up to unlock the full experience</h1>
+      <p>You will have access to all features</p>
+    </div>
+  );
 }
