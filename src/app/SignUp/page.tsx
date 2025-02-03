@@ -1,15 +1,12 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import { ArrowLeft } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
-import ReCAPTCHA from "react-google-recaptcha";
 import RegisterAccount from "../../components/UserCredentials/UserSignup";
 
 export default function SignUp() {
-  const recaptchaRef = useRef<ReCAPTCHA | null>(null);
-
   return (
     <div className="min-h-screen bg-black py-5">
       <div className="container">
@@ -38,13 +35,7 @@ export default function SignUp() {
                   </p>
                 </div>
 
-                <div className="mb-4 d-flex justify-content-center">
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-                    theme="dark"
-                  />
-                </div>
+                <div className="mb-4 d-flex justify-content-center"></div>
 
                 <div className="d-flex justify-content-center">
                   <button
