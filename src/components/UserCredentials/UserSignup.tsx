@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, collection } from "firebase/firestore";
 import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useRouter } from "next/navigation";
 
 type RegisterAccountProps = {
   selectedRole?: string | null;
