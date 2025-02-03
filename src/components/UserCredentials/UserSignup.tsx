@@ -18,6 +18,8 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const router = useRouter();
+
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -57,7 +59,11 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
       const userRef = doc(collection(firestore, selectedRole), user.uid);
       await setDoc(userRef, userData);
 
-      Swal.fire("Success", "Account created successfully", "success");
+      Swal.fire("Success", "Account created successfully", "success").then(
+        () => {
+          router.push("/HomePage");
+        }
+      );
 
       setEmail("");
       setPassword("");
