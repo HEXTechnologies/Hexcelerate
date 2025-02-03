@@ -51,10 +51,6 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
       const userData = {
         email: email,
         firebase_id: user.uid,
-        linkedInUrl: "",
-        updatedAt: new Date().toISOString(),
-        created_date: new Date().toISOString(),
-        updated_date: new Date().toISOString(),
       };
 
       const userRef = doc(collection(firestore, selectedRole), user.uid);
