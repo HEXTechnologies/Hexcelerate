@@ -1,6 +1,5 @@
 "use client";
 
-// import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { auth } from "../../../firebaseConfig/firebase";
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -53,10 +52,8 @@ const UserLogin = () => {
     } catch (error: any) {
       console.error("Sign In error:", error);
 
-      // Extract error message
       let errorMessage = "An unexpected error occurred. Please try again.";
 
-      // Customize error messages based on error codes
       if (error.code === "auth/user-not-found") {
         errorMessage = "No user found with this email. Please register first.";
       } else if (error.code === "auth/wrong-password") {
