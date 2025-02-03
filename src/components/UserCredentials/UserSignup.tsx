@@ -10,7 +10,7 @@ type RegisterAccountProps = {
   selectedRole?: string | null;
 };
 
-const RegisterAccount = () => {
+const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const recaptchaRef = useRef<ReCAPTCHA>(null);
