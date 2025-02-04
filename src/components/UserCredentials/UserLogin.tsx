@@ -1,14 +1,21 @@
 "use client";
 
-// import { doc, setDoc, Timestamp } from "firebase/firestore";
 import { auth } from "../../../firebaseConfig/firebase";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Swal from "sweetalert2";
+import ReCAPTCHA from "react-google-recaptcha";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const router = useRouter();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
@@ -38,14 +45,7 @@ const UserLogin = () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { user } = userCredential;
 
-      Swal.fire({
-        title: "Success",
-        text: "You have successfully signed in!",
-        icon: "success",
-        confirmButtonText: "Go to Dashboard",
-      }).then(() => {
-        window.location.href = "/HomePage";
-      });
+      router.push("/HomePage");
 
       setEmail("");
       setPassword("");
@@ -53,10 +53,8 @@ const UserLogin = () => {
     } catch (error: any) {
       console.error("Sign In error:", error);
 
-      // Extract error message
       let errorMessage = "An unexpected error occurred. Please try again.";
 
-      // Customize error messages based on error codes
       if (error.code === "auth/user-not-found") {
         errorMessage = "No user found with this email. Please register first.";
       } else if (error.code === "auth/wrong-password") {
@@ -72,35 +70,118 @@ const UserLogin = () => {
   };
 
   return (
-    <div className="register-container">
-      <h2>Create an Account</h2>
-      <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="Enter your email"
-          />
-        </div>
+    <div
+      className="d-flex justify-content-center align-items-center py-5"
+      style={{ backgroundColor: "#000" }}
+    >
+      <div
+        className="card bg-black text-white border"
+        style={{
+          borderRadius: "1rem",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.5)",
+          width: "100%",
+          maxWidth: "500px",
+        }}
+      >
+        <div className="card-body">
+          <h2 className="card-title text-center mb-3">Log In</h2>
+          <p className="text-center mb-5">Enter your information to sign in.</p>
 
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="Enter your password"
-          />
-        </div>
+          <form onSubmit={handleLogin}>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="email">
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="form-control"
+                style={{
+                  backgroundColor: "#000",
+                  color: "#fff",
+                  border: "1px solid #444",
+                  borderRadius: "0.5rem",
+                  padding: "0.75rem",
+                }}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+              />
+            </div>
 
-        <button type="submit">Login</button>
-      </form>
+            <div className="mb-5" style={{ position: "relative" }}>
+              <label className="form-label" htmlFor="password">
+                Password
+              </label>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                className="form-control"
+                style={{
+                  backgroundColor: "#000",
+                  color: "#fff",
+                  border: "1px solid #444",
+                  borderRadius: "0.5rem",
+                  padding: "0.75rem",
+                }}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+              />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  color: "#fff",
+                  padding: "0.30rem",
+                }}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+
+              <div className="d-flex justify-content-start mt-2">
+                <a
+                  href="/forgot-password"
+                  className="text-primary"
+                  style={{ fontSize: "0.9rem", textDecoration: "none" }}
+                >
+                  Forgot password?
+                </a>
+              </div>
+            </div>
+
+            <div className="mb-4 d-flex justify-content-center">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+                theme="dark"
+              />
+            </div>
+
+            <div className="d-grid gap-2">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                style={{
+                  borderRadius: "20px",
+                  padding: "10px",
+                }}
+              >
+                Log In
+              </button>
+            </div>
+          </form>
+          <p className="text-center mt-3">
+            Don&apos;t have an account? <a href="Register">Sign Up</a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

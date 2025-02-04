@@ -1,65 +1,41 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
-import ReCAPTCHA from "react-google-recaptcha";
 import RegisterAccount from "../../components/UserCredentials/UserSignup";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
-  const recaptchaRef = useRef<ReCAPTCHA | null>(null);
+  const searchParams = useSearchParams();
+  const selectedRole = searchParams.get("selectedRole");
+  const router = useRouter();
+
+  useEffect(() => {
+    const allowedRoles = ["Companies", "Candidates"];
+    if (!selectedRole || !allowedRoles.includes(selectedRole)) {
+      router.push("/Register");
+    }
+  }, [selectedRole, router]);
 
   return (
-    <div className="min-h-screen bg-black py-5">
+    <div
+      className="min-vh-100 d-flex justify-content-center align-items-start py-5"
+      style={{ backgroundColor: "#000" }}
+    >
       <div className="container">
         <Link
-          href="/HomePage"
-          className="text-white mb-5"
+          href="/Register"
+          className="text-white mb-5 flex items-center"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <ArrowLeft size={20} className="mr-2" />
+          <ArrowLeft size={20} className="me-2" />
         </Link>
 
         <div className="row justify-content-center">
-          <div className="col-12 col-md-8 col-lg-6">
-            <div
-              className="card bg-black border border-blue-800"
-              style={{ borderRadius: "1rem" }}
-            >
-              <div className="card-body p-4">
-                <RegisterAccount />
-                <div className="text-center mb-4">
-                  <h2 className="text-3xl font-bold text-white">
-                    Create Your Account
-                  </h2>
-                  <p className="text-white mt-2">
-                    Enter your information to get started.
-                  </p>
-                </div>
-
-                <div className="mb-4 d-flex justify-content-center">
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
-                    theme="dark"
-                  />
-                </div>
-
-                <div className="d-flex justify-content-center">
-                  <button
-                    type="submit"
-                    className="btn btn-primary w-50 bg-blue border-white"
-                  >
-                    Sign Up
-                  </button>
-                </div>
-                <p className="text-center mt-3 text-white">
-                  Already have an account? <a href="SignIn">Sign In</a>
-                </p>
-              </div>
-            </div>
-          </div>
+          <RegisterAccount selectedRole={selectedRole} />
         </div>
       </div>
     </div>
