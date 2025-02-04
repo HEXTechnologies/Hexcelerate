@@ -64,7 +64,8 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
 
       Swal.fire("Success", "Account created successfully", "success").then(
         () => {
-          router.push("/HomePage");
+          // Redirect to the appropriate profile page based on role
+          router.push(`/${selectedRole}Profile`);
         }
       );
 
@@ -79,6 +80,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
 
       if (error.code === "auth/email-already-in-use") {
         errorMessage = "This email is already in use. Please try logging in.";
+        router.push("/SignIn");
       } else if (error.code === "auth/invalid-email") {
         errorMessage = "The email address is invalid.";
       } else if (error.code === "auth/weak-password") {

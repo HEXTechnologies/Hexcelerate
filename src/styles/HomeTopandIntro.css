@@ -1,11 +1,9 @@
 
 .HomeImageCt {
   background-color: rgb(0, 0, 0);
-  height: 800px;
+  height: "100%";
   display: flex;
   padding-top: 0;
-  padding-bottom: 6.5rem;
-  margin-top: 4rem;
   color: white;
 }
 

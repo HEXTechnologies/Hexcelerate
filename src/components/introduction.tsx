@@ -82,7 +82,7 @@ const Introduction: React.FC = () => {
 
   return (
     <div id="Introduction" className="IntroDiv px-4 pt-5">
-      <div className="text-center mb-5">
+      <div className="text-center mb-5 mt-5">
         <h1 className="text-white fw-bold mb-3">{currentContent.header}</h1>
         <h4 className="text-white">{currentContent.subheader}</h4>
         <button
