@@ -186,11 +186,18 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
             {/* Right Side Items */}
             <div className="d-flex align-items-center gap-3 me-5 mt-2">
               <Link
-                href="SignIn"
-                className="btn btn-primary gradient-button text-white px-4 py-2"
-                style={{ fontSize: "0.9rem", borderRadius: "20px" }}
+                href="Register"
+                className="btn btn-primary gradient-button text-white px-3 py-2"
+                style={{ fontSize: "0.8rem", borderRadius: "20px" }}
               >
-                Sign In
+                Sign Up
+              </Link>
+              <Link
+                href="SignIn"
+                className="btn btn-primary gradient-button text-white px-3 py-2"
+                style={{ fontSize: "0.8rem", borderRadius: "20px" }}
+              >
+                Login
               </Link>
               <div
                 onClick={toggleLightMode}
