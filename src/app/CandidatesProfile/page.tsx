@@ -21,6 +21,7 @@ import ProfileExperience from "../../components/CandidatesProfile/ProfileExperie
 import ProfileEducation from "../../components/CandidatesProfile/ProfileEducation";
 import ProfileSkills from "../../components/CandidatesProfile/ProfileSkills";
 import ProfileCertifications from "../../components/CandidatesProfile/ProfileCertifications";
+import ProfileSkeletons from "../../components/CandidatesProfile/ProfileSkeletons";
 import PreseedNavbar from "../../components/HomePageComponents/PreseedNavbar";
 
 interface ProfileDashboardProps {
@@ -61,40 +62,11 @@ const ProfileDashboard = ({ userId }: ProfileDashboardProps) => {
   }, [user, userId]);
 
   if (loading) {
-    return (
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: "rgba(0, 0, 0, 0.5)",
-        }}
-      >
-        <div
-          className="spinner-border text-primary"
-          style={{ width: "3rem", height: "3rem" }}
-          role="status"
-        >
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
+    return <ProfileSkeletons isLightMode={isLightMode} />;
   }
 
   if (!profileData) {
-    return (
-      <div className="container py-5">
-        <div className="alert alert-info text-center" role="alert">
-          No profile data available. Please add your LinkedIn profile.
-        </div>
-      </div>
-    );
+    return <ProfileSkeletons isLightMode={isLightMode} />;
   }
 
   const { person } = profileData;
