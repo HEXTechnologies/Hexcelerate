@@ -162,7 +162,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 </li>
                 <li className="nav-item">
                   <Link href="#Category" style={{ fontSize: "0.9rem" }}>
-                    Residents
+                    Candidates
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -256,7 +256,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
                 >
-                  Residents
+                  Candidates
                 </Link>
               </li>
               <li className="nav-item mb-2">

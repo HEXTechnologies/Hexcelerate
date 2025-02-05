@@ -23,17 +23,26 @@ import ProfileSkills from "../../components/CandidatesProfile/ProfileSkills";
 import ProfileCertifications from "../../components/CandidatesProfile/ProfileCertifications";
 import ProfileSkeletons from "../../components/CandidatesProfile/ProfileSkeletons";
 import LikelihoodScore from "../../components/CandidatesProfile/LikelihoodScore";
+import ProfileInput from "../../components/CandidatesProfile/ProfileInput";
 import Navbar from "../../components/CandidatesProfile/Navbar";
+import NoProfileIntro from "../../components/CandidatesProfile/NoProfileIntro";
 
 interface ProfileDashboardProps {
   userId?: string;
+  linkedInUrl?: string;
 }
 
-const ProfileDashboard = ({ userId }: ProfileDashboardProps) => {
+const ProfileDashboard = ({
+  userId,
+  linkedInUrl: initialLinkedInUrl,
+}: ProfileDashboardProps) => {
   const [user] = useAuthState(auth);
   const [profileData, setProfileData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isLightMode, setIsLightMode] = useState(false);
+  const [linkedInUrl, setLinkedInUrl] = useState<string | undefined>(
+    initialLinkedInUrl
+  );
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -43,9 +52,15 @@ const ProfileDashboard = ({ userId }: ProfileDashboardProps) => {
 
         const candidateRef = doc(firestore, "Candidates", currentUserId);
         const candidateDoc = await getDoc(candidateRef);
+        const candidateData = candidateDoc.data();
 
-        if (candidateDoc.exists() && candidateDoc.data().linkedInData) {
-          setProfileData(candidateDoc.data().linkedInData);
+        // Update LinkedIn URL state
+        if (candidateData?.linkedInUrl) {
+          setLinkedInUrl(candidateData.linkedInUrl);
+        }
+
+        if (candidateDoc.exists() && candidateData?.linkedInData) {
+          setProfileData(candidateData.linkedInData);
         }
       } catch (error) {
         console.error("Error fetching profile data:", error);
@@ -70,7 +85,7 @@ const ProfileDashboard = ({ userId }: ProfileDashboardProps) => {
             <div className="col-12 col-lg-10">
               <div className="bottom-light left-light"></div>
               <div className="bottom-light right-light"></div>
-              <ProfileSkeletons isLightMode={isLightMode} />;
+              <ProfileSkeletons isLightMode={isLightMode} />
             </div>
           </div>
         </div>
@@ -78,7 +93,7 @@ const ProfileDashboard = ({ userId }: ProfileDashboardProps) => {
     );
   }
 
-  if (!profileData) {
+  if (!profileData || !linkedInUrl) {
     return (
       <main className="HomeImageCt">
         <div className="container py-4 mt-5 mb-5">
@@ -86,7 +101,41 @@ const ProfileDashboard = ({ userId }: ProfileDashboardProps) => {
             <div className="col-12 col-lg-10">
               <div className="bottom-light left-light"></div>
               <div className="bottom-light right-light"></div>
-              <ProfileSkeletons isLightMode={isLightMode} />;
+              <Navbar
+                isLightMode={isLightMode}
+                setIsLightMode={setIsLightMode}
+              />
+              {!linkedInUrl && (
+                <>
+                  <NoProfileIntro isLightMode={isLightMode} />
+                  <ProfileInput
+                    isLightMode={isLightMode}
+                    onSubmit={async (newLinkedInUrl: string) => {
+                      setLinkedInUrl(newLinkedInUrl);
+                      // Trigger a refresh of profile data
+                      setLoading(true);
+                      const currentUserId = userId || user?.uid;
+                      if (currentUserId) {
+                        const candidateRef = doc(
+                          firestore,
+                          "Candidates",
+                          currentUserId
+                        );
+                        const candidateDoc = await getDoc(candidateRef);
+                        const candidateData = candidateDoc.data();
+                        if (
+                          candidateDoc.exists() &&
+                          candidateData?.linkedInData
+                        ) {
+                          setProfileData(candidateData.linkedInData);
+                        }
+                      }
+                      setLoading(false);
+                    }}
+                  />
+                </>
+              )}
+              <ProfileSkeletons isLightMode={isLightMode} />
             </div>
           </div>
         </div>
@@ -103,10 +152,7 @@ const ProfileDashboard = ({ userId }: ProfileDashboardProps) => {
           <div className="col-12">
             <div className="bottom-light left-light"></div>
             <div className="bottom-light right-light"></div>
-            <Navbar
-              isLightMode={isLightMode}
-              setIsLightMode={setIsLightMode}
-            />
+            <Navbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} />
 
             <div className="row">
               {/* Main content column */}
