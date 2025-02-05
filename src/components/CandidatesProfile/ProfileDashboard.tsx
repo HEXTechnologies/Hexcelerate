@@ -1,57 +1,42 @@
-/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore } from "../../../firebaseConfig/firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { Briefcase, MapPin, Award } from "lucide-react";
 import Swal from "sweetalert2";
+
+import ProfileHeader from "../../components/CandidatesProfile/ProfileHeader";
+import ProfileAbout from "../../components/CandidatesProfile/ProfileAbout";
+import ProfileExperience from "../../components/CandidatesProfile/ProfileExperience";
+import ProfileEducation from "../../components/CandidatesProfile/ProfileEducation";
+import ProfileSkills from "../../components/CandidatesProfile/ProfileSkills";
+import ProfileCertifications from "../../components/CandidatesProfile/ProfileCertifications";
+import ProfileSkeletons from "../../components/CandidatesProfile/ProfileSkeletons";
+import LikelihoodScore from "../../components/CandidatesProfile/LikelihoodScore";
+import ProfileInput from "../../components/CandidatesProfile/ProfileInput";
+import Navbar from "../../components/CandidatesProfile/Navbar";
+import NoProfileIntro from "../../components/CandidatesProfile/NoProfileIntro";
 
 interface ProfileDashboardProps {
   userId?: string;
-  isLightMode: boolean;
+  linkedInUrl?: string;
+  onSubmit: (linkedInUrl: string) => Promise<void>;
 }
 
-interface Experience {
-  company: string;
-  title: string;
-  description?: string;
-  date_range?: string;
-  duration?: string;
-}
-
-interface Education {
-  school: string;
-  degree?: string;
-  field?: string;
-  date_range?: string;
-}
-
-interface ProfileData {
-  person: {
-    full_name?: string;
-    headline?: string;
-    location?: string;
-    profile_pic_url?: string;
-    summary?: string;
-    experiences?: Experience[];
-    education?: Education[];
-    skills?: string[];
-  };
-  company?: {
-    name: string;
-    website?: string;
-    industry?: string;
-    employee_count?: string;
-    description?: string;
-  };
-}
-
-const ProfileDashboard = ({ userId, isLightMode }: ProfileDashboardProps) => {
+const ProfileDashboard = ({
+  userId,
+  linkedInUrl: initialLinkedInUrl,
+  onSubmit,
+}: ProfileDashboardProps) => {
   const [user] = useAuthState(auth);
-  const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [profileData, setProfileData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isLightMode, setIsLightMode] = useState(false);
+  const [linkedInUrl, setLinkedInUrl] = useState<string | undefined>(
+    initialLinkedInUrl
+  );
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -61,9 +46,15 @@ const ProfileDashboard = ({ userId, isLightMode }: ProfileDashboardProps) => {
 
         const candidateRef = doc(firestore, "Candidates", currentUserId);
         const candidateDoc = await getDoc(candidateRef);
+        const candidateData = candidateDoc.data();
 
-        if (candidateDoc.exists() && candidateDoc.data().linkedInData) {
-          setProfileData(candidateDoc.data().linkedInData);
+        // Update LinkedIn URL state
+        if (candidateData?.linkedInUrl) {
+          setLinkedInUrl(candidateData.linkedInUrl);
+        }
+
+        if (candidateDoc.exists() && candidateData?.linkedInData) {
+          setProfileData(candidateData.linkedInData);
         }
       } catch (error) {
         console.error("Error fetching profile data:", error);
@@ -82,172 +73,147 @@ const ProfileDashboard = ({ userId, isLightMode }: ProfileDashboardProps) => {
 
   if (loading) {
     return (
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="animate-pulse space-y-4">
-          <div className="h-32 bg-gray-200 rounded-lg"></div>
-          <div className="space-y-2">
-            <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+      <main className="HomeImageCt">
+        <div className="container py-4 mt-5 mb-5">
+          <div className="row justify-content-center mt-5 mb-5">
+            <div className="col-12 col-lg-10">
+              <div className="bottom-light left-light"></div>
+              <div className="bottom-light right-light"></div>
+              <ProfileSkeletons isLightMode={isLightMode} />
+            </div>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 
-  if (!profileData) {
+  if (!profileData || !linkedInUrl) {
     return (
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="text-center py-8 bg-gray-50 rounded-lg">
-          <p className="text-gray-600">No profile data available</p>
+      <main className="HomeImageCt">
+        <div className="container py-4 mt-5 mb-5">
+          <div className="row justify-content-center mt-5 mb-5">
+            <div className="col-12 col-lg-10">
+              <div className="bottom-light left-light"></div>
+              <div className="bottom-light right-light"></div>
+              <Navbar
+                isLightMode={isLightMode}
+                setIsLightMode={setIsLightMode}
+              />
+              {!profileData && !linkedInUrl && (
+                <>
+                  <NoProfileIntro isLightMode={isLightMode} />
+                  <ProfileInput
+                    isLightMode={isLightMode}
+                    onSubmit={async (newLinkedInUrl: string) => {
+                      try {
+                        await onSubmit(newLinkedInUrl);
+                        setLinkedInUrl(newLinkedInUrl);
+                        const currentUserId = userId || user?.uid;
+                        if (currentUserId) {
+                          const candidateRef = doc(
+                            firestore,
+                            "Candidates",
+                            currentUserId
+                          );
+                          const candidateDoc = await getDoc(candidateRef);
+                          const candidateData = candidateDoc.data();
+                          if (
+                            candidateDoc.exists() &&
+                            candidateData?.linkedInData
+                          ) {
+                            setProfileData(candidateData.linkedInData);
+                          }
+                        }
+                      } catch (error) {
+                        console.error("Error submitting profile:", error);
+                      } finally {
+                        setLoading(false);
+                      }
+                    }}
+                  />
+                </>
+              )}
+              <ProfileSkeletons isLightMode={isLightMode} />
+            </div>
+          </div>
         </div>
-      </div>
+      </main>
     );
   }
 
   const { person } = profileData;
 
-  const cardStyle = {
-    backgroundColor: isLightMode ? "#fff" : "#040411",
-    color: isLightMode ? "#000" : "#fff",
-    borderRadius: "1rem",
-    borderColor: isLightMode ? "#dee2e6" : "#444",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    marginBottom: "1.5rem",
-    overflow: "hidden",
-  };
-
-  const textStyle = {
-    color: isLightMode ? "#666" : "#ccc",
-  };
-
-  if (loading) {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <div className="card" style={cardStyle}>
-              <div className="card-body">
-                <div className="placeholder-glow">
-                  <span className="placeholder col-6"></span>
-                  <span className="placeholder w-75"></span>
-                  <span className="placeholder" style={{ width: "25%" }}></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="container">
-      {/* Profile Header */}
-      <div className="card mb-4" style={cardStyle}>
-        <div className="card-body">
-          <div className="row">
-            {person.profile_pic_url && (
-              <div className="col-auto">
-                <img
-                  src={person.profile_pic_url}
-                  alt={person.full_name}
-                  className="rounded-circle"
-                  style={{ width: "96px", height: "96px", objectFit: "cover" }}
+    <main className="HomeImageCt">
+      <div className="container py-4 mt-5 mb-5">
+        <div className="row justify-content-center mt-5 mb-5">
+          <div className="col-12">
+            <div className="bottom-light left-light"></div>
+            <div className="bottom-light right-light"></div>
+            <Navbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} />
+
+            <div className="row">
+              {/* Main content column */}
+              <div className="col-md-8">
+                <ProfileHeader
+                  profilePicUrl={person.photoUrl}
+                  backgroundUrl={person.backgroundUrl}
+                  fullName={person.firstName + " " + person.lastName}
+                  headline={person.headline}
+                  location={person.location}
+                  isLightMode={isLightMode}
+                  schoolName={person.schools?.educationHistory[0]?.schoolName}
                 />
+
+                {person.summary && (
+                  <ProfileAbout
+                    summary={person.summary}
+                    headline={person.headline}
+                    openToWork={person.openToWork}
+                    isLightMode={isLightMode}
+                  />
+                )}
+
+                {person.positions?.positionHistory && (
+                  <ProfileExperience
+                    experiences={person.positions.positionHistory}
+                    isLightMode={isLightMode}
+                  />
+                )}
+
+                {person.schools?.educationHistory && (
+                  <ProfileEducation
+                    educations={person.schools.educationHistory}
+                    isLightMode={isLightMode}
+                  />
+                )}
+
+                {person.skills && (
+                  <ProfileSkills
+                    skills={person.skills}
+                    isLightMode={isLightMode}
+                  />
+                )}
+
+                {person.certifications?.certificationHistory && (
+                  <ProfileCertifications
+                    certifications={person.certifications.certificationHistory}
+                    isLightMode={isLightMode}
+                  />
+                )}
               </div>
-            )}
-            <div className="col">
-              <h1 className="h3 mb-2">{person.full_name}</h1>
-              {person.headline && (
-                <p className="mb-2" style={textStyle}>
-                  {person.headline}
-                </p>
-              )}
-              {person.location && (
-                <div className="d-flex align-items-center" style={textStyle}>
-                  <MapPin size={16} className="me-2" />
-                  <span>{person.location}</span>
+
+              {/* Sidebar column */}
+              <div className="col-md-4">
+                <div style={{ position: "sticky", top: "6.1rem" }}>
+                  <LikelihoodScore isLightMode={isLightMode} />
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Summary */}
-      {person.summary && (
-        <div className="card mb-4" style={cardStyle}>
-          <div className="card-body">
-            <h2 className="h4 mb-3">About</h2>
-            <p style={textStyle}>{person.summary}</p>
-          </div>
-        </div>
-      )}
-
-      {/* Experience */}
-      {person.experiences && person.experiences.length > 0 && (
-        <div className="card mb-4" style={cardStyle}>
-          <div className="card-body">
-            <div className="d-flex align-items-center mb-4">
-              <Briefcase className="me-2" />
-              <h2 className="h4 mb-0">Experience</h2>
-            </div>
-            {person.experiences.map((exp, index) => (
-              <div
-                key={index}
-                className="mb-4 ps-4"
-                style={{
-                  borderLeft: `2px solid ${isLightMode ? "#dee2e6" : "#444"}`,
-                }}
-              >
-                <h3 className="h5 mb-1">{exp.title}</h3>
-                <p className="mb-1" style={textStyle}>
-                  {exp.company}
-                </p>
-                {exp.date_range && (
-                  <p className="small mb-2" style={textStyle}>
-                    {exp.date_range}
-                  </p>
-                )}
-                {exp.description && (
-                  <p className="mb-0" style={textStyle}>
-                    {exp.description}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Skills */}
-      {person.skills && person.skills.length > 0 && (
-        <div className="card mb-4" style={cardStyle}>
-          <div className="card-body">
-            <div className="d-flex align-items-center mb-4">
-              <Award className="me-2" />
-              <h2 className="h4 mb-0">Skills</h2>
-            </div>
-            <div className="d-flex flex-wrap gap-2">
-              {person.skills.map((skill, index) => (
-                <span
-                  key={index}
-                  className="badge"
-                  style={{
-                    backgroundColor: isLightMode ? "#e3f2fd" : "#1a365d",
-                    color: isLightMode ? "#1565c0" : "#90caf9",
-                    padding: "0.5rem 1rem",
-                    borderRadius: "2rem",
-                  }}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    </main>
   );
 };
 
