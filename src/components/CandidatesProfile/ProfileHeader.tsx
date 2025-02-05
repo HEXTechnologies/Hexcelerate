@@ -35,10 +35,6 @@ const ProfileHeader = ({
     overflow: "hidden",
   };
 
-  const textStyle = {
-    color: isLightMode ? "#666" : "#ccc",
-  };
-
   const backgroundStyle = useGradient
     ? {
         height: "200px",

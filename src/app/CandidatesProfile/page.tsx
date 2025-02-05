@@ -22,7 +22,8 @@ import ProfileEducation from "../../components/CandidatesProfile/ProfileEducatio
 import ProfileSkills from "../../components/CandidatesProfile/ProfileSkills";
 import ProfileCertifications from "../../components/CandidatesProfile/ProfileCertifications";
 import ProfileSkeletons from "../../components/CandidatesProfile/ProfileSkeletons";
-import PreseedNavbar from "../../components/HomePageComponents/PreseedNavbar";
+import LikelihoodScore from "../../components/CandidatesProfile/LikelihoodScore";
+import Navbar from "../../components/CandidatesProfile/Navbar";
 
 interface ProfileDashboardProps {
   userId?: string;
@@ -62,11 +63,35 @@ const ProfileDashboard = ({ userId }: ProfileDashboardProps) => {
   }, [user, userId]);
 
   if (loading) {
-    return <ProfileSkeletons isLightMode={isLightMode} />;
+    return (
+      <main className="HomeImageCt">
+        <div className="container py-4 mt-5 mb-5">
+          <div className="row justify-content-center mt-5 mb-5">
+            <div className="col-12 col-lg-10">
+              <div className="bottom-light left-light"></div>
+              <div className="bottom-light right-light"></div>
+              <ProfileSkeletons isLightMode={isLightMode} />;
+            </div>
+          </div>
+        </div>
+      </main>
+    );
   }
 
   if (!profileData) {
-    return <ProfileSkeletons isLightMode={isLightMode} />;
+    return (
+      <main className="HomeImageCt">
+        <div className="container py-4 mt-5 mb-5">
+          <div className="row justify-content-center mt-5 mb-5">
+            <div className="col-12 col-lg-10">
+              <div className="bottom-light left-light"></div>
+              <div className="bottom-light right-light"></div>
+              <ProfileSkeletons isLightMode={isLightMode} />;
+            </div>
+          </div>
+        </div>
+      </main>
+    );
   }
 
   const { person } = profileData;
@@ -75,77 +100,71 @@ const ProfileDashboard = ({ userId }: ProfileDashboardProps) => {
     <main className="HomeImageCt">
       <div className="container py-4 mt-5 mb-5">
         <div className="row justify-content-center mt-5 mb-5">
-          <div className="col-12 col-lg-10">
+          <div className="col-12">
             <div className="bottom-light left-light"></div>
             <div className="bottom-light right-light"></div>
-            <PreseedNavbar
+            <Navbar
               isLightMode={isLightMode}
               setIsLightMode={setIsLightMode}
             />
 
-            <ProfileHeader
-              profilePicUrl={person.photoUrl}
-              backgroundUrl={person.backgroundUrl}
-              fullName={person.firstName + " " + person.lastName}
-              headline={person.headline}
-              location={person.location}
-              isLightMode={isLightMode}
-              schoolName={person.schools?.educationHistory[0]?.schoolName}
-            />
+            <div className="row">
+              {/* Main content column */}
+              <div className="col-md-8">
+                <ProfileHeader
+                  profilePicUrl={person.photoUrl}
+                  backgroundUrl={person.backgroundUrl}
+                  fullName={person.firstName + " " + person.lastName}
+                  headline={person.headline}
+                  location={person.location}
+                  isLightMode={isLightMode}
+                  schoolName={person.schools?.educationHistory[0]?.schoolName}
+                />
 
-            {person.summary && (
-              <ProfileAbout
-                summary={person.summary}
-                headline={person.headline}
-                openToWork={person.openToWork}
-                isLightMode={isLightMode}
-              />
-            )}
+                {person.summary && (
+                  <ProfileAbout
+                    summary={person.summary}
+                    headline={person.headline}
+                    openToWork={person.openToWork}
+                    isLightMode={isLightMode}
+                  />
+                )}
 
-            {person.positions?.positionHistory && (
-              <ProfileExperience
-                experiences={person.positions.positionHistory}
-                isLightMode={isLightMode}
-              />
-            )}
+                {person.positions?.positionHistory && (
+                  <ProfileExperience
+                    experiences={person.positions.positionHistory}
+                    isLightMode={isLightMode}
+                  />
+                )}
 
-            {person.schools?.educationHistory && (
-              <ProfileEducation
-                educations={person.schools.educationHistory}
-                isLightMode={isLightMode}
-              />
-            )}
+                {person.schools?.educationHistory && (
+                  <ProfileEducation
+                    educations={person.schools.educationHistory}
+                    isLightMode={isLightMode}
+                  />
+                )}
 
-            {person.skills && (
-              <ProfileSkills skills={person.skills} isLightMode={isLightMode} />
-            )}
+                {person.skills && (
+                  <ProfileSkills
+                    skills={person.skills}
+                    isLightMode={isLightMode}
+                  />
+                )}
 
-            {person.certifications?.certificationHistory && (
-              <ProfileCertifications
-                certifications={person.certifications.certificationHistory}
-                isLightMode={isLightMode}
-              />
-            )}
+                {person.certifications?.certificationHistory && (
+                  <ProfileCertifications
+                    certifications={person.certifications.certificationHistory}
+                    isLightMode={isLightMode}
+                  />
+                )}
+              </div>
 
-            {/* Add a Download CV button */}
-            <div className="text-center mt-4">
-              <button
-                className="btn gradient-button text-white"
-                style={{
-                  padding: "0.75rem 2rem",
-                  fontSize: "1.1rem",
-                  transition: "all 0.3s ease",
-                }}
-                onClick={() => {
-                  Swal.fire({
-                    icon: "info",
-                    title: "Coming Soon",
-                    text: "CV download feature will be available soon!",
-                  });
-                }}
-              >
-                Download CV
-              </button>
+              {/* Sidebar column */}
+              <div className="col-md-4">
+                <div style={{ position: "sticky", top: "6.1rem" }}>
+                  <LikelihoodScore isLightMode={isLightMode} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
