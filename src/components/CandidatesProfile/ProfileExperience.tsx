@@ -1,7 +1,13 @@
-// components/CandidatesProfile/ProfileExperience.tsx
 "use client";
 
-import { Briefcase, MapPin, Calendar } from "lucide-react";
+import {
+  Briefcase,
+  MapPin,
+  Calendar,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
+import { useState } from "react";
 
 interface Experience {
   title: string;
@@ -24,6 +30,11 @@ const ProfileExperience = ({
   experiences,
   isLightMode,
 }: ProfileExperienceProps) => {
+  // Track expanded state for each experience
+  const [expandedItems, setExpandedItems] = useState<{
+    [key: number]: boolean;
+  }>({});
+
   const cardStyle = {
     backgroundColor: isLightMode ? "#fff" : "#040411",
     color: isLightMode ? "#000" : "#fff",
@@ -58,6 +69,19 @@ const ProfileExperience = ({
     border: `2px solid ${isLightMode ? "#dee2e6" : "#444"}`,
   };
 
+  const buttonStyle = {
+    background: "none",
+    border: "none",
+    color: isLightMode ? "#007bff" : "#4da3ff",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    padding: "0.5rem 0",
+    cursor: "pointer",
+    fontSize: "0.9rem",
+    marginTop: "0.5rem",
+  };
+
   const formatDate = (date?: { month?: number; year?: number }) => {
     if (!date || !date.year) return "";
     const month = date.month
@@ -66,6 +90,19 @@ const ProfileExperience = ({
         })
       : "";
     return `${month} ${date.year}`;
+  };
+
+  const toggleExpand = (index: number) => {
+    setExpandedItems((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
+  // Function to truncate text
+  const truncateText = (text: string, maxLength: number = 250) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + "...";
   };
 
   return (
@@ -134,16 +171,38 @@ const ProfileExperience = ({
               </div>
 
               {exp.description && (
-                <div
-                  style={{
-                    ...textStyle,
-                    fontSize: "0.95rem",
-                    lineHeight: "1.6",
-                    whiteSpace: "pre-line",
-                  }}
-                >
-                  {exp.description}
-                </div>
+                <>
+                  <div
+                    style={{
+                      ...textStyle,
+                      fontSize: "0.95rem",
+                      lineHeight: "1.6",
+                      whiteSpace: "pre-line",
+                    }}
+                  >
+                    {expandedItems[index]
+                      ? exp.description
+                      : truncateText(exp.description)}
+                  </div>
+                  {exp.description.length > 250 && (
+                    <button
+                      onClick={() => toggleExpand(index)}
+                      style={buttonStyle}
+                    >
+                      {expandedItems[index] ? (
+                        <>
+                          <span>Show less</span>
+                          <ChevronUp size={16} />
+                        </>
+                      ) : (
+                        <>
+                          <span>Read more</span>
+                          <ChevronDown size={16} />
+                        </>
+                      )}
+                    </button>
+                  )}
+                </>
               )}
             </div>
           ))}

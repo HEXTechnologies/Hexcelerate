@@ -1,7 +1,13 @@
-// components/CandidatesProfile/ProfileAbout.tsx
 "use client";
 
-import { User, Briefcase, CircleDot } from "lucide-react";
+import React, { useState } from "react";
+import {
+  User,
+  Briefcase,
+  CircleDot,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 
 interface ProfileAboutProps {
   summary: string;
@@ -16,6 +22,8 @@ const ProfileAbout = ({
   openToWork,
   isLightMode,
 }: ProfileAboutProps) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const cardStyle = {
     backgroundColor: isLightMode ? "#fff" : "#040411",
     color: isLightMode ? "#000" : "#fff",
@@ -86,6 +94,24 @@ const ProfileAbout = ({
     position: "relative" as const,
   };
 
+  const buttonStyle = {
+    background: "none",
+    border: "none",
+    color: isLightMode ? "#007bff" : "#4da3ff",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    padding: "0.5rem 0",
+    cursor: "pointer",
+    fontSize: "0.9rem",
+    marginTop: "0.5rem",
+  };
+
+  const truncateText = (text: string, maxLength: number = 300) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + "...";
+  };
+
   return (
     <div className="card mb-4" style={cardStyle}>
       <div className="card-body p-4">
@@ -121,16 +147,37 @@ const ProfileAbout = ({
           </div>
         </div>
 
-        <div
-          style={{
-            ...textStyle,
-            lineHeight: "1.8",
-            fontSize: "0.95rem",
-            whiteSpace: "pre-line",
-            padding: "0 4px",
-          }}
-        >
-          {summary}
+        <div>
+          <div
+            style={{
+              ...textStyle,
+              lineHeight: "1.8",
+              fontSize: "0.95rem",
+              whiteSpace: "pre-line",
+              padding: "0 4px",
+            }}
+          >
+            {isExpanded ? summary : truncateText(summary)}
+          </div>
+          {summary.length > 300 && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              style={buttonStyle}
+              className="d-flex align-items-center"
+            >
+              {isExpanded ? (
+                <>
+                  <span>Show less</span>
+                  <ChevronUp size={16} />
+                </>
+              ) : (
+                <>
+                  <span>Read more</span>
+                  <ChevronDown size={16} />
+                </>
+              )}
+            </button>
+          )}
         </div>
       </div>
 

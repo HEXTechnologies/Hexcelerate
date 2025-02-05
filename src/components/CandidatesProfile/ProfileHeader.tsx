@@ -146,7 +146,7 @@ const ProfileHeader = ({
                 margin: 0,
               }}
             >
-              SOFTWARE ENGINEERING RESIDENT
+              Candidate
             </div>
           )}
         </div>

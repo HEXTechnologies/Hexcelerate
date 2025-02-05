@@ -17,7 +17,10 @@ import ProfileSkeletons from "../../components/CandidatesProfile/ProfileSkeleton
 import LikelihoodScore from "../../components/CandidatesProfile/LikelihoodScore";
 import ProfileInput from "../../components/CandidatesProfile/ProfileInput";
 import Navbar from "../../components/CandidatesProfile/Navbar";
+import ProfileVolunteer from "../../components/CandidatesProfile/ProfileVolunteer";
+import ProfileRecommendations from "../../components/CandidatesProfile/ProfileRecommendations";
 import NoProfileIntro from "../../components/CandidatesProfile/NoProfileIntro";
+import SideNavbar from "../../components/CandidatesProfile/SideNavbar";
 
 interface ProfileDashboardProps {
   userId?: string;
@@ -145,7 +148,9 @@ const ProfileDashboard = ({
 
   return (
     <main className="HomeImageCt">
-      <div className="container py-4 mt-5 mb-5">
+      <SideNavbar isLightMode={isLightMode} profileData={profileData} />
+      <div className="container py-4 mt-5 mb-5" style={{ paddingLeft: "30px" }}>
+        {" "}
         <div className="row justify-content-center mt-5 mb-5">
           <div className="col-12">
             <div className="bottom-light left-light"></div>
@@ -166,46 +171,76 @@ const ProfileDashboard = ({
                 />
 
                 {person.summary && (
-                  <ProfileAbout
-                    summary={person.summary}
-                    headline={person.headline}
-                    openToWork={person.openToWork}
-                    isLightMode={isLightMode}
-                  />
+                  <div id="about">
+                    <ProfileAbout
+                      summary={person.summary}
+                      headline={person.headline}
+                      openToWork={person.openToWork}
+                      isLightMode={isLightMode}
+                    />
+                  </div>
                 )}
 
                 {person.positions?.positionHistory && (
-                  <ProfileExperience
-                    experiences={person.positions.positionHistory}
-                    isLightMode={isLightMode}
-                  />
+                  <div id="experience">
+                    <ProfileExperience
+                      experiences={person.positions.positionHistory}
+                      isLightMode={isLightMode}
+                    />
+                  </div>
                 )}
 
                 {person.schools?.educationHistory && (
-                  <ProfileEducation
-                    educations={person.schools.educationHistory}
-                    isLightMode={isLightMode}
-                  />
+                  <div id="education">
+                    <ProfileEducation
+                      educations={person.schools.educationHistory}
+                      isLightMode={isLightMode}
+                    />
+                  </div>
                 )}
 
                 {person.skills && (
-                  <ProfileSkills
-                    skills={person.skills}
-                    isLightMode={isLightMode}
-                  />
+                  <div id="skills">
+                    <ProfileSkills
+                      skills={person.skills}
+                      isLightMode={isLightMode}
+                    />
+                  </div>
                 )}
 
                 {person.certifications?.certificationHistory && (
-                  <ProfileCertifications
-                    certifications={person.certifications.certificationHistory}
-                    isLightMode={isLightMode}
-                  />
+                  <div id="certifications">
+                    <ProfileCertifications
+                      certifications={
+                        person.certifications.certificationHistory
+                      }
+                      isLightMode={isLightMode}
+                    />
+                  </div>
+                )}
+
+                {person.volunteeringExperiences && (
+                  <div id="volunteer">
+                    <ProfileVolunteer
+                      volunteeringExperiences={person.volunteeringExperiences}
+                      isLightMode={isLightMode}
+                    />
+                  </div>
+                )}
+
+                {person.recommendations && (
+                  <div id="recommendations">
+                    <ProfileRecommendations
+                      recommendations={person.recommendations}
+                      isLightMode={isLightMode}
+                    />
+                  </div>
                 )}
               </div>
 
               {/* Sidebar column */}
               <div className="col-md-4">
-                <div style={{ position: "sticky", top: "6.1rem" }}>
+                <div style={{ position: "sticky", top: "5rem" }}>
                   <LikelihoodScore isLightMode={isLightMode} />
                 </div>
               </div>
