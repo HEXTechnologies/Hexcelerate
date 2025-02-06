@@ -74,7 +74,7 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
   }
 
   return (
-    <nav className="navbar custom-navbar p-3 fixed-top">
+    <nav className="navbar custom-navbar fixed-top">
       <div className="container-fluid d-flex justify-content-between">
         {/* Left side - Dashboard */}
         <div className="d-lg-none">
@@ -156,27 +156,27 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
               {/* Navigation Links - Left Aligned */}
               <ul className="navbar-nav d-flex flex-row align-items-center">
                 <li className="nav-item">
-                  <Link href="#Services" style={{ fontSize: "1rem" }}>
+                  <Link href="#Services" style={{ fontSize: "0.9rem" }}>
                     Services
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="#Category" style={{ fontSize: "1rem" }}>
+                  <Link href="#Category" style={{ fontSize: "0.9rem" }}>
                     Category
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="#HowItWorks" style={{ fontSize: "1rem" }}>
+                  <Link href="#HowItWorks" style={{ fontSize: "0.9rem" }}>
                     How It Works
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="#Chatbot" style={{ fontSize: "1rem" }}>
+                  <Link href="#Chatbot" style={{ fontSize: "0.9rem" }}>
                     AI Tools
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/Experience" style={{ fontSize: "1rem" }}>
+                  <Link href="/Experience" style={{ fontSize: "0.9rem" }}>
                     Credibility
                   </Link>
                 </li>
@@ -184,7 +184,7 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Right Side Items */}
-            <div className="d-flex align-items-center gap-3 me-5 mt-2">
+            <div className="d-flex align-items-center gap-3 me-4 mt-2">
               <Link
                 href="Register"
                 className="btn btn-primary gradient-button text-white px-3 py-2"

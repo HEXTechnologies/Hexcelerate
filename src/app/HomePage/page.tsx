@@ -87,7 +87,7 @@ const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
   return (
     <div
       id="Title"
-      className="container-fluid HomeImageCt d-flex justify-content-center align-items-center pt-5"
+      className="container-fluid HomeImageCt d-flex justify-content-center align-items-center pt-3"
     >
       <div className="row w-100">
         <div className="col-md-6 d-flex flex-column justify-content-center align-items-center mb-5">
