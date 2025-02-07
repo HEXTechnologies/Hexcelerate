@@ -41,12 +41,6 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
     }
 
     try {
-      const recaptchaValue = recaptchaRef.current?.getValue();
-      if (!recaptchaValue) {
-        Swal.fire("Error", "Please complete the recaptcha", "error");
-        return;
-      }
-
       const result = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(result);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
