@@ -10,7 +10,7 @@ type NavbarProps = {
   setIsLightMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const PreseedNavbar: React.FC<NavbarProps> = ({
+const Navbar: React.FC<NavbarProps> = ({
   isLightMode,
   setIsLightMode,
 }) => {
@@ -61,7 +61,7 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
   // Return null or loading state while client-side code is not yet available
   if (!mounted) {
     return (
-      <nav className="navbar custom-navbar p-3 fixed-top">
+      <nav className="navbar custom-navbar fixed-top">
         <div className="container-fluid">
           <div className="d-flex gap-1 ms-auto">
             <div className="darkmode-icon d-flex align-items-center justify-content-center">
@@ -88,7 +88,7 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
               borderRadius: "10px",
             }}
           >
-            <Link className="text-white" href="#Title">
+            <Link className="text-white" href="HomePage">
               <img
                 src={"/HEX-HACC-2024-LIGHT.png"}
                 alt="Dashboard Icon"
@@ -96,7 +96,7 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
                 height={30}
                 className="object-contain"
               />
-              Haumana Exchange LLC
+              Hexcelerate AI
             </Link>
           </div>
         </div>
@@ -142,7 +142,7 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
                   borderRadius: "60px",
                 }}
               >
-                <Link href="#Title">
+                <Link href="HomePage">
                   <img
                     src={"/HEX-HACC-2024-LIGHT.png"}
                     alt="Dashboard Icon"
@@ -157,27 +157,17 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
               <ul className="navbar-nav d-flex flex-row align-items-center">
                 <li className="nav-item">
                   <Link href="#Services" style={{ fontSize: "0.9rem" }}>
-                    Services
+                    Companies
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="#Category" style={{ fontSize: "0.9rem" }}>
-                    Category
+                  <Link href="Candidates" style={{ fontSize: "0.9rem" }}>
+                    Candidates
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link href="#HowItWorks" style={{ fontSize: "0.9rem" }}>
-                    How It Works
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="#Chatbot" style={{ fontSize: "0.9rem" }}>
-                    AI Tools
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/Experience" style={{ fontSize: "0.9rem" }}>
-                    Credibility
+                    Interview AI
                   </Link>
                 </li>
               </ul>
@@ -186,18 +176,11 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
             {/* Right Side Items */}
             <div className="d-flex align-items-center gap-3 me-4 mt-2">
               <Link
-                href="Register"
+                href="CandidatesProfile"
                 className="btn btn-primary gradient-button text-white px-3 py-2"
                 style={{ fontSize: "0.8rem", borderRadius: "20px" }}
               >
-                Sign Up
-              </Link>
-              <Link
-                href="SignIn"
-                className="btn btn-primary gradient-button text-white px-3 py-2"
-                style={{ fontSize: "0.8rem", borderRadius: "20px" }}
-              >
-                Login
+                View Profile
               </Link>
               <div
                 onClick={toggleLightMode}
@@ -251,9 +234,9 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
                   href="#Introduction"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
+                  style={{ fontSize: "0.9rem" }}
                 >
-                  Introduction
+                    Home
                 </Link>
               </li>
               <li className="nav-item mb-2">
@@ -261,19 +244,19 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
                   href="#Category"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
+                  style={{ fontSize: "0.9rem" }}
                 >
-                  Category
+                  Companies
                 </Link>
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="#Services"
+                  href="Candidates"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
+                  style={{ fontSize: "0.9rem" }}
                 >
-                  Services
+                  Candidates
                 </Link>
               </li>
               <li className="nav-item mb-2">
@@ -281,38 +264,18 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
                   href="#HowItWorks"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
-                >
-                  How It Works
-                </Link>
-              </li>
-              <li className="nav-item mb-2">
-                <Link
-                  href="#Chatbot"
-                  className="nav-link"
-                  onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
-                >
-                  AI Tools
-                </Link>
-              </li>
-              {/* <li className="nav-item mb-2">
-                <Link
-                  href="Project"
-                  className="nav-link"
-                  onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
-                >
-                  Project Showcase
-                </Link>
-              </li> */}
-              <li className="nav-item mb-2">
-                <Link
-                  href="SignIn"
-                  className="btn btn-primary gradient-button text-white px-4 py-2"
                   style={{ fontSize: "0.9rem" }}
                 >
-                  Sign In
+                  Interview AI
+                </Link>
+              </li>
+              <li className="nav-item mb-2">
+                <Link
+                  href="CandidatesProfile"
+                  className="btn btn-primary gradient-button text-white px-4 py-2"
+                  style={{ fontSize: "0.8rem" }}
+                >
+                  View Profile
                 </Link>
               </li>
             </ul>
@@ -323,4 +286,4 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
   );
 };
 
-export default PreseedNavbar;
+export default Navbar;

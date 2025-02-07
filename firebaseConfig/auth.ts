@@ -1,4 +1,4 @@
-// .firebase/auth.ts
+// firebaseConfig/auth.ts
 
 import { auth, firestore } from "./firebase";
 import {

@@ -10,7 +10,7 @@ type NavbarProps = {
   setIsLightMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const PreseedNavbar: React.FC<NavbarProps> = ({
+const Navbar: React.FC<NavbarProps> = ({
   isLightMode,
   setIsLightMode,
 }) => {
@@ -61,7 +61,7 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
   // Return null or loading state while client-side code is not yet available
   if (!mounted) {
     return (
-      <nav className="navbar custom-navbar p-3 fixed-top">
+      <nav className="navbar custom-navbar fixed-top">
         <div className="container-fluid">
           <div className="d-flex gap-1 ms-auto">
             <div className="darkmode-icon d-flex align-items-center justify-content-center">
@@ -88,7 +88,7 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
               borderRadius: "10px",
             }}
           >
-            <Link className="text-white" href="#Title">
+            <Link className="text-white" href="Dashboard">
               <img
                 src={"/HEX-HACC-2024-LIGHT.png"}
                 alt="Dashboard Icon"
@@ -96,7 +96,7 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
                 height={30}
                 className="object-contain"
               />
-              Haumana Exchange LLC
+              Hexcelerate AI
             </Link>
           </div>
         </div>
@@ -142,7 +142,7 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
                   borderRadius: "60px",
                 }}
               >
-                <Link href="#Title">
+                <Link href="Dashboard">
                   <img
                     src={"/HEX-HACC-2024-LIGHT.png"}
                     alt="Dashboard Icon"
@@ -156,48 +156,31 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
               {/* Navigation Links - Left Aligned */}
               <ul className="navbar-nav d-flex flex-row align-items-center">
                 <li className="nav-item">
-                  <Link href="#Services" style={{ fontSize: "0.9rem" }}>
-                    Services
+                  <Link href="Companies" style={{ fontSize: "0.9rem" }}>
+                    Companies
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="#Category" style={{ fontSize: "0.9rem" }}>
-                    Category
+                  <Link href="Candidates" style={{ fontSize: "0.9rem" }}>
+                    Candidates
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="#HowItWorks" style={{ fontSize: "0.9rem" }}>
-                    How It Works
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="#Chatbot" style={{ fontSize: "0.9rem" }}>
-                    AI Tools
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link href="/Experience" style={{ fontSize: "0.9rem" }}>
-                    Credibility
+                  <Link href="InterviewAI" style={{ fontSize: "0.9rem" }}>
+                    Interview AI
                   </Link>
                 </li>
               </ul>
             </div>
 
             {/* Right Side Items */}
-            <div className="d-flex align-items-center gap-3 me-4 mt-2">
+            <div className="d-flex align-items-center gap-3 me-2 mt-2">
               <Link
-                href="Register"
+                href="Settings"
                 className="btn btn-primary gradient-button text-white px-3 py-2"
                 style={{ fontSize: "0.8rem", borderRadius: "20px" }}
               >
-                Sign Up
-              </Link>
-              <Link
-                href="SignIn"
-                className="btn btn-primary gradient-button text-white px-3 py-2"
-                style={{ fontSize: "0.8rem", borderRadius: "20px" }}
-              >
-                Login
+                Settings
               </Link>
               <div
                 onClick={toggleLightMode}
@@ -251,68 +234,48 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
                   href="#Introduction"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
-                >
-                  Introduction
-                </Link>
-              </li>
-              <li className="nav-item mb-2">
-                <Link
-                  href="#Category"
-                  className="nav-link"
-                  onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
-                >
-                  Category
-                </Link>
-              </li>
-              <li className="nav-item mb-2">
-                <Link
-                  href="#Services"
-                  className="nav-link"
-                  onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
-                >
-                  Services
-                </Link>
-              </li>
-              <li className="nav-item mb-2">
-                <Link
-                  href="#HowItWorks"
-                  className="nav-link"
-                  onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
-                >
-                  How It Works
-                </Link>
-              </li>
-              <li className="nav-item mb-2">
-                <Link
-                  href="#Chatbot"
-                  className="nav-link"
-                  onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
-                >
-                  AI Tools
-                </Link>
-              </li>
-              {/* <li className="nav-item mb-2">
-                <Link
-                  href="Project"
-                  className="nav-link"
-                  onClick={() => setIsOffcanvasOpen(false)}
-                  style={{ fontSize: "1rem" }}
-                >
-                  Project Showcase
-                </Link>
-              </li> */}
-              <li className="nav-item mb-2">
-                <Link
-                  href="SignIn"
-                  className="btn btn-primary gradient-button text-white px-4 py-2"
                   style={{ fontSize: "0.9rem" }}
                 >
-                  Sign In
+                    Home
+                </Link>
+              </li>
+              <li className="nav-item mb-2">
+                <Link
+                  href="Companies"
+                  className="nav-link"
+                  onClick={() => setIsOffcanvasOpen(false)}
+                  style={{ fontSize: "0.9rem" }}
+                >
+                  Companies
+                </Link>
+              </li>
+              <li className="nav-item mb-2">
+                <Link
+                  href="Candidates"
+                  className="nav-link"
+                  onClick={() => setIsOffcanvasOpen(false)}
+                  style={{ fontSize: "0.9rem" }}
+                >
+                  Candidates
+                </Link>
+              </li>
+              <li className="nav-item mb-2">
+                <Link
+                  href="InterviewAI"
+                  className="nav-link"
+                  onClick={() => setIsOffcanvasOpen(false)}
+                  style={{ fontSize: "0.9rem" }}
+                >
+                  Interview AI
+                </Link>
+              </li>
+              <li className="nav-item mb-2">
+                <Link
+                  href="Settings"
+                  className="btn btn-primary gradient-button text-white px-4 py-2"
+                  style={{ fontSize: "0.8rem" }}
+                >
+                  Settings
                 </Link>
               </li>
             </ul>
@@ -323,4 +286,4 @@ const PreseedNavbar: React.FC<NavbarProps> = ({
   );
 };
 
-export default PreseedNavbar;
+export default Navbar;

@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { auth } from "../../../firebaseConfig/firebase";
+import { auth, firestore } from "../../../firebaseConfig/firebase";
 import React, { useState, useRef } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -11,14 +13,36 @@ import { useRouter } from "next/navigation";
 const UserLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
-
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const router = useRouter();
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(false);
+
+  const checkUserCollection = async (userId: string) => {
+    // Check Companies collection first
+    const companiesQuery = query(
+      collection(firestore, 'Companies'),
+      where('firebase_id', '==', userId)
+    );
+    const companiesSnapshot = await getDocs(companiesQuery);
+    
+    if (!companiesSnapshot.empty) {
+      return 'Companies';
+    }
+
+    // If not found in Companies, check Candidates collection
+    const candidatesQuery = query(
+      collection(firestore, 'Candidates'),
+      where('firebase_id', '==', userId)
+    );
+    const candidatesSnapshot = await getDocs(candidatesQuery);
+    
+    if (!candidatesSnapshot.empty) {
+      return 'Candidates';
+    }
+
+    return null; // User not found in either collection
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,14 +66,21 @@ const UserLogin = () => {
         email,
         password
       );
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { user } = userCredential;
 
-      router.push("/HomePage");
+      // Determine which collection the user belongs to
+      const userRole = await checkUserCollection(user.uid);
+
+      if (!userRole) {
+        throw new Error('User profile not found');
+      }
+
+      // Navigate to the appropriate profile page
+      router.push(`/${userRole}Profile`);
 
       setEmail("");
       setPassword("");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     } catch (error: any) {
       console.error("Sign In error:", error);
 
@@ -61,6 +92,8 @@ const UserLogin = () => {
         errorMessage = "Incorrect password. Please try again.";
       } else if (error.code === "auth/invalid-email") {
         errorMessage = "The email address is invalid.";
+      } else if (error.message === 'User profile not found') {
+        errorMessage = "User profile not found. Please contact support.";
       }
 
       Swal.fire("Sign In Failed", errorMessage, "error");
@@ -172,8 +205,9 @@ const UserLogin = () => {
                   borderRadius: "20px",
                   padding: "10px",
                 }}
+                disabled={loading}
               >
-                Log In
+                {loading ? "Logging in..." : "Log In"}
               </button>
             </div>
           </form>

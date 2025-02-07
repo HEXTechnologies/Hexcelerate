@@ -1,22 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react"; // Removed useState since we don't need it anymore
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 export default function Register() {
-  const [selectedRole, setSelectedRole] = useState("");
   const router = useRouter();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleRoleSelection = (role: any) => {
-    setSelectedRole(role);
-  };
-
-  const handleSignUp = () => {
-    router.push(`/SignUp?selectedRole=${encodeURIComponent(selectedRole)}`);
+  // Combined role selection and signup into one function
+  const handleRoleSelection = (role: string) => {
+    router.push(`/SignUp?selectedRole=${encodeURIComponent(role)}`);
   };
 
   return (
@@ -27,7 +22,7 @@ export default function Register() {
       <div className="container">
         <Link
           href="/HomePage"
-          className="text-white mb-5 flex items-center"
+          className="text-white flex items-center"
           style={{ display: "flex", alignItems: "center" }}
         >
           <ArrowLeft size={20} className="me-2" />
@@ -50,9 +45,7 @@ export default function Register() {
                 <div className="text-center mb-3 mt-5">
                   <button
                     onClick={() => handleRoleSelection("Companies")}
-                    className={`btn btn-outline-light m-2 ${
-                      selectedRole === "Companies" ? "active" : ""
-                    }`}
+                    className="btn btn-outline-light m-2"
                     style={{ borderRadius: "20px", padding: "10px 150px" }}
                   >
                     Companies
@@ -61,25 +54,12 @@ export default function Register() {
                 <div className="text-center mb-5">
                   <button
                     onClick={() => handleRoleSelection("Candidates")}
-                    className={`btn btn-outline-light m-2 ${
-                      selectedRole === "Candidates" ? "active" : ""
-                    }`}
+                    className="btn btn-outline-light m-2"
                     style={{ borderRadius: "20px", padding: "10px 150px" }}
                   >
                     Candidates
                   </button>
                 </div>
-                {selectedRole && (
-                  <div className="text-center mt-4 mb-4">
-                    <button
-                      onClick={handleSignUp}
-                      className="btn btn-primary"
-                      style={{ borderRadius: "20px", padding: "10px 162px" }}
-                    >
-                      Sign Up
-                    </button>
-                  </div>
-                )}
                 <p className="text-center mt-3 mb-4 text-white">
                   Already have an account? <a href="SignIn">Log In</a>
                 </p>

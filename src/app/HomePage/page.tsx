@@ -87,7 +87,7 @@ const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
   return (
     <div
       id="Title"
-      className="container-fluid HomeImageCt d-flex justify-content-center align-items-center pt-5"
+      className="container-fluid HomeImageCt d-flex justify-content-center align-items-center pt-3"
     >
       <div className="row w-100">
         <div className="col-md-6 d-flex flex-column justify-content-center align-items-center mb-5">
@@ -126,6 +126,13 @@ const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
             src={isLightMode ? "/HEX-HACC-2024-LIGHT-5.png" : "/dark-graph.jpg"}
             alt="3D Graph"
             className="img-fluid right-image rounded fade-in"
+            style={{
+              height: "650px", // Set a fixed height
+              width: "auto", // Allow width to adjust proportionally
+              objectFit: "contain", // This ensures the image maintains its aspect ratio without stretching
+              paddingTop: "50px",
+              paddingBottom: "50px",
+            }}
           />
         </div>
       </div>
