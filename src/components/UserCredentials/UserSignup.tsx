@@ -2,7 +2,11 @@
 
 import { auth, firestore } from "../../../firebaseConfig/firebase";
 import React, { useState, useRef } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import { doc, setDoc, collection } from "firebase/firestore";
 import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -24,6 +28,37 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
   const router = useRouter();
 
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const provider = new GoogleAuthProvider();
+
+  const signUpWithGoogle = async () => {
+    if (
+      !selectedRole ||
+      (selectedRole !== "Companies" && selectedRole !== "Candidates")
+    ) {
+      Swal.fire("Error", "Invalid role selected", "error");
+      return;
+    }
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      const user = result.user;
+
+      const userData = {
+        email: user.email,
+        firebase_id: user.uid,
+      };
+
+      const userRef = doc(collection(firestore, selectedRole), user.uid);
+      await setDoc(userRef, userData);
+
+      router.push(`/${selectedRole}Profile`);
+    } catch (error) {
+      console.error("Google sign-in error:", error);
+      Swal.fire("Error", "Google sign-in failed. Please try again.", "error");
+    }
+  };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -225,6 +260,27 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
               </button>
             </div>
           </form>
+
+          <div className="d-flex align-items-center my-3">
+            <hr className="flex-grow-1" style={{ borderColor: "#888" }} />
+            <span className="mx-2">OR</span>
+            <hr className="flex-grow-1" style={{ borderColor: "#888" }} />
+          </div>
+
+          <div className="d-grid gap-2">
+            <button
+              type="button"
+              onClick={signUpWithGoogle}
+              className="btn btn-dark"
+              style={{
+                borderRadius: "20px",
+                padding: "10px",
+              }}
+            >
+              Sign Up with Google
+            </button>
+          </div>
+
           <p className="text-center mt-3">
             Already have an account?{" "}
             <a href="SignIn" className="text-primary text-decoration-none">
