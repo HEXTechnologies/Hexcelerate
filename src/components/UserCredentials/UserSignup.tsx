@@ -42,6 +42,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
     try {
       const result = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(result);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const token = credential?.accessToken;
       const user = result.user;
 
