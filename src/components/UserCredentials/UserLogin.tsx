@@ -21,24 +21,24 @@ const UserLogin = () => {
   const checkUserCollection = async (userId: string) => {
     // Check Companies collection first
     const companiesQuery = query(
-      collection(firestore, 'Companies'),
-      where('firebase_id', '==', userId)
+      collection(firestore, "Companies"),
+      where("firebase_id", "==", userId)
     );
     const companiesSnapshot = await getDocs(companiesQuery);
-    
+
     if (!companiesSnapshot.empty) {
-      return 'Companies';
+      return "Companies";
     }
 
     // If not found in Companies, check Candidates collection
     const candidatesQuery = query(
-      collection(firestore, 'Candidates'),
-      where('firebase_id', '==', userId)
+      collection(firestore, "Candidates"),
+      where("firebase_id", "==", userId)
     );
     const candidatesSnapshot = await getDocs(candidatesQuery);
-    
+
     if (!candidatesSnapshot.empty) {
-      return 'Candidates';
+      return "Candidates";
     }
 
     return null; // User not found in either collection
@@ -72,7 +72,7 @@ const UserLogin = () => {
       const userRole = await checkUserCollection(user.uid);
 
       if (!userRole) {
-        throw new Error('User profile not found');
+        throw new Error("User profile not found");
       }
 
       // Navigate to the appropriate profile page
@@ -80,7 +80,6 @@ const UserLogin = () => {
 
       setEmail("");
       setPassword("");
-
     } catch (error: any) {
       console.error("Sign In error:", error);
 
@@ -92,7 +91,7 @@ const UserLogin = () => {
         errorMessage = "Incorrect password. Please try again.";
       } else if (error.code === "auth/invalid-email") {
         errorMessage = "The email address is invalid.";
-      } else if (error.message === 'User profile not found') {
+      } else if (error.message === "User profile not found") {
         errorMessage = "User profile not found. Please contact support.";
       }
 
@@ -211,6 +210,13 @@ const UserLogin = () => {
               </button>
             </div>
           </form>
+
+          <div className="d-flex align-items-center my-3">
+            <hr className="flex-grow-1" style={{ borderColor: "#888" }} />
+            <span className="mx-2">OR</span>
+            <hr className="flex-grow-1" style={{ borderColor: "#888" }} />
+          </div>
+
           <p className="text-center mt-3">
             Don&apos;t have an account? <a href="Register">Sign Up</a>
           </p>
