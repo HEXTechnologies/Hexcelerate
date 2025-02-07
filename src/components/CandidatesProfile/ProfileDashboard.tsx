@@ -25,7 +25,7 @@ import SideNavbar from "../../components/CandidatesProfile/SideNavbar";
 interface ProfileDashboardProps {
   userId?: string;
   linkedInUrl?: string;
-  onSubmit: (linkedInUrl: string) => Promise<void>;
+  onSubmit: (data: any) => Promise<void>;
 }
 
 const ProfileDashboard = ({
@@ -35,6 +35,7 @@ const ProfileDashboard = ({
 }: ProfileDashboardProps) => {
   const [user] = useAuthState(auth);
   const [profileData, setProfileData] = useState<any>(null);
+  const [searchData, setSearchData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isLightMode, setIsLightMode] = useState(false);
   const [linkedInUrl, setLinkedInUrl] = useState<string | undefined>(
@@ -54,6 +55,9 @@ const ProfileDashboard = ({
         // Update LinkedIn URL state
         if (candidateData?.linkedInUrl) {
           setLinkedInUrl(candidateData.linkedInUrl);
+        }
+        if (candidateData?.searchData) {
+          setSearchData(candidateData.linkedInUrl);
         }
 
         if (candidateDoc.exists() && candidateData?.linkedInData) {
@@ -90,7 +94,7 @@ const ProfileDashboard = ({
     );
   }
 
-  if (!profileData || !linkedInUrl) {
+  if (!profileData) {
     return (
       <main className="HomeImageCt">
         <div className="container py-4 mt-5 mb-5">
@@ -102,7 +106,7 @@ const ProfileDashboard = ({
                 isLightMode={isLightMode}
                 setIsLightMode={setIsLightMode}
               />
-              {!profileData && !linkedInUrl && (
+              {!profileData && (!linkedInUrl || !searchData) && (
                 <>
                   <NoProfileIntro isLightMode={isLightMode} />
                   <ProfileInput
