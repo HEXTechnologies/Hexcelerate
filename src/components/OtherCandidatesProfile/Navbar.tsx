@@ -88,7 +88,7 @@ const Navbar: React.FC<NavbarProps> = ({
               borderRadius: "10px",
             }}
           >
-            <Link className="text-white" href="Dashboard">
+            <Link className="text-white" href="/Dashboard">
               <img
                 src={"/HEX-HACC-2024-LIGHT.png"}
                 alt="Dashboard Icon"
@@ -142,7 +142,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   borderRadius: "60px",
                 }}
               >
-                <Link href="Dashboard">
+                <Link href="/Dashboard">
                   <img
                     src={"/HEX-HACC-2024-LIGHT.png"}
                     alt="Dashboard Icon"
@@ -156,17 +156,17 @@ const Navbar: React.FC<NavbarProps> = ({
               {/* Navigation Links - Left Aligned */}
               <ul className="navbar-nav d-flex flex-row align-items-center">
                 <li className="nav-item">
-                  <Link href="Companies" style={{ fontSize: "0.9rem" }}>
+                  <Link href="/Companies" style={{ fontSize: "0.9rem" }}>
                     Companies
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="Candidates" style={{ fontSize: "0.9rem" }}>
+                  <Link href="/Candidates" style={{ fontSize: "0.9rem" }}>
                     Candidates
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="InterviewAI" style={{ fontSize: "0.9rem" }}>
+                  <Link href="/InterviewAI" style={{ fontSize: "0.9rem" }}>
                     Interview AI
                   </Link>
                 </li>
@@ -176,11 +176,11 @@ const Navbar: React.FC<NavbarProps> = ({
             {/* Right Side Items */}
             <div className="d-flex align-items-center gap-3 me-2 mt-2">
               <Link
-                href="Settings"
+                href="Compare"
                 className="btn btn-primary gradient-button text-white px-3 py-2"
                 style={{ fontSize: "0.8rem", borderRadius: "20px" }}
               >
-                Settings
+                Compare
               </Link>
               <div
                 onClick={toggleLightMode}
@@ -241,7 +241,7 @@ const Navbar: React.FC<NavbarProps> = ({
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="Companies"
+                  href="/Companies"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
@@ -251,7 +251,7 @@ const Navbar: React.FC<NavbarProps> = ({
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="Candidates"
+                  href="/Candidates"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
@@ -261,7 +261,7 @@ const Navbar: React.FC<NavbarProps> = ({
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="InterviewAI"
+                  href="/InterviewAI"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
@@ -271,11 +271,11 @@ const Navbar: React.FC<NavbarProps> = ({
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="Settings"
+                  href="Compare"
                   className="btn btn-primary gradient-button text-white px-4 py-2"
                   style={{ fontSize: "0.8rem" }}
                 >
-                  Settings
+                  Compare
                 </Link>
               </li>
             </ul>

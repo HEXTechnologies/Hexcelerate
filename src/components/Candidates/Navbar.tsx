@@ -88,7 +88,7 @@ const Navbar: React.FC<NavbarProps> = ({
               borderRadius: "10px",
             }}
           >
-            <Link className="text-white" href="Dashboard">
+            <Link className="text-white" href="HomePage">
               <img
                 src={"/HEX-HACC-2024-LIGHT.png"}
                 alt="Dashboard Icon"
@@ -142,7 +142,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   borderRadius: "60px",
                 }}
               >
-                <Link href="Dashboard">
+                <Link href="HomePage">
                   <img
                     src={"/HEX-HACC-2024-LIGHT.png"}
                     alt="Dashboard Icon"
@@ -156,7 +156,7 @@ const Navbar: React.FC<NavbarProps> = ({
               {/* Navigation Links - Left Aligned */}
               <ul className="navbar-nav d-flex flex-row align-items-center">
                 <li className="nav-item">
-                  <Link href="Companies" style={{ fontSize: "0.9rem" }}>
+                  <Link href="#Services" style={{ fontSize: "0.9rem" }}>
                     Companies
                   </Link>
                 </li>
@@ -166,7 +166,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="InterviewAI" style={{ fontSize: "0.9rem" }}>
+                  <Link href="#HowItWorks" style={{ fontSize: "0.9rem" }}>
                     Interview AI
                   </Link>
                 </li>
@@ -174,13 +174,13 @@ const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Right Side Items */}
-            <div className="d-flex align-items-center gap-3 me-2 mt-2">
+            <div className="d-flex align-items-center gap-3 me-4 mt-2">
               <Link
-                href="Settings"
+                href="CandidatesProfile"
                 className="btn btn-primary gradient-button text-white px-3 py-2"
                 style={{ fontSize: "0.8rem", borderRadius: "20px" }}
               >
-                Settings
+                View Profile
               </Link>
               <div
                 onClick={toggleLightMode}
@@ -241,7 +241,7 @@ const Navbar: React.FC<NavbarProps> = ({
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="Companies"
+                  href="#Category"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
@@ -261,7 +261,7 @@ const Navbar: React.FC<NavbarProps> = ({
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="InterviewAI"
+                  href="#HowItWorks"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
@@ -271,11 +271,11 @@ const Navbar: React.FC<NavbarProps> = ({
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="Settings"
+                  href="CandidatesProfile"
                   className="btn btn-primary gradient-button text-white px-4 py-2"
                   style={{ fontSize: "0.8rem" }}
                 >
-                  Settings
+                  View Profile
                 </Link>
               </li>
             </ul>

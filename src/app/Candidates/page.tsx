@@ -13,8 +13,12 @@ import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../../firebaseConfig/firebase";
 import ProfileCard from "../../components/Candidates/ProfileCard";
 import SearchSidebar from "../../components/Candidates/SearchSideBar";
-import Navbar from "../../components/CandidatesProfile/Navbar";
-import { Loader2 } from "lucide-react";
+import Navbar from "../../components/Candidates/Navbar";
+import {
+  SidebarSkeleton,
+  ProfileCardSkeleton,
+  HeaderSkeleton,
+} from "../../components/Candidates/Skeletons";
 
 interface Candidate {
   id: string;
@@ -184,25 +188,22 @@ const CandidatesListPage = () => {
           <div className="row">
             {/* Sidebar */}
             <div className="col-lg-3 col-xl-2 px-0">
-              <SearchSidebar
-                isLightMode={isLightMode}
-                filters={filters}
-                candidates={candidates} // Add this line
-                onFilterChange={handleFilterChange}
-                onClearFilters={clearFilters}
-              />
+              <SidebarSkeleton isLightMode={isLightMode} />
             </div>
-            {/* Loading State */}
-            <div className="col-lg-9 col-xl-10">
-              <div
-                className="d-flex justify-content-center align-items-center"
-                style={{ minHeight: "60vh" }}
-              >
-                <Loader2
-                  className="animate-spin"
-                  size={48}
-                  style={{ color: isLightMode ? "#666" : "#aaa" }}
-                />
+            {/* Main Content */}
+            <div className="col-lg-9 col-xl-10 mt-4">
+              <div className="container py-4">
+                {/* Header Section */}
+                <HeaderSkeleton isLightMode={isLightMode} />
+                {/* Profile Cards Grid */}
+                <div className="row">
+                  {[1, 2, 3, 4, 5, 6].map((index) => (
+                    <ProfileCardSkeleton
+                      key={index}
+                      isLightMode={isLightMode}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>

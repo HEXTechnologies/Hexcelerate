@@ -35,7 +35,7 @@ const SearchSidebar = ({
   onClearFilters,
 }: SearchSidebarProps) => {
   const sidebarStyle = {
-    backgroundColor: isLightMode ? "#ffffff" : "#000",
+    backgroundColor: isLightMode ? "#ffffff" : "#040411",
     borderRight: isLightMode ? "1px solid #e5e5e5" : "1px solid #333",
     padding: "1.5rem",
     height: "100vh",
@@ -52,7 +52,7 @@ const SearchSidebar = ({
   };
 
   const inputStyle = {
-    backgroundColor: isLightMode ? "#f8f9fa" : "#040411",
+    backgroundColor: isLightMode ? "#f8f9fa" : "rgba(255, 255, 255, 0.1)",
     border: isLightMode ? "1px solid #dee2e6" : "1px solid #404040",
     color: isLightMode ? "#333" : "#fff",
     padding: "0.5rem",
@@ -112,17 +112,25 @@ const SearchSidebar = ({
 
   return (
     <div style={sidebarStyle}>
-    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', gap: '1rem', marginTop: '4.5rem' }}>
-      <h2 style={{ ...headerStyle, margin: 0 }}>Search Filters</h2>
-      <button
-        onClick={onClearFilters}
-        style={{ ...clearButtonStyle, marginLeft: 'auto' }}
-        className="btn-clear"
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginBottom: "0.5rem",
+          gap: "1rem",
+          marginTop: "4.5rem",
+        }}
       >
-        <X size={16} />
-        Clear
-      </button>
-    </div>
+        <h2 style={{ ...headerStyle, margin: 0 }}>Search Filters</h2>
+        <button
+          onClick={onClearFilters}
+          style={{ ...clearButtonStyle, marginLeft: "auto" }}
+          className="btn-clear"
+        >
+          <X size={16} />
+          Clear
+        </button>
+      </div>
 
       <div style={sectionStyle}>
         <label style={labelStyle}>Name</label>
