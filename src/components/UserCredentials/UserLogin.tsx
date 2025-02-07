@@ -71,6 +71,13 @@ const UserLogin = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const recaptchaValue = recaptchaRef.current?.getValue();
+    if (!recaptchaValue) {
+      Swal.fire("Error", "Please complete the recaptcha", "error");
+      return;
+    }
+
     setLoading(true);
 
     try {
