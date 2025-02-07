@@ -217,6 +217,19 @@ const UserLogin = () => {
             <hr className="flex-grow-1" style={{ borderColor: "#888" }} />
           </div>
 
+          <div className="d-grid gap-2">
+            <button
+              type="button"
+              className="btn btn-dark"
+              style={{
+                borderRadius: "20px",
+                padding: "10px",
+              }}
+            >
+              Sign In with Google
+            </button>
+          </div>
+
           <p className="text-center mt-3">
             Don&apos;t have an account? <a href="Register">Sign Up</a>
           </p>
