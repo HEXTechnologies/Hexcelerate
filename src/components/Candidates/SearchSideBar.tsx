@@ -70,6 +70,11 @@ const SearchSidebar = ({
     marginBottom: "0.5rem",
   };
 
+  const selectStyle = {
+    backgroundColor: isLightMode ? "#fff" : "#040411",
+    color: isLightMode ? "#333" : "#fff",
+  };
+
   const clearButtonStyle = {
     backgroundColor: "transparent",
     border: isLightMode ? "1px solid #dee2e6" : "1px solid #404040",
@@ -193,9 +198,11 @@ const SearchSidebar = ({
           style={inputStyle}
           className="form-select"
         >
-          <option value="">All Levels</option>
+          <option value="" style={selectStyle}>
+            All Levels
+          </option>
           {experienceLevels.map((level) => (
-            <option key={level} value={level}>
+            <option key={level} value={level} style={selectStyle}>
               {level}
             </option>
           ))}
@@ -212,9 +219,11 @@ const SearchSidebar = ({
           style={inputStyle}
           className="form-select"
         >
-          <option value="">All Institutes</option>
+          <option value="" style={selectStyle}>
+            All Institutes
+          </option>
           {uniqueSchools.map((school) => (
-            <option key={school} value={school}>
+            <option key={school} value={school} style={selectStyle}>
               {school}
             </option>
           ))}

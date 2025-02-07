@@ -19,7 +19,7 @@ const ProfilePage = () => {
   const [user, loading] = useAuthState(auth);
   const [isLightMode, setIsLightMode] = useState(false);
 
-  const handleProfileSubmit = async (linkedInUrl: string) => {
+  const handleProfileSubmit = async (data: any) => {
     if (!user) {
       Swal.fire({
         icon: "error",
@@ -30,17 +30,22 @@ const ProfilePage = () => {
     }
 
     try {
-      const response = await fetch("/api/profile", {
+      // Determine if this is a URL or name search based on the data
+      const isUrlSearch = typeof data === "string";
+      const endpoint = isUrlSearch ? "/api/profile" : "/api/profile-search";
+      const payload = isUrlSearch ? { linkedInUrl: data } : data;
+
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ linkedInUrl }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to fetch LinkedIn data");
+        throw new Error(errorData.error || "Failed to fetch profile data");
       }
 
       const linkedInData = await response.json();
@@ -50,7 +55,7 @@ const ProfilePage = () => {
       await setDoc(
         candidateRef,
         {
-          linkedInUrl,
+          ...(isUrlSearch ? { linkedInUrl: data } : { searchData: data }),
           linkedInData,
           lastUpdated: new Date(),
           email: user.email,
@@ -63,9 +68,6 @@ const ProfilePage = () => {
         title: "Success",
         text: "Profile updated successfully",
       });
-
-      // Refresh the page to show the updated profile
-      window.location.reload();
     } catch (error) {
       console.error("Error in profile submission:", error);
       Swal.fire({
