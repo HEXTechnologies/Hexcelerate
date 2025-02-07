@@ -3,7 +3,11 @@
 
 import { auth, firestore } from "../../../firebaseConfig/firebase";
 import React, { useState, useRef } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -17,6 +21,8 @@ const UserLogin = () => {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
+  const provider = new GoogleAuthProvider();
 
   const checkUserCollection = async (userId: string) => {
     // Check Companies collection first
@@ -42,6 +48,25 @@ const UserLogin = () => {
     }
 
     return null; // User not found in either collection
+  };
+
+  const loginWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const token = credential?.accessToken;
+      const user = result.user;
+
+      const userRole = await checkUserCollection(user.uid);
+      if (!userRole) {
+        throw new Error("User profile not found");
+      }
+      router.push(`/${userRole}Profile`);
+    } catch (error) {
+      console.error("Google sign-in error:", error);
+      Swal.fire("Error", "Google sign-in failed. Please try again.", "error");
+    }
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -220,6 +245,7 @@ const UserLogin = () => {
           <div className="d-grid gap-2">
             <button
               type="button"
+              onClick={loginWithGoogle}
               className="btn btn-dark"
               style={{
                 borderRadius: "20px",
