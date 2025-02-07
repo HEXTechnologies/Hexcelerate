@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 type RegisterAccountProps = {
   selectedRole?: string | null;
@@ -286,7 +287,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
                 padding: "10px",
               }}
             >
-              Sign Up with Google
+              <FcGoogle size={24} /> Sign Up with Google
             </button>
           </div>
 

@@ -12,6 +12,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
 
 const UserLogin = () => {
@@ -259,7 +260,7 @@ const UserLogin = () => {
                 padding: "10px",
               }}
             >
-              Sign In with Google
+              <FcGoogle size={24} /> Sign In with Google
             </button>
           </div>
 
