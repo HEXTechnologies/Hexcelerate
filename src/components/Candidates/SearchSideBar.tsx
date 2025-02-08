@@ -67,7 +67,7 @@ const SearchSidebar = ({
   };
 
   const sectionStyle = {
-    marginBottom: "0.5rem",
+    marginBottom: "1rem",
   };
 
   const selectStyle = {
