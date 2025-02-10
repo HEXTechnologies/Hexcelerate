@@ -21,7 +21,7 @@ import {
   HeaderSkeleton,
 } from "../../components/Candidates/Skeletons";
 
-interface Candidate {
+interface Company {
   id: string;
   score?: number;
   linkedInData?: {
@@ -42,8 +42,8 @@ interface Candidate {
   };
 }
 
-const CandidatesListPage = () => {
-  const [candidates, setCandidates] = useState<Candidate[]>([]);
+const CompanyListPage = () => {
+  const [candidates, setCandidates] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
   const [isLightMode, setIsLightMode] = useState(true);
 
@@ -69,7 +69,7 @@ const CandidatesListPage = () => {
               ({
                 id: doc.id,
                 ...doc.data(),
-              } as Candidate)
+              } as Company)
           )
           .filter((candidate) => candidate.linkedInData?.person);
 
@@ -113,7 +113,7 @@ const CandidatesListPage = () => {
     });
   };
 
-  const filterCandidates = (candidates: Candidate[]) => {
+  const filterCandidates = (candidates: Company[]) => {
     return candidates.filter((candidate) => {
       const person = candidate.linkedInData?.person;
       if (!person) return false;
@@ -298,4 +298,4 @@ const CandidatesListPage = () => {
   );
 };
 
-export default CandidatesListPage;
+export default CompanyListPage;

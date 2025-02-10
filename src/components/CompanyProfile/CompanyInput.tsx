@@ -7,69 +7,59 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Swal from "sweetalert2";
 
-interface ProfileInputProps {
+interface CompanyInputProps {
   onSubmit: (data: any) => Promise<void>;
   isLightMode: boolean;
 }
 
-const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
+const CompanyInput = ({ onSubmit, isLightMode }: CompanyInputProps) => {
   const [user, loading] = useAuthState(auth);
-  const [searchMethod, setSearchMethod] = useState<"url" | "name">("url");
+  const [searchMethod, setSearchMethod] = useState<"url" | "domain">("url");
   const [linkedInUrl, setLinkedInUrl] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [companyDomain, setCompanyDomain] = useState("");
+  const [domain, setDomain] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchCandidateData = async () => {
+    const fetchCompanyData = async () => {
       if (!user?.uid) return;
 
       try {
         setIsLoading(true);
-        const candidateRef = doc(firestore, "Candidates", user.uid);
-        const candidateDoc = await getDoc(candidateRef);
+        const companyRef = doc(firestore, "Companies", user.uid);
+        const companyDoc = await getDoc(companyRef);
 
-        if (candidateDoc.exists()) {
-          const data = candidateDoc.data();
+        if (companyDoc.exists()) {
+          const data = companyDoc.data();
           if (data.linkedInUrl) {
             setLinkedInUrl(data.linkedInUrl);
             setSearchMethod("url");
+          } else if (data.domain) {
+            setDomain(data.domain);
+            setSearchMethod("domain");
           }
         }
       } catch (err) {
-        console.error("Error fetching candidate data:", err);
+        console.error("Error fetching company data:", err);
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Failed to fetch profile data",
+          text: "Failed to fetch company data",
         });
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchCandidateData();
+    fetchCompanyData();
   }, [user]);
 
   const validateLinkedInUrl = (url: string): boolean => {
-    const linkedInRegex = /^https:\/\/(www\.)?linkedin\.com\/in\/[\w-]+\/?$/;
+    const linkedInRegex =
+      /^https:\/\/(www\.)?linkedin\.com\/company\/[\w-]+\/?$/;
     return linkedInRegex.test(url);
   };
 
-  const validateNameSearch = (): boolean => {
-    const hasFirstName = firstName.trim().length > 0;
-    const hasLastName = lastName.trim().length > 0;
-    const hasCompany = companyDomain.trim().length > 0;
-
-    return (
-      ((hasFirstName || hasLastName) && hasCompany) ||
-      (hasFirstName && hasLastName)
-    );
-  };
-
-  const isDomain = (input: string): boolean => {
-    // More strict domain check: must contain a dot and a valid TLD
+  const validateDomain = (input: string): boolean => {
     const domainRegex =
       /^(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
     return domainRegex.test(input);
@@ -81,7 +71,7 @@ const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
       Swal.fire({
         icon: "error",
         title: "Authentication Required",
-        text: "You must be logged in to update your profile",
+        text: "You must be logged in to update company data",
       });
       return;
     }
@@ -91,7 +81,7 @@ const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
         Swal.fire({
           icon: "warning",
           title: "Missing URL",
-          text: "Please enter a LinkedIn URL",
+          text: "Please enter a LinkedIn company URL",
         });
         return;
       }
@@ -100,16 +90,25 @@ const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
         Swal.fire({
           icon: "warning",
           title: "Invalid URL",
-          text: "Please enter a valid LinkedIn profile URL",
+          text: "Please enter a valid LinkedIn company URL",
         });
         return;
       }
     } else {
-      if (!validateNameSearch()) {
+      if (!domain.trim()) {
         Swal.fire({
           icon: "warning",
-          title: "Invalid Input",
-          text: "Please provide both first and last name",
+          title: "Missing Domain",
+          text: "Please enter a company domain",
+        });
+        return;
+      }
+
+      if (!validateDomain(domain)) {
+        Swal.fire({
+          icon: "warning",
+          title: "Invalid Domain",
+          text: "Please enter a valid domain name",
         });
         return;
       }
@@ -118,61 +117,30 @@ const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
     setIsLoading(true);
 
     try {
-      // Store search parameters in Firestore first
-      const candidateRef = doc(firestore, "Candidates", user.uid);
-      const companyValue = companyDomain.trim();
+      const searchValue = searchMethod === "url" ? linkedInUrl : domain;
 
-      if (searchMethod === "url") {
-        await setDoc(
-          candidateRef,
-          {
-            linkedInUrl,
-            lastUpdated: new Date(),
-            email: user.email,
-          },
-          { merge: true }
-        );
-      } else {
-        // Only store as companyDomain if it's a valid domain, otherwise store as companyName
-        const isValidDomain = isDomain(companyValue);
-        const companyData = companyValue
-          ? {
-              [isValidDomain ? "companyDomain" : "companyName"]: companyValue,
-            }
-          : {};
-
-        await setDoc(
-          candidateRef,
-          {
-            searchData: {
-              firstName,
-              lastName,
-              ...companyData,
-            },
-            lastUpdated: new Date(),
-            email: user.email,
-          },
-          { merge: true }
-        );
-      }
-
-      // Pass data to parent for API call
-      const searchData =
-        searchMethod === "url"
-          ? linkedInUrl
-          : {
-              firstName,
-              lastName,
-              ...(companyValue && {
-                [isDomain(companyValue) ? "companyDomain" : "companyName"]:
-                  companyValue,
-              }),
-            };
-
+      // Pass data to parent for API call first
       try {
-        await onSubmit(searchData);
+        await onSubmit({
+          type: searchMethod,
+          value: searchValue,
+        });
+
+        // Only save to Firestore after successful API call
+        const companyRef = doc(firestore, "Companies", user.uid);
+        await setDoc(
+          companyRef,
+          {
+            ...(searchMethod === "url"
+              ? { linkedInUrl: searchValue }
+              : { domain: searchValue }),
+            lastUpdated: new Date(),
+            email: user.email,
+          },
+          { merge: true }
+        );
       } catch (apiError: any) {
-        // Handle specific API errors
+        // Handle API errors
         if (apiError.status === 400 || apiError.status === 404) {
           Swal.fire({
             icon: "error",
@@ -192,21 +160,24 @@ const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
             title: "Error",
             text:
               apiError.error?.msg ||
-              "Failed to fetch profile data. Please try again.",
+              "Failed to fetch company data. Please try again.",
           });
         }
 
-        // Remove the search data from Firestore since the API call failed
+        // Remove any existing search data from Firestore since the API call failed
+        const companyRef = doc(firestore, "Companies", user.uid);
         await setDoc(
-          candidateRef,
+          companyRef,
           {
             ...(searchMethod === "url"
               ? { linkedInUrl: null }
-              : { searchData: null }),
+              : { domain: null }),
             lastUpdated: new Date(),
           },
           { merge: true }
         );
+
+        throw apiError; // Re-throw to be caught by outer catch
       }
     } catch (err) {
       Swal.fire({
@@ -256,7 +227,7 @@ const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
       <div className="card" style={cardStyle}>
         <div className="card-body">
           <div className="alert alert-warning" role="alert">
-            Please sign in to update your profile.
+            Please sign in to search for companies.
           </div>
         </div>
       </div>
@@ -281,13 +252,13 @@ const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
               <button
                 type="button"
                 className={`btn ${
-                  searchMethod === "name"
+                  searchMethod === "domain"
                     ? "btn-primary"
                     : "btn-outline-primary"
                 }`}
-                onClick={() => setSearchMethod("name")}
+                onClick={() => setSearchMethod("domain")}
               >
-                Search by Info
+                Search by Domain
               </button>
             </div>
           </div>
@@ -300,7 +271,7 @@ const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
                   className="form-label"
                   style={{ color: isLightMode ? "#333" : "#fff" }}
                 >
-                  LinkedIn Profile URL
+                  LinkedIn Company URL
                 </label>
                 <input
                   id="linkedInUrl"
@@ -308,75 +279,31 @@ const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
                   className="form-control"
                   value={linkedInUrl}
                   onChange={(e) => setLinkedInUrl(e.target.value)}
-                  placeholder="https://linkedin.com/in/username"
+                  placeholder="https://linkedin.com/company/company-name"
                   style={inputStyle}
                   disabled={isLoading}
                 />
               </div>
             ) : (
-              <>
-                <div className="row mb-3">
-                  <div className="col-md-6">
-                    <label
-                      htmlFor="firstName"
-                      className="form-label"
-                      style={{ color: isLightMode ? "#333" : "#fff" }}
-                    >
-                      First Name
-                    </label>
-                    <input
-                      id="firstName"
-                      type="text"
-                      className="form-control"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      placeholder="Enter first name"
-                      style={inputStyle}
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <label
-                      htmlFor="lastName"
-                      className="form-label"
-                      style={{ color: isLightMode ? "#333" : "#fff" }}
-                    >
-                      Last Name
-                    </label>
-                    <input
-                      id="lastName"
-                      type="text"
-                      className="form-control"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      placeholder="Enter last name"
-                      style={inputStyle}
-                      disabled={isLoading}
-                    />
-                  </div>
-                </div>
-
-                <div className="mb-3">
-                  <label
-                    htmlFor="companyDomain"
-                    className="form-label"
-                    style={{ color: isLightMode ? "#333" : "#fff" }}
-                  >
-                    Company Domain or Name{" "}
-                    <small className="text-white">(Optional)</small>
-                  </label>
-                  <input
-                    id="companyDomain"
-                    type="text"
-                    className="form-control"
-                    value={companyDomain}
-                    onChange={(e) => setCompanyDomain(e.target.value)}
-                    placeholder="company.com or Company Name"
-                    style={inputStyle}
-                    disabled={isLoading}
-                  />
-                </div>
-              </>
+              <div className="mb-3">
+                <label
+                  htmlFor="domain"
+                  className="form-label"
+                  style={{ color: isLightMode ? "#333" : "#fff" }}
+                >
+                  Company Domain
+                </label>
+                <input
+                  id="domain"
+                  type="text"
+                  className="form-control"
+                  value={domain}
+                  onChange={(e) => setDomain(e.target.value)}
+                  placeholder="company.com"
+                  style={inputStyle}
+                  disabled={isLoading}
+                />
+              </div>
             )}
 
             <button
@@ -388,7 +315,7 @@ const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
                 cursor: isLoading ? "not-allowed" : "pointer",
               }}
             >
-              {isLoading ? "Submitting..." : "Submit Profile"}
+              {isLoading ? "Searching..." : "Search Company"}
             </button>
           </form>
         </div>
@@ -397,4 +324,4 @@ const ProfileInput = ({ onSubmit, isLightMode }: ProfileInputProps) => {
   );
 };
 
-export default ProfileInput;
+export default CompanyInput;

@@ -14,13 +14,13 @@ import "../../../styles/HomeCategory.css";
 import "../../../styles/HomeHowItWorks.css";
 import "../../../styles/HomeChatBots.css";
 
-interface ProfilePageClientProps {
+interface CompanyPageClientProps {
   params: {
     id: string;
   };
 }
 
-const ProfilePageClient = ({ params }: ProfilePageClientProps) => {
+const CompanyPageClient = ({ params }: CompanyPageClientProps) => {
   const [user, loading] = useAuthState(auth); // Make sure to destructure user as well
   const [isLightMode] = useState(false); // Remove setIsLightMode if not using it
 
@@ -48,4 +48,4 @@ const ProfilePageClient = ({ params }: ProfilePageClientProps) => {
   return <ProfileDashboard userId={params.id} linkedInUrl={undefined} />;
 };
 
-export default ProfilePageClient;
+export default CompanyPageClient;

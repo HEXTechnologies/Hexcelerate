@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore } from "../../../firebaseConfig/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import ProfileDashboard from "../../components/CandidatesProfile/ProfileDashboard";
-import ProfileSkeletons from "../../components/CandidatesProfile/ProfileSkeletons";
+import CompanyDashboard from "../../components/CompanyProfile/CompanyDashboard";
+import CompanySkeletons from "../../components/CompanyProfile/CompanySkeletons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles.css";
 import "../../styles/Lightmode.css";
@@ -17,11 +16,14 @@ import "../../styles/HomeHowItWorks.css";
 import "../../styles/HomeChatBots.css";
 import Swal from "sweetalert2";
 
-const ProfilePage = () => {
+const CompanyPage = () => {
   const [user, loading] = useAuthState(auth);
   const [isLightMode] = useState(false);
 
-  const handleProfileSubmit = async (data: any) => {
+  const handleCompanySubmit = async (data: {
+    type: "url" | "domain";
+    value: string;
+  }) => {
     if (!user) {
       Swal.fire({
         icon: "error",
@@ -32,10 +34,13 @@ const ProfilePage = () => {
     }
 
     try {
-      // Determine if this is a URL or name search based on the data
-      const isUrlSearch = typeof data === "string";
-      const endpoint = isUrlSearch ? "/api/profile" : "/api/profile-search";
-      const payload = isUrlSearch ? { linkedInUrl: data } : data;
+      // Use the type from the data object to determine the endpoint
+      const endpoint =
+        data.type === "url" ? "/api/company" : "/api/company-domain";
+      const payload =
+        data.type === "url"
+          ? { linkedInUrl: data.value }
+          : { domain: data.value };
 
       const response = await fetch(endpoint, {
         method: "POST",
@@ -47,18 +52,20 @@ const ProfilePage = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to fetch profile data");
+        throw new Error(errorData.error || "Failed to fetch company data");
       }
 
-      const linkedInData = await response.json();
+      const companyData = await response.json();
 
       // Save the enriched data to Firestore
-      const candidateRef = doc(firestore, "Candidates", user.uid);
+      const companyRef = doc(firestore, "Companies", user.uid);
       await setDoc(
-        candidateRef,
+        companyRef,
         {
-          ...(isUrlSearch ? { linkedInUrl: data } : { searchData: data }),
-          linkedInData,
+          ...(data.type === "url"
+            ? { linkedInUrl: data.value }
+            : { domain: data.value }),
+          companyData: companyData.company,
           lastUpdated: new Date(),
           email: user.email,
         },
@@ -68,17 +75,17 @@ const ProfilePage = () => {
       Swal.fire({
         icon: "success",
         title: "Success",
-        text: "Profile updated successfully",
+        text: "Company profile updated successfully",
       });
     } catch (error) {
-      console.error("Error in profile submission:", error);
+      console.error("Error in company submission:", error);
       Swal.fire({
         icon: "error",
         title: "Error",
         text:
           error instanceof Error
             ? error.message
-            : "Failed to update profile. Please try again.",
+            : "Failed to update company profile. Please try again.",
       });
     }
   };
@@ -91,7 +98,7 @@ const ProfilePage = () => {
             <div className="col-12 col-lg-10">
               <div className="bottom-light left-light"></div>
               <div className="bottom-light right-light"></div>
-              <ProfileSkeletons isLightMode={isLightMode} />
+              <CompanySkeletons isLightMode={isLightMode} />
             </div>
           </div>
         </div>
@@ -100,12 +107,12 @@ const ProfilePage = () => {
   }
 
   return (
-    <ProfileDashboard
+    <CompanyDashboard
       userId={user?.uid}
-      onSubmit={handleProfileSubmit}
-      linkedInUrl={undefined}
+      onSubmit={handleCompanySubmit}
+      companyUrl={undefined}
     />
   );
 };
 
-export default ProfilePage;
+export default CompanyPage;
