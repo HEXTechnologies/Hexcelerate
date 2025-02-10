@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 type RegisterAccountProps = {
   selectedRole?: string | null;
@@ -28,6 +29,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
   const router = useRouter();
 
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+
   const provider = new GoogleAuthProvider();
 
   const signUpWithGoogle = async () => {
@@ -63,6 +65,13 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const recaptchaValue = recaptchaRef.current?.getValue();
+    if (!recaptchaValue) {
+      Swal.fire("Error", "Please complete the recaptcha", "error");
+      return;
+    }
+
     if (!email.trim() || !password.trim()) {
       Swal.fire("Error", "Please fill in all fields", "error");
       return;
@@ -278,7 +287,7 @@ const RegisterAccount = ({ selectedRole }: RegisterAccountProps) => {
                 padding: "10px",
               }}
             >
-              Sign Up with Google
+              <FcGoogle size={24} /> Sign Up with Google
             </button>
           </div>
 
