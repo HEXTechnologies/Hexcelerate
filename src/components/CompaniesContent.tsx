@@ -5,7 +5,7 @@ import Sidebar from "./dashboardComponents/Sidebar";
 import MobileNav from "./dashboardComponents/MobileNav";
 import DesktopNav from "./dashboardComponents/DesktopNav";
 
-const ProjectContent = () => {
+const CompaniesContent = () => {
   const [isLightMode, setIsLightMode] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -79,26 +79,9 @@ const ProjectContent = () => {
                 <div className={`text-center mb-4 ${styles.titleWrapper}`}>
                   <h1
                     className={`display-4 display-md-3 display-lg-2 ${styles.title} text-break`}
-                    style={{marginRight: "88px"}}
                   >
-                    Dashboard
+                    Companies
                   </h1>
-                </div>
-                <div className={`text-center mb-4 ${styles.titleWrapper}`}>
-                  <h3
-                    className={`display-4 display-md-3 display-lg-2 ${styles.subtitle} text-break`}
-                    style={{marginRight: "88px"}}
-                  >
-                    Your Projects
-                  </h3>
-                </div>
-                <div className={`text-center mb-4 ${styles.titleWrapper}`}>
-                  <h3
-                    className={`display-4 display-md-3 display-lg-2 ${styles.subtitle} text-break`}
-                    style={{marginRight: "88px"}}
-                  >
-                    Your Metrics
-                  </h3>
                 </div>
               </div>
             </div>
@@ -125,4 +108,4 @@ const ProjectContent = () => {
   );
 };
 
-export default ProjectContent;
+export default CompaniesContent;
