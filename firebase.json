@@ -56,11 +56,11 @@
         "destination": "/CompaniesProfile.html"
       },
       {
-        "source": "/Candidates/[id]",
+        "source": "/Candidates/:id",
         "destination": "/Candidates/[id].html"
       },
       {
-        "source": "/Companies/[id]",
+        "source": "/Companies/:id",
         "destination": "/Companies/[id].html"
       },
       {
@@ -70,7 +70,7 @@
       {
         "source": "/Candidates",
         "destination": "/Candidates.html"
-      },
+      }
       {
         "source": "/",
         "destination": "/index.html"
