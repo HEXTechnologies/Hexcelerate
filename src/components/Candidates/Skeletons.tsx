@@ -13,24 +13,16 @@ const SidebarSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
     overflowY: "auto" as const,
   };
 
+  const pulseAnimation = {
+    animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+  };
+
   const skeletonStyle = {
     backgroundColor: isLightMode
       ? "rgba(255, 255, 255, 0.1)"
       : "rgba(255, 255, 255, 0.1)",
     borderRadius: "0.375rem",
-    position: "relative" as const,
-    overflow: "hidden" as const,
-  };
-
-  const shimmerStyle = {
-    position: "absolute" as const,
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    background:
-      "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent)",
-    animation: "shimmer 2s infinite",
+    ...pulseAnimation,
   };
 
   return (
@@ -42,18 +34,14 @@ const SidebarSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
             height: "2rem",
             width: "8rem",
           }}
-        >
-          <div style={shimmerStyle} />
-        </div>
+        />
         <div
           style={{
             ...skeletonStyle,
             height: "2rem",
             width: "6rem",
           }}
-        >
-          <div style={shimmerStyle} />
-        </div>
+        />
       </div>
 
       {[1, 2, 3, 4, 5].map((index) => (
@@ -65,18 +53,14 @@ const SidebarSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
               width: "5rem",
               marginBottom: "0.5rem",
             }}
-          >
-            <div style={shimmerStyle} />
-          </div>
+          />
           <div
             style={{
               ...skeletonStyle,
               height: "2.5rem",
               width: "100%",
             }}
-          >
-            <div style={shimmerStyle} />
-          </div>
+          />
         </div>
       ))}
     </div>
@@ -84,24 +68,16 @@ const SidebarSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
 };
 
 const HeaderSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
+  const pulseAnimation = {
+    animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+  };
+
   const skeletonStyle = {
     backgroundColor: isLightMode
       ? "rgba(255, 255, 255, 0.1)"
       : "rgba(255, 255, 255, 0.1)",
     borderRadius: "0.375rem",
-    position: "relative" as const,
-    overflow: "hidden" as const,
-  };
-
-  const shimmerStyle = {
-    position: "absolute" as const,
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    background:
-      "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent)",
-    animation: "shimmer 2s infinite",
+    ...pulseAnimation,
   };
 
   return (
@@ -115,9 +91,7 @@ const HeaderSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
             height: "2.5rem",
             width: "800px",
           }}
-        >
-          <div style={shimmerStyle} />
-        </div>
+        />
         {/* Subtitle Skeleton */}
         <div
           className="mb-4"
@@ -126,9 +100,7 @@ const HeaderSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
             height: "1.5rem",
             width: "500px",
           }}
-        >
-          <div style={shimmerStyle} />
-        </div>
+        />
       </div>
     </div>
   );
@@ -152,24 +124,16 @@ const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
     position: "relative" as const,
   };
 
+  const pulseAnimation = {
+    animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+  };
+
   const skeletonStyle = {
     backgroundColor: isLightMode
       ? "rgba(255, 255, 255, 0.1)"
       : "rgba(255, 255, 255, 0.1)",
     borderRadius: "0.375rem",
-    position: "relative" as const,
-    overflow: "hidden" as const,
-  };
-
-  const shimmerStyle = {
-    position: "absolute" as const,
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    background:
-      "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent)",
-    animation: "shimmer 2s infinite",
+    ...pulseAnimation,
   };
 
   return (
@@ -191,9 +155,7 @@ const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
               width: "3rem",
               borderRadius: "0.5rem",
             }}
-          >
-            <div style={shimmerStyle} />
-          </div>
+          />
 
           {/* Profile Image Skeleton */}
           <div
@@ -205,9 +167,7 @@ const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
               border: `4px solid ${isLightMode ? "#1a1a1a" : "#1a1a1a"}`,
               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
             }}
-          >
-            <div style={shimmerStyle} />
-          </div>
+          />
 
           {/* Name Skeleton */}
           <div
@@ -217,9 +177,7 @@ const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
               width: "60%",
               marginBottom: "0.75rem",
             }}
-          >
-            <div style={shimmerStyle} />
-          </div>
+          />
 
           {/* Candidate Tag Skeleton */}
           <div
@@ -229,9 +187,7 @@ const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
               width: "40%",
               margin: "8px 0",
             }}
-          >
-            <div style={shimmerStyle} />
-          </div>
+          />
 
           {/* School Skeleton */}
           <div
@@ -253,9 +209,7 @@ const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
                 height: "1rem",
                 width: "100%",
               }}
-            >
-              <div style={shimmerStyle} />
-            </div>
+            />
           </div>
 
           {/* Location Skeleton */}
@@ -265,23 +219,22 @@ const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
               height: "1rem",
               width: "50%",
             }}
-          >
-            <div style={shimmerStyle} />
-          </div>
+          />
         </div>
       </div>
     </div>
   );
 };
 
-// Add the shimmer animation keyframes to the document
+// Add the pulse animation keyframes to the document
+// CSS for shimmer animation
 const style = `
-  @keyframes shimmer {
-    0% {
-      transform: translateX(-100%);
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
     }
-    100% {
-      transform: translateX(100%);
+    50% {
+      opacity: .5;
     }
   }
 `;

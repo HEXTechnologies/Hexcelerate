@@ -122,12 +122,15 @@ const CompanyCard = ({
                 padding: "4px 12px",
                 borderRadius: "8px",
                 display: "inline-block",
-                fontSize: "0.9rem",
+                fontSize: "0.7rem",
                 color: isLightMode ? "#333" : "#fff",
                 border: `1px solid ${
                   isLightMode ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.2)"
                 }`,
                 margin: "8px 0",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
               }}
             >
               {industry}

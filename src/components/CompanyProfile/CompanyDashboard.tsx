@@ -32,7 +32,10 @@ const CompanyDashboard = ({
   const [companyData, setCompanyData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isLightMode, setIsLightMode] = useState(false);
-  const [companyUrl, setCompanyUrl] = useState<string | undefined>(
+  const [linkedInUrl, setLinkedInUrl] = useState<string | undefined>(
+    initialCompanyUrl
+  );
+  const [domain, setDomain] = useState<string | undefined>(
     initialCompanyUrl
   );
 
@@ -50,7 +53,10 @@ const CompanyDashboard = ({
           setCompanyData(data.companyData);
         }
         if (data?.linkedInUrl) {
-          setCompanyUrl(data.linkedInUrl);
+          setLinkedInUrl(data.linkedInUrl);
+        }
+        if (data?.domain) {
+          setDomain(data.domain);
         }
       } catch (error) {
         console.error("Error fetching company data:", error);
@@ -95,7 +101,7 @@ const CompanyDashboard = ({
                 isLightMode={isLightMode}
                 setIsLightMode={setIsLightMode}
               />
-              {!companyData && !companyUrl && (
+              {!companyData && (!linkedInUrl || !domain) && (
                 <>
                   <NoCompanyIntro isLightMode={isLightMode} />
                   <CompanyInput
@@ -119,7 +125,7 @@ const CompanyDashboard = ({
                             setCompanyData(data.companyData);
                           }
                           if (searchData.type === "url") {
-                            setCompanyUrl(searchData.value);
+                            setLinkedInUrl(searchData.value);
                           }
                         }
                       } catch (error) {

@@ -33,6 +33,7 @@ const ProfileDashboard = ({
   const [user] = useAuthState(auth);
   const [profileData, setProfileData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [searchData, setSearchData] = useState<any>(null);
   const [isLightMode, setIsLightMode] = useState(false);
   const [linkedInUrl, setLinkedInUrl] = useState<string | undefined>(
     initialLinkedInUrl
@@ -51,6 +52,10 @@ const ProfileDashboard = ({
         // Update LinkedIn URL state
         if (candidateData?.linkedInUrl) {
           setLinkedInUrl(candidateData.linkedInUrl);
+        }
+
+        if (candidateData?.searchData) {
+          setSearchData(candidateData.searchData);
         }
 
         if (candidateDoc.exists() && candidateData?.linkedInData) {
@@ -87,7 +92,7 @@ const ProfileDashboard = ({
     );
   }
 
-  if (!profileData || !linkedInUrl) {
+  if (!profileData) {
     return (
       <main className="HomeImageCt">
         <div className="container py-4 mt-5 mb-5">
@@ -99,10 +104,8 @@ const ProfileDashboard = ({
                 isLightMode={isLightMode}
                 setIsLightMode={setIsLightMode}
               />
-              {!profileData && !linkedInUrl && (
-                <>
-                  <NoProfileIntro isLightMode={isLightMode} />
-                </>
+              {!profileData && (!linkedInUrl || !searchData) && (
+                <NoProfileIntro isLightMode={isLightMode} />
               )}
               <ProfileSkeletons isLightMode={isLightMode} />
             </div>
