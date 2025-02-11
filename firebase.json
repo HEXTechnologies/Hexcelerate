@@ -70,7 +70,15 @@
       {
         "source": "/Candidates",
         "destination": "/Candidates.html"
-      }
+      },
+      {
+        "source": "SignIn",
+        "destination": "/SignIn.html"
+      },
+      {
+        "source": "SignUp",
+        "destination": "/SignUp.html"
+      },
       {
         "source": "/",
         "destination": "/index.html"
