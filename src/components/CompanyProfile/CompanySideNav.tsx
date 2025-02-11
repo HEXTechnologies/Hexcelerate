@@ -1,92 +1,36 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState } from "react";
 import {
-  User,
-  Briefcase,
-  GraduationCap,
-  Award,
-  Medal,
-  Heart,
-  MessageCircle,
+  Building,
+  Boxes,
   ChevronRight,
 } from "lucide-react";
 
-interface SideNavbarProps {
+interface CompanySideNavProps {
   isLightMode: boolean;
-  profileData?: {
-    person: {
-      summary?: string;
-      positions?: {
-        positionHistory?: any[];
-      };
-      schools?: {
-        educationHistory?: any[];
-      };
-      skills?: any[];
-      certifications?: {
-        certificationHistory?: any[];
-      };
-      volunteeringExperiences?: any[];
-      recommendations?: any[];
-    };
+  companyData?: {
+    description?: string;
+    specialities?: string[];
   };
 }
 
-const SideNavbar = ({ isLightMode, profileData }: SideNavbarProps) => {
+const CompanySideNav = ({ isLightMode, companyData }: CompanySideNavProps) => {
   const [isHovered, setIsHovered] = useState<string | null>(null);
 
   // Define nav items with their visibility conditions
   const navItems = [
     {
       id: "about",
-      icon: User,
+      icon: Building,
       label: "About",
-      isVisible: !!profileData?.person?.summary,
+      isVisible: !!companyData?.description,
     },
     {
-      id: "experience",
-      icon: Briefcase,
-      label: "Experience",
-      isVisible: !!profileData?.person?.positions?.positionHistory?.length,
-    },
-    {
-      id: "education",
-      icon: GraduationCap,
-      label: "Education",
-      isVisible: !!profileData?.person?.schools?.educationHistory?.length,
-    },
-    {
-      id: "skills",
-      icon: Award,
-      label: "Skills",
-      isVisible: !!profileData?.person?.skills?.length,
-    },
-    {
-      id: "certifications",
-      icon: Medal,
-      label: "Certifications",
-      isVisible:
-        !!profileData?.person?.certifications?.certificationHistory?.length,
-    },
-    {
-      id: "volunteer",
-      icon: Heart,
-      label: "Volunteer",
-      // Changed to check if the array exists and has content or if it's a non-empty object
-      isVisible: Array.isArray(profileData?.person?.volunteeringExperiences)
-        ? profileData?.person?.volunteeringExperiences.length > 0
-        : !!profileData?.person?.volunteeringExperiences,
-    },
-    {
-      id: "recommendations",
-      icon: MessageCircle,
-      label: "Recommendations",
-      // Changed to check if the array exists and has content or if it's a non-empty object
-      isVisible: Array.isArray(profileData?.person?.recommendations)
-        ? profileData?.person?.recommendations.length > 0
-        : !!profileData?.person?.recommendations,
+      id: "specialties",
+      icon: Boxes,
+      label: "Specialties",
+      isVisible: !!companyData?.specialities?.length,
     },
   ];
 
@@ -116,12 +60,11 @@ const SideNavbar = ({ isLightMode, profileData }: SideNavbarProps) => {
     color: isLightMode ? "#666" : "#8c8c9e",
     transition: "all 0.3s ease",
     textDecoration: "none",
-    backgroundColor:
-      isHovered === id
-        ? isLightMode
-          ? "rgba(0,0,0,0.05)"
-          : "rgba(255,255,255,0.05)"
-        : "transparent",
+    backgroundColor: isHovered === id
+      ? isLightMode
+        ? "rgba(0,0,0,0.05)"
+        : "rgba(255,255,255,0.05)"
+      : "transparent",
     "&:hover": {
       color: isLightMode ? "#333" : "#fff",
     },
@@ -194,8 +137,7 @@ const SideNavbar = ({ isLightMode, profileData }: SideNavbarProps) => {
             style={{
               ...labelStyle,
               opacity: isHovered === id ? 1 : 0,
-              transform:
-                isHovered === id ? "translateX(0)" : "translateX(-10px)",
+              transform: isHovered === id ? "translateX(0)" : "translateX(-10px)",
               visibility: isHovered === id ? "visible" : "hidden",
             }}
           >
@@ -208,4 +150,4 @@ const SideNavbar = ({ isLightMode, profileData }: SideNavbarProps) => {
   );
 };
 
-export default SideNavbar;
+export default CompanySideNav;

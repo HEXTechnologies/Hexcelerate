@@ -1,30 +1,32 @@
-/* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-// components/CandidatesProfile/ProfileHeader.tsx
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Image } from "lucide-react";
+import { Globe, Image } from "lucide-react";
+import { BsLinkedin } from "react-icons/bs";
 import { useState } from "react";
 
-interface ProfileHeaderProps {
-  profilePicUrl?: string;
+interface CompanyHeaderProps {
+  logoUrl?: string;
   backgroundUrl?: string;
-  fullName?: string;
-  headline?: string;
+  name?: string;
+  industry?: string;
   location?: string;
+  websiteUrl?: string;
+  linkedInUrl?: string;
   isLightMode: boolean;
-  schoolName?: string;
 }
 
-const ProfileHeader = ({
-  profilePicUrl,
+const CompanyHeader = ({
+  logoUrl,
   backgroundUrl,
-  fullName,
-  headline,
+  name,
+  industry,
   location,
+  websiteUrl,
+  linkedInUrl,
   isLightMode,
-  schoolName,
-}: ProfileHeaderProps) => {
+}: CompanyHeaderProps) => {
   const [useGradient, setUseGradient] = useState(true);
 
   const cardStyle = {
@@ -47,10 +49,10 @@ const ProfileHeader = ({
     : {
         height: "200px",
         backgroundImage: `url(${backgroundUrl})`,
-        backgroundSize: "cover", // Changed to contain
+        backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat", // Added to prevent repeating
-        backgroundColor: isLightMode ? "#f0f0f0" : "#2d2d2d", // Background color for empty space
+        backgroundRepeat: "no-repeat",
+        backgroundColor: isLightMode ? "#f0f0f0" : "#2d2d2d",
         position: "relative" as const,
       };
 
@@ -65,6 +67,44 @@ const ProfileHeader = ({
     cursor: "pointer",
     padding: "8px",
     zIndex: 2,
+  };
+
+  const websiteButtonStyle = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "8px",
+    padding: "6px 16px",
+    borderRadius: "24px",
+    backgroundColor: isLightMode
+      ? "rgba(16, 185, 129, 0.1)"
+      : "rgba(16, 185, 129, 0.15)",
+    color: isLightMode ? "rgb(16, 185, 129)" : "rgb(34, 197, 94)",
+    border: `1px solid ${
+      isLightMode ? "rgba(16, 185, 129, 0.2)" : "rgba(34, 197, 94, 0.2)"
+    }`,
+    transition: "all 0.2s ease",
+    textDecoration: "none",
+    fontSize: "0.875rem",
+    fontWeight: 500,
+  };
+
+  const linkedInButtonStyle = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "8px",
+    padding: "6px 16px",
+    borderRadius: "24px",
+    backgroundColor: isLightMode
+      ? "rgba(0, 119, 181, 0.1)"
+      : "rgba(0, 119, 181, 0.15)",
+    color: isLightMode ? "rgb(0, 119, 181)" : "rgb(10, 102, 194)",
+    border: `1px solid ${
+      isLightMode ? "rgba(0, 119, 181, 0.2)" : "rgba(10, 102, 194, 0.2)"
+    }`,
+    transition: "all 0.2s ease",
+    textDecoration: "none",
+    fontSize: "0.875rem",
+    fontWeight: 500,
   };
 
   return (
@@ -90,10 +130,10 @@ const ProfileHeader = ({
           paddingLeft: "32px",
         }}
       >
-        {profilePicUrl && (
+        {logoUrl && (
           <img
-            src={profilePicUrl}
-            alt={fullName}
+            src={logoUrl}
+            alt={name}
             className="rounded-circle border-4 mb-3"
             style={{
               width: "150px",
@@ -101,6 +141,7 @@ const ProfileHeader = ({
               objectFit: "cover",
               border: `4px solid ${isLightMode ? "#fff" : "#1a1a1a"}`,
               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              backgroundColor: "#fff",
             }}
           />
         )}
@@ -122,11 +163,10 @@ const ProfileHeader = ({
               margin: 0,
             }}
           >
-            {fullName}
+            {name}
           </h1>
-          {headline && (
+          {industry && (
             <div
-              //   className="badge"
               style={{
                 backgroundColor: isLightMode
                   ? "rgba(0,0,0,0.03)"
@@ -142,12 +182,12 @@ const ProfileHeader = ({
                 margin: 0,
               }}
             >
-              Candidate
+              {industry}
             </div>
           )}
         </div>
         <div>
-          {schoolName && (
+          {location && (
             <div
               className="mb-2"
               style={{
@@ -155,16 +195,32 @@ const ProfileHeader = ({
                 color: isLightMode ? "#333" : "#fff",
               }}
             >
-              {schoolName}
+              {location}
             </div>
           )}
-          {location && (
-            <div
-              className="d-flex align-items-center"
-              style={{ color: isLightMode ? "#333" : "#fff", marginTop: "8px" }}
+          {websiteUrl && (
+            <a
+              href={websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={websiteButtonStyle}
+              className="mt-2"
             >
-              <span>{location}</span>
-            </div>
+              <Globe size={16} />
+              Visit Website
+            </a>
+          )}{" "}
+          {linkedInUrl && (
+            <a
+              href={linkedInUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={linkedInButtonStyle}
+              className="mt-2"
+            >
+              <BsLinkedin size={16} />
+              LinkedIn
+            </a>
           )}
         </div>
       </div>
@@ -172,4 +228,4 @@ const ProfileHeader = ({
   );
 };
 
-export default ProfileHeader;
+export default CompanyHeader;

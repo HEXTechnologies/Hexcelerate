@@ -2,9 +2,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { SunFill, MoonStarsFill, List } from "react-bootstrap-icons";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, firestore } from "../../../firebaseConfig/firebase";
-import { doc, getDoc } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles.css";
 
@@ -13,11 +10,12 @@ type NavbarProps = {
   setIsLightMode: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  isLightMode,
+  setIsLightMode,
+}) => {
   const [mounted, setMounted] = useState(false);
   const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
-  const [user] = useAuthState(auth);
-  const [profilePath, setProfilePath] = useState("CandidatesProfile");
 
   // Apply saved theme on initial load
   useEffect(() => {
@@ -48,35 +46,6 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
       return () => window.removeEventListener("resize", handleResize);
     }
   }, []);
-
-  useEffect(() => {
-    const checkUserCollection = async () => {
-      if (!user?.uid) return;
-
-      try {
-        // Check Candidates collection
-        const candidateRef = doc(firestore, "Candidates", user.uid);
-        const candidateDoc = await getDoc(candidateRef);
-
-        if (candidateDoc.exists()) {
-          setProfilePath("CandidatesProfile");
-          return;
-        }
-
-        // Check Companies collection
-        const companyRef = doc(firestore, "Companies", user.uid);
-        const companyDoc = await getDoc(companyRef);
-
-        if (companyDoc.exists()) {
-          setProfilePath("CompaniesProfile");
-        }
-      } catch (error) {
-        console.error("Error checking user collection:", error);
-      }
-    };
-
-    checkUserCollection();
-  }, [user]);
 
   const toggleLightMode = () => {
     const newMode = !isLightMode;
@@ -119,7 +88,7 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
               borderRadius: "10px",
             }}
           >
-            <Link className="text-white" href="HomePage">
+            <Link className="text-white" href="Dashboard">
               <img
                 src={"/HEX-HACC-2024-LIGHT.png"}
                 alt="Dashboard Icon"
@@ -173,7 +142,7 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
                   borderRadius: "60px",
                 }}
               >
-                <Link href="HomePage">
+                <Link href="Dashboard">
                   <img
                     src={"/HEX-HACC-2024-LIGHT.png"}
                     alt="Dashboard Icon"
@@ -197,7 +166,7 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="#HowItWorks" style={{ fontSize: "0.9rem" }}>
+                  <Link href="InterviewAI" style={{ fontSize: "0.9rem" }}>
                     Interview AI
                   </Link>
                 </li>
@@ -205,13 +174,13 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
             </div>
 
             {/* Right Side Items */}
-            <div className="d-flex align-items-center gap-3 me-4 mt-2">
+            <div className="d-flex align-items-center gap-3 me-2 mt-2">
               <Link
-                href={profilePath}
+                href="Settings"
                 className="btn btn-primary gradient-button text-white px-3 py-2"
                 style={{ fontSize: "0.8rem", borderRadius: "20px" }}
               >
-                View Profile
+                Settings
               </Link>
               <div
                 onClick={toggleLightMode}
@@ -267,12 +236,12 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
                 >
-                  Home
+                    Home
                 </Link>
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="#Category"
+                  href="Companies"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
@@ -292,7 +261,7 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="#HowItWorks"
+                  href="InterviewAI"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
@@ -302,12 +271,11 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href={profilePath}
+                  href="Settings"
                   className="btn btn-primary gradient-button text-white px-4 py-2"
                   style={{ fontSize: "0.8rem" }}
-                  onClick={() => setIsOffcanvasOpen(false)}
                 >
-                  View Profile
+                  Settings
                 </Link>
               </li>
             </ul>

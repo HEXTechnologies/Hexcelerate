@@ -57,7 +57,7 @@ const ProfileDashboard = ({
           setLinkedInUrl(candidateData.linkedInUrl);
         }
         if (candidateData?.searchData) {
-          setSearchData(candidateData.linkedInUrl);
+          setSearchData(candidateData.searchData);
         }
 
         if (candidateDoc.exists() && candidateData?.linkedInData) {

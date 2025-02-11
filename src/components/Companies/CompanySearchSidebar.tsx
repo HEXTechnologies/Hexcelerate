@@ -2,39 +2,31 @@
 import React, { useMemo } from "react";
 import { Search, X } from "lucide-react";
 
-interface SearchSidebarProps {
+interface CompanySearchSidebarProps {
   isLightMode: boolean;
   filters: {
     searchTerm: string;
     location: string;
-    skills: string[];
-    experience: string;
-    schools?: {
-      educationHistory?: string;
-    };
+    industry: string;
+    employeeCount: string;
+    specialities: string[];
   };
-  candidates: Array<{
-    linkedInData?: {
-      person: {
-        schools?: {
-          educationHistory?: Array<{
-            schoolName: string;
-          }>;
-        };
-      };
-    };
+  companies: Array<{
+    industry?: string;
+    employeeCount?: number;
+    specialities?: string[];
   }>;
   onFilterChange: (filterName: string, value: any) => void;
   onClearFilters: () => void;
 }
 
-const SearchSidebar = ({
+const CompanySearchSidebar = ({
   isLightMode,
   filters,
-  candidates,
+  companies,
   onFilterChange,
   onClearFilters,
-}: SearchSidebarProps) => {
+}: CompanySearchSidebarProps) => {
   const sidebarStyle = {
     backgroundColor: isLightMode ? "#ffffff" : "#040411",
     borderRight: isLightMode ? "1px solid #e5e5e5" : "1px solid #333",
@@ -89,32 +81,29 @@ const SearchSidebar = ({
     gap: "0.5rem",
   };
 
-  const experienceLevels = [
-    "Intern",
-    "Entry Level",
-    "Mid Level",
-    "Senior Level",
-    "Executive Level",
+  const employeeCountRanges = [
+    "1-10",
+    "11-50",
+    "51-200",
+    "201-500",
+    "501-1000",
+    "1001-5000",
+    "5001-10000",
+    "10000+",
   ];
 
-  // Extract unique schools from candidates data
-  const uniqueSchools = useMemo(() => {
-    const schoolsSet = new Set<string>();
-
-    candidates.forEach((candidate) => {
-      const educationHistory =
-        candidate.linkedInData?.person.schools?.educationHistory;
-      if (educationHistory && Array.isArray(educationHistory)) {
-        educationHistory.forEach((education) => {
-          if (education.schoolName) {
-            schoolsSet.add(education.schoolName);
-          }
-        });
+  // Extract unique industries from companies data
+  const uniqueIndustries = useMemo(() => {
+    const industriesSet = new Set<string>();
+    
+    companies.forEach((company) => {
+      if (company.industry) {
+        industriesSet.add(company.industry);
       }
     });
 
-    return Array.from(schoolsSet).sort();
-  }, [candidates]);
+    return Array.from(industriesSet).sort();
+  }, [companies]);
 
   return (
     <div style={sidebarStyle}>
@@ -139,7 +128,7 @@ const SearchSidebar = ({
       </div>
 
       <div style={sectionStyle}>
-        <label style={labelStyle}>Name</label>
+        <label style={labelStyle}>Company Name</label>
         <div className="position-relative">
           <input
             type="text"
@@ -173,14 +162,52 @@ const SearchSidebar = ({
       </div>
 
       <div style={sectionStyle}>
-        <label style={labelStyle}>Skills</label>
+        <label style={labelStyle}>Industry</label>
+        <select
+          value={filters.industry}
+          onChange={(e) => onFilterChange("industry", e.target.value)}
+          style={inputStyle}
+          className="form-select"
+        >
+          <option value="" style={selectStyle}>
+            All Industries
+          </option>
+          {uniqueIndustries.map((industry) => (
+            <option key={industry} value={industry} style={selectStyle}>
+              {industry}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div style={sectionStyle}>
+        <label style={labelStyle}>Company Size</label>
+        <select
+          value={filters.employeeCount}
+          onChange={(e) => onFilterChange("employeeCount", e.target.value)}
+          style={inputStyle}
+          className="form-select"
+        >
+          <option value="" style={selectStyle}>
+            All Sizes
+          </option>
+          {employeeCountRanges.map((range) => (
+            <option key={range} value={range} style={selectStyle}>
+              {range} employees
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div style={sectionStyle}>
+        <label style={labelStyle}>Specialities</label>
         <input
           type="text"
-          placeholder="Skills..."
-          value={filters.skills.join(", ")}
+          placeholder="Specialities..."
+          value={filters.specialities.join(", ")}
           onChange={(e) =>
             onFilterChange(
-              "skills",
+              "specialities",
               e.target.value
                 .split(",")
                 .map((s) => s.trim())
@@ -190,48 +217,8 @@ const SearchSidebar = ({
           style={inputStyle}
         />
       </div>
-
-      <div style={sectionStyle}>
-        <label style={labelStyle}>Experience Level</label>
-        <select
-          value={filters.experience}
-          onChange={(e) => onFilterChange("experience", e.target.value)}
-          style={inputStyle}
-          className="form-select"
-        >
-          <option value="" style={selectStyle}>
-            All Levels
-          </option>
-          {experienceLevels.map((level) => (
-            <option key={level} value={level} style={selectStyle}>
-              {level}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div style={sectionStyle}>
-        <label style={labelStyle}>Education Institute</label>
-        <select
-          value={filters.schools?.educationHistory || ""}
-          onChange={(e) =>
-            onFilterChange("schools", { educationHistory: e.target.value })
-          }
-          style={inputStyle}
-          className="form-select"
-        >
-          <option value="" style={selectStyle}>
-            All Institutes
-          </option>
-          {uniqueSchools.map((school) => (
-            <option key={school} value={school} style={selectStyle}>
-              {school}
-            </option>
-          ))}
-        </select>
-      </div>
     </div>
   );
 };
 
-export default SearchSidebar;
+export default CompanySearchSidebar;

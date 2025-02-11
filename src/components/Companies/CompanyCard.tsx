@@ -3,30 +3,27 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { User, GraduationCap } from "lucide-react";
-import ScoreDisplay from "./ScoreDisplay";
+import { Building2, Users } from "lucide-react";
 
-interface ProfileCardProps {
+interface CompanyCardProps {
   id: string;
-  photoUrl?: string;
+  logo?: string;
   name: string;
-  headline?: string;
+  industry?: string;
   location?: string;
-  schoolName?: string;
-  score?: number;
+  employeeCount?: number;
   isLightMode: boolean;
 }
 
-const ProfileCard = ({
+const CompanyCard = ({
   id,
-  photoUrl,
+  logo,
   name,
-  headline,
+  industry,
   location,
-  schoolName,
-  score = 18, // Default score if not provided
+  employeeCount,
   isLightMode,
-}: ProfileCardProps) => {
+}: CompanyCardProps) => {
   const router = useRouter();
 
   const cardStyle = {
@@ -61,7 +58,7 @@ const ProfileCard = ({
   return (
     <div
       className="col-md-6 col-lg-4 mb-4"
-      onClick={() => router.push(`/Candidates/${id}`)}
+      onClick={() => router.push(`/Companies/${id}`)}
     >
       <div
         className="card"
@@ -80,11 +77,9 @@ const ProfileCard = ({
           className="card-body position-relative"
           style={{ marginTop: "-60px", padding: "20px" }}
         >
-          <ScoreDisplay score={score} isLightMode={isLightMode} />
-
-          {photoUrl ? (
+          {logo ? (
             <img
-              src={photoUrl}
+              src={logo}
               alt={name}
               className="rounded-circle border-4 mb-3"
               style={{
@@ -97,7 +92,7 @@ const ProfileCard = ({
             />
           ) : (
             <div
-              className="rounded-circle border-4 mb-3 d-flex align-items-center justify-content-center"
+              className="rounded-lg border-4 mb-3 d-flex align-items-center justify-content-center"
               style={{
                 width: "80px",
                 height: "80px",
@@ -106,19 +101,19 @@ const ProfileCard = ({
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
               }}
             >
-              <User size={32} color={isLightMode ? "#666" : "#999"} />
+              <Building2 size={32} color={isLightMode ? "#666" : "#999"} />
             </div>
           )}
 
           <h3
             className={`${isLightMode ? "" : "text-white"}`}
             style={nameStyle}
-            title={name} // Shows full name on hover
+            title={name}
           >
             {name}
           </h3>
 
-          {headline && (
+          {industry && (
             <div
               style={{
                 backgroundColor: isLightMode
@@ -133,13 +128,16 @@ const ProfileCard = ({
                   isLightMode ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.2)"
                 }`,
                 margin: "8px 0",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
               }}
             >
-              Candidate
+              {industry}
             </div>
           )}
 
-          {schoolName && (
+          {employeeCount && (
             <div
               className="d-flex align-items-center gap-2 mb-2"
               style={{
@@ -154,7 +152,7 @@ const ProfileCard = ({
               }}
             >
               <div className="flex-shrink-0">
-                <GraduationCap
+                <Users
                   size={16}
                   style={{
                     color: isLightMode ? "#666" : "#aaa",
@@ -165,14 +163,9 @@ const ProfileCard = ({
                 style={{
                   fontSize: "0.7rem",
                   color: isLightMode ? "#666" : "#aaa",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  flex: 1,
                 }}
-                title={schoolName}
               >
-                {schoolName}
+                {employeeCount.toLocaleString()} employees
               </div>
             </div>
           )}
@@ -207,4 +200,4 @@ const ProfileCard = ({
   );
 };
 
-export default ProfileCard;
+export default CompanyCard;
