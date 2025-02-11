@@ -80,6 +80,14 @@
         "destination": "/SignUp.html"
       },
       {
+        "source": "HomePage",
+        "destination": "/HomePage.html"
+      },
+      {
+        "source": "Register",
+        "destination": "/Register.html"
+      },
+      {
         "source": "/",
         "destination": "/index.html"
       },
