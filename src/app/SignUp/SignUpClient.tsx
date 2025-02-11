@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import React, { useEffect, Suspense } from "react";
+import React, { Component } from "react";
 import { ArrowLeft } from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Link from "next/link";
@@ -8,53 +9,67 @@ import RegisterAccount from "../../components/UserCredentials/UserSignup";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-// Loading component
-const Loading = () => (
-  <div className="min-vh-100 d-flex justify-content-center align-items-center">
-    <div className="spinner-border text-light" role="status">
-      <span className="visually-hidden">Loading...</span>
-    </div>
-  </div>
-);
+// Error Boundary
+class ErrorBoundary extends Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
 
-export default function SignUp() {
+  static getDerivedStateFromError(_: Error) {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-vh-100 d-flex justify-content-center align-items-center text-white">
+          <div>Something went wrong. Please try again later.</div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// Separate component for navigation logic
+function SignUpContent() {
   const searchParams = useSearchParams();
   const selectedRole = searchParams?.get("selectedRole");
   const router = useRouter();
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const allowedRoles = ["Companies", "Candidates"];
-      if (!selectedRole || !allowedRoles.includes(selectedRole)) {
-        router.push("/Register");
-      }
+  React.useEffect(() => {
+    const allowedRoles = ["Companies", "Candidates"];
+    if (!selectedRole || !allowedRoles.includes(selectedRole)) {
+      router.push("/Register");
     }
   }, [selectedRole, router]);
 
-  if (typeof window === "undefined") {
-    return null;
-  }
-
   return (
-    <Suspense fallback={<Loading />}>
-      <div
-        className="min-vh-100 d-flex justify-content-center align-items-start py-5"
-        style={{ backgroundColor: "#000" }}
+    <div className="container">
+      <Link
+        href="/Register"
+        className="text-white flex items-center"
+        style={{ display: "flex", alignItems: "center" }}
       >
-        <div className="container">
-          <Link
-            href="/Register"
-            className="text-white flex items-center"
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <ArrowLeft size={20} className="me-2" />
-          </Link>
+        <ArrowLeft size={20} className="me-2" />
+      </Link>
 
-          <div className="row justify-content-center">
-            <RegisterAccount selectedRole={selectedRole} />
-          </div>
-        </div>
+      <div className="row justify-content-center">
+        <RegisterAccount selectedRole={selectedRole} />
       </div>
-    </Suspense>
+    </div>
+  );
+}
+
+export default function SignUpClient() {
+  return (
+    <ErrorBoundary>
+      <SignUpContent />
+    </ErrorBoundary>
   );
 }
