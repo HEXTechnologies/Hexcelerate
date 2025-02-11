@@ -48,6 +48,34 @@
         "destination": "/Categories/publicSafety.html"
       },
       {
+        "source": "/CandidatesProfile",
+        "destination": "/CandidatesProfile.html"
+      },
+      {
+        "source": "/CompaniesProfile",
+        "destination": "/CompaniesProfile.html"
+      },
+      {
+        "source": "/Candidates/[id]",
+        "destination": "/Candidates/[id].html"
+      },
+      {
+        "source": "/Companies/[id]",
+        "destination": "/Companies/[id].html"
+      },
+      {
+        "source": "/Companies",
+        "destination": "/Companies.html"
+      },
+      {
+        "source": "/Candidates",
+        "destination": "/Candidates.html"
+      },
+      {
+        "source": "/",
+        "destination": "/index.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

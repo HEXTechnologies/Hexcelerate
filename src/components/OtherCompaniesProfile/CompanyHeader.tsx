@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Pencil, Globe, Image } from "lucide-react";
+import { Globe, Image } from "lucide-react";
 import { BsLinkedin } from "react-icons/bs";
 import { useState } from "react";
 

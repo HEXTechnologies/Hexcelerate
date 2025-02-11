@@ -130,11 +130,11 @@ const ProfileRecommendations = ({
                     whiteSpace: "pre-line",
                   }}
                 >
-                  "
+                  &quot;
                   {expandedItems[index]
                     ? rec.description
                     : truncateText(rec.description)}
-                  "
+                  &quot;
                 </div>
                 {rec.description.length > 200 && (
                   <button
