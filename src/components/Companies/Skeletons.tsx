@@ -107,7 +107,6 @@ const HeaderSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
   return (
     <div className="row mb-4">
       <div className="col">
-        {/* Main Title Skeleton */}
         <div
           className="mb-3 mt-4"
           style={{
@@ -118,7 +117,6 @@ const HeaderSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
         >
           <div style={shimmerStyle} />
         </div>
-        {/* Subtitle Skeleton */}
         <div
           className="mb-4"
           style={{
@@ -134,7 +132,7 @@ const HeaderSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
   );
 };
 
-const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
+const CompanyCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
   const cardStyle = {
     backgroundColor: isLightMode ? "#040411" : "#040411",
     color: isLightMode ? "#000" : "#fff",
@@ -180,22 +178,7 @@ const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
           className="card-body position-relative"
           style={{ marginTop: "-60px", padding: "20px" }}
         >
-          {/* Score Display Skeleton */}
-          <div
-            style={{
-              ...skeletonStyle,
-              position: "absolute",
-              top: "-30px",
-              right: "10px",
-              height: "1.5rem",
-              width: "3rem",
-              borderRadius: "0.5rem",
-            }}
-          >
-            <div style={shimmerStyle} />
-          </div>
-
-          {/* Profile Image Skeleton */}
+          {/* Logo Skeleton */}
           <div
             className="rounded-circle mb-3"
             style={{
@@ -209,7 +192,7 @@ const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
             <div style={shimmerStyle} />
           </div>
 
-          {/* Name Skeleton */}
+          {/* Company Name Skeleton */}
           <div
             style={{
               ...skeletonStyle,
@@ -221,7 +204,7 @@ const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
             <div style={shimmerStyle} />
           </div>
 
-          {/* Candidate Tag Skeleton */}
+          {/* Industry Tag Skeleton */}
           <div
             style={{
               ...skeletonStyle,
@@ -233,7 +216,7 @@ const ProfileCardSkeleton = ({ isLightMode }: { isLightMode: boolean }) => {
             <div style={shimmerStyle} />
           </div>
 
-          {/* School Skeleton */}
+          {/* Employee Count Skeleton */}
           <div
             style={{
               padding: "8px",
@@ -293,4 +276,4 @@ if (typeof document !== "undefined") {
   document.head.appendChild(styleElement);
 }
 
-export { SidebarSkeleton, ProfileCardSkeleton, HeaderSkeleton };
+export { SidebarSkeleton, CompanyCardSkeleton, HeaderSkeleton };

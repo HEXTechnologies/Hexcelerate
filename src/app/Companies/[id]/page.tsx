@@ -6,7 +6,7 @@ import ProfileSkeletons from '../../../components/CandidatesProfile/ProfileSkele
 
 export async function generateStaticParams() {
   try {
-    const candidatesRef = collection(firestore, "Candidates");
+    const candidatesRef = collection(firestore, "Companies");
     const snapshot = await getDocs(candidatesRef);
     
     return snapshot.docs.map((doc) => ({

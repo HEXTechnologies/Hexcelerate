@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { SunFill, MoonStarsFill, List } from "react-bootstrap-icons";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, firestore } from "../../../firebaseConfig/firebase";
+import { doc, getDoc } from "firebase/firestore";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles.css";
 
@@ -13,6 +16,8 @@ type NavbarProps = {
 const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
   const [mounted, setMounted] = useState(false);
   const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
+  const [user] = useAuthState(auth);
+  const [profilePath, setProfilePath] = useState("CandidatesProfile");
 
   // Apply saved theme on initial load
   useEffect(() => {
@@ -43,6 +48,35 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
       return () => window.removeEventListener("resize", handleResize);
     }
   }, []);
+
+  useEffect(() => {
+    const checkUserCollection = async () => {
+      if (!user?.uid) return;
+
+      try {
+        // Check Candidates collection
+        const candidateRef = doc(firestore, "Candidates", user.uid);
+        const candidateDoc = await getDoc(candidateRef);
+
+        if (candidateDoc.exists()) {
+          setProfilePath("CandidatesProfile");
+          return;
+        }
+
+        // Check Companies collection
+        const companyRef = doc(firestore, "Companies", user.uid);
+        const companyDoc = await getDoc(companyRef);
+
+        if (companyDoc.exists()) {
+          setProfilePath("CompaniesProfile");
+        }
+      } catch (error) {
+        console.error("Error checking user collection:", error);
+      }
+    };
+
+    checkUserCollection();
+  }, [user]);
 
   const toggleLightMode = () => {
     const newMode = !isLightMode;
@@ -85,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
               borderRadius: "10px",
             }}
           >
-            <Link className="text-white" href="/Dashboard">
+            <Link className="text-white" href="HomePage">
               <img
                 src={"/HEX-HACC-2024-LIGHT.png"}
                 alt="Dashboard Icon"
@@ -139,7 +173,7 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
                   borderRadius: "60px",
                 }}
               >
-                <Link href="/Dashboard">
+                <Link href="HomePage">
                   <img
                     src={"/HEX-HACC-2024-LIGHT.png"}
                     alt="Dashboard Icon"
@@ -153,17 +187,17 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
               {/* Navigation Links - Left Aligned */}
               <ul className="navbar-nav d-flex flex-row align-items-center">
                 <li className="nav-item">
-                  <Link href="/Companies" style={{ fontSize: "0.9rem" }}>
+                  <Link href="Companies" style={{ fontSize: "0.9rem" }}>
                     Companies
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/Candidates" style={{ fontSize: "0.9rem" }}>
+                  <Link href="Candidates" style={{ fontSize: "0.9rem" }}>
                     Candidates
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/InterviewAI" style={{ fontSize: "0.9rem" }}>
+                  <Link href="#HowItWorks" style={{ fontSize: "0.9rem" }}>
                     Interview AI
                   </Link>
                 </li>
@@ -171,13 +205,13 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
             </div>
 
             {/* Right Side Items */}
-            <div className="d-flex align-items-center gap-3 me-2 mt-2">
+            <div className="d-flex align-items-center gap-3 me-4 mt-2">
               <Link
-                href="Compare"
+                href={profilePath}
                 className="btn btn-primary gradient-button text-white px-3 py-2"
                 style={{ fontSize: "0.8rem", borderRadius: "20px" }}
               >
-                Compare
+                View Profile
               </Link>
               <div
                 onClick={toggleLightMode}
@@ -238,7 +272,7 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="/Companies"
+                  href="#Category"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
@@ -248,7 +282,7 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="/Candidates"
+                  href="Candidates"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
@@ -258,7 +292,7 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="/InterviewAI"
+                  href="#HowItWorks"
                   className="nav-link"
                   onClick={() => setIsOffcanvasOpen(false)}
                   style={{ fontSize: "0.9rem" }}
@@ -268,11 +302,12 @@ const Navbar: React.FC<NavbarProps> = ({ isLightMode, setIsLightMode }) => {
               </li>
               <li className="nav-item mb-2">
                 <Link
-                  href="Compare"
+                  href={profilePath}
                   className="btn btn-primary gradient-button text-white px-4 py-2"
                   style={{ fontSize: "0.8rem" }}
+                  onClick={() => setIsOffcanvasOpen(false)}
                 >
-                  Compare
+                  View Profile
                 </Link>
               </li>
             </ul>

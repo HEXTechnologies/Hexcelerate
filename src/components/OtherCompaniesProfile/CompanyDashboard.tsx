@@ -8,25 +8,22 @@ import { doc, getDoc } from "firebase/firestore";
 import Swal from "sweetalert2";
 
 import CompanyHeader from "./CompanyHeader";
-import CompanyAbout from "./CompanyAbout";
-import CompanySpecialties from "./CompanySpecialties";
-import CompanySkeletons from "./CompanySkeletons";
-import CompanyStats from "./CompanyStats";
-import CompanyInput from "./CompanyInput";
+import CompanyAbout from "../CompanyProfile/CompanyAbout";
+import CompanySpecialties from "../CompanyProfile/CompanySpecialties";
+import CompanySkeletons from "../CompanyProfile/CompanySkeletons";
+import CompanyStats from "../CompanyProfile/CompanyStats";
 import Navbar from "./Navbar";
 import NoCompanyIntro from "./NoCompanyIntro";
-import CompanySideNav from "./CompanySideNav";
+import CompanySideNav from "../CompanyProfile/CompanySideNav";
 
 interface CompanyDashboardProps {
   userId?: string;
   companyUrl?: string;
-  onSubmit: (data: any) => Promise<void>;
 }
 
 const CompanyDashboard = ({
   userId,
   companyUrl: initialCompanyUrl,
-  onSubmit,
 }: CompanyDashboardProps) => {
   const [user] = useAuthState(auth);
   const [companyData, setCompanyData] = useState<any>(null);
@@ -96,40 +93,7 @@ const CompanyDashboard = ({
                 setIsLightMode={setIsLightMode}
               />
               {!companyData && !companyUrl && (
-                <>
-                  <NoCompanyIntro isLightMode={isLightMode} />
-                  <CompanyInput
-                    isLightMode={isLightMode}
-                    onSubmit={async (searchData: {
-                      type: "url" | "domain";
-                      value: string;
-                    }) => {
-                      try {
-                        await onSubmit(searchData);
-                        const currentUserId = userId || user?.uid;
-                        if (currentUserId) {
-                          const companyRef = doc(
-                            firestore,
-                            "Companies",
-                            currentUserId
-                          );
-                          const companyDoc = await getDoc(companyRef);
-                          const data = companyDoc.data();
-                          if (companyDoc.exists() && data?.companyData) {
-                            setCompanyData(data.companyData);
-                          }
-                          if (searchData.type === "url") {
-                            setCompanyUrl(searchData.value);
-                          }
-                        }
-                      } catch (error) {
-                        console.error("Error submitting company:", error);
-                      } finally {
-                        setLoading(false);
-                      }
-                    }}
-                  />
-                </>
+                <NoCompanyIntro isLightMode={isLightMode} />
               )}
               <CompanySkeletons isLightMode={isLightMode} />
             </div>

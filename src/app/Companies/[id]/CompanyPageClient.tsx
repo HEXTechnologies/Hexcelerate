@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../../firebaseConfig/firebase";
-import ProfileDashboard from "../../../components/OtherCandidatesProfile/ProfileDashboard";
-import ProfileSkeletons from "../../../components/CandidatesProfile/ProfileSkeletons";
+import CompanyDashboard from "../../../components/OtherCompaniesProfile/CompanyDashboard";
+import CompanySkeletons from "../../../components/CompanyProfile/CompanySkeletons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../../styles.css";
 import "../../../styles/Lightmode.css";
@@ -21,8 +22,8 @@ interface CompanyPageClientProps {
 }
 
 const CompanyPageClient = ({ params }: CompanyPageClientProps) => {
-  const [user, loading] = useAuthState(auth); // Make sure to destructure user as well
-  const [isLightMode] = useState(false); // Remove setIsLightMode if not using it
+  const [user, loading] = useAuthState(auth);
+  const [isLightMode, setIsLightMode] = useState(false);
 
   if (loading) {
     return (
@@ -32,7 +33,7 @@ const CompanyPageClient = ({ params }: CompanyPageClientProps) => {
             <div className="col-12 col-lg-10">
               <div className="bottom-light left-light"></div>
               <div className="bottom-light right-light"></div>
-              <ProfileSkeletons isLightMode={isLightMode} />
+              <CompanySkeletons isLightMode={isLightMode} />
             </div>
           </div>
         </div>
@@ -40,12 +41,30 @@ const CompanyPageClient = ({ params }: CompanyPageClientProps) => {
     );
   }
 
-  // Add a check for the user ID from params
   if (!params?.id) {
-    return <div>No user ID provided</div>;
+    return (
+      <main className="HomeImageCt">
+        {" "}
+        <div className="container py-4 mt-5 mb-5">
+          <div className="row justify-content-center mt-5 mb-5">
+            <div className="col-12 col-lg-10 text-center">
+              <h2 className={isLightMode ? "text-dark" : "text-white"}>
+                Company ID not provided
+              </h2>
+              <button
+                onClick={() => window.history.back()}
+                className="btn btn-primary gradient-button mt-3"
+              >
+                Go Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
   }
 
-  return <ProfileDashboard userId={params.id} linkedInUrl={undefined} />;
+  return <CompanyDashboard userId={params.id} companyUrl={undefined} />;
 };
 
 export default CompanyPageClient;

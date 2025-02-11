@@ -12,58 +12,57 @@ import "../../styles/HomeChatBots.css";
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../../firebaseConfig/firebase";
-import ProfileCard from "../../components/Candidates/ProfileCard";
-import SearchSidebar from "../../components/Candidates/SearchSideBar";
-import Navbar from "../../components/Candidates/Navbar";
+import CompanyCard from "../../components/Companies/CompanyCard";
+import CompanySearchSidebar from "../../components/Companies/CompanySearchSidebar";
+import Navbar from "../../components/Companies/Navbar";
 import {
   SidebarSkeleton,
-  ProfileCardSkeleton,
+  CompanyCardSkeleton,
   HeaderSkeleton,
-} from "../../components/Candidates/Skeletons";
+} from "../../components/Companies/Skeletons";
 
 interface Company {
   id: string;
-  score?: number;
-  linkedInData?: {
-    person: {
-      firstName: string;
-      lastName: string;
-      photoUrl?: string;
-      headline?: string;
-      location?: string;
-      skills?: string[];
-      positions?: {
-        positionHistory?: any[];
-      };
-      schools?: {
-        educationHistory?: any[];
-      };
+  companyData?: {
+    linkedInId: string;
+    name: string;
+    universalName: string;
+    linkedInUrl: string;
+    employeeCount: number;
+    websiteUrl: string;
+    description: string;
+    industry: string;
+    specialities: string[];
+    followerCount: number;
+    headquarter: {
+      city: string;
+      country: string;
+      geographicArea: string;
     };
+    logo: string;
   };
 }
 
 const CompanyListPage = () => {
-  const [candidates, setCandidates] = useState<Company[]>([]);
+  const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
   const [isLightMode, setIsLightMode] = useState(true);
 
   const [filters, setFilters] = useState({
     searchTerm: "",
     location: "",
-    skills: [] as string[],
-    experience: "",
-    schools: {
-      educationHistory: "",
-    },
+    industry: "",
+    employeeCount: "",
+    specialities: [] as string[],
   });
 
   useEffect(() => {
-    const fetchCandidates = async () => {
+    const fetchCompanies = async () => {
       try {
-        const candidatesCollection = collection(firestore, "Candidates");
-        const candidatesSnapshot = await getDocs(candidatesCollection);
+        const companiesCollection = collection(firestore, "Companies");
+        const companiesSnapshot = await getDocs(companiesCollection);
 
-        const candidatesData = candidatesSnapshot.docs
+        const companiesData = companiesSnapshot.docs
           .map(
             (doc) =>
               ({
@@ -71,78 +70,68 @@ const CompanyListPage = () => {
                 ...doc.data(),
               } as Company)
           )
-          .filter((candidate) => candidate.linkedInData?.person);
+          .filter((company) => company.companyData);
 
-        setCandidates(candidatesData);
+        setCompanies(companiesData);
       } catch (error) {
-        console.error("Error fetching candidates:", error);
+        console.error("Error fetching companies:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCandidates();
+    fetchCompanies();
   }, []);
 
   const handleFilterChange = (filterName: string, value: any) => {
-    setFilters((prev) => {
-      // Handle nested updates for schools
-      if (filterName === "schools") {
-        return {
-          ...prev,
-          schools: value,
-        };
-      }
-      // Handle all other updates
-      return {
-        ...prev,
-        [filterName]: value,
-      };
-    });
+    setFilters((prev) => ({
+      ...prev,
+      [filterName]: value,
+    }));
   };
 
   const clearFilters = () => {
     setFilters({
       searchTerm: "",
       location: "",
-      skills: [],
-      experience: "",
-      schools: {
-        educationHistory: "",
-      },
+      industry: "",
+      employeeCount: "",
+      specialities: [],
     });
   };
 
-  const filterCandidates = (candidates: Company[]) => {
-    return candidates.filter((candidate) => {
-      const person = candidate.linkedInData?.person;
-      if (!person) return false;
+  const getEmployeeCountRange = (count: number): string => {
+    if (count <= 10) return "1-10";
+    if (count <= 50) return "11-50";
+    if (count <= 200) return "51-200";
+    if (count <= 500) return "201-500";
+    if (count <= 1000) return "501-1000";
+    if (count <= 5000) return "1001-5000";
+    if (count <= 10000) return "5001-10000";
+    return "10000+";
+  };
 
-      const fullName = `${person.firstName} ${person.lastName}`.toLowerCase();
-      const headline = person.headline?.toLowerCase() || "";
-      const location = person.location?.toLowerCase() || "";
-      const candidateSkills = person.skills?.map((s) => s.toLowerCase()) || [];
+  const filterCompanies = (companies: Company[]) => {
+    return companies.filter((company) => {
+      const companyData = company.companyData;
+      if (!companyData) return false;
 
-      // Education filter
-      if (filters.schools?.educationHistory) {
-        const educationHistory = person.schools?.educationHistory || [];
-        const hasMatchingSchool = educationHistory.some(
-          (education) =>
-            education.schoolName === filters.schools?.educationHistory
-        );
-        if (!hasMatchingSchool) return false;
-      }
+      const name = companyData.name.toLowerCase();
+      const location =
+        `${companyData.headquarter?.city}, ${companyData.headquarter?.geographicArea}, ${companyData.headquarter?.country}`.toLowerCase();
+      const industry = companyData.industry?.toLowerCase() || "";
+      const specialities =
+        companyData.specialities?.map((s) => s.toLowerCase()) || [];
+      const employeeCountRange = getEmployeeCountRange(
+        companyData.employeeCount
+      );
 
       // Search term filter
-      if (filters.searchTerm) {
-        const searchTerm = filters.searchTerm.toLowerCase();
-        if (
-          !fullName.includes(searchTerm) &&
-          !headline.includes(searchTerm) &&
-          !location.includes(searchTerm)
-        ) {
-          return false;
-        }
+      if (
+        filters.searchTerm &&
+        !name.includes(filters.searchTerm.toLowerCase())
+      ) {
+        return false;
       }
 
       // Location filter
@@ -153,53 +142,47 @@ const CompanyListPage = () => {
         return false;
       }
 
-      // Skills filter
-      if (filters.skills.length > 0) {
-        const hasAllSkills = filters.skills.every((skill) =>
-          candidateSkills.some((s) => s.includes(skill.toLowerCase()))
-        );
-        if (!hasAllSkills) return false;
+      // Industry filter
+      if (filters.industry && industry !== filters.industry.toLowerCase()) {
+        return false;
       }
 
-      // Experience level filter
-      if (filters.experience) {
-        const yearsOfExperience =
-          person.positions?.positionHistory?.length || 0;
-        return filters.experience === getExperienceLevel(yearsOfExperience);
+      // Employee count filter
+      if (
+        filters.employeeCount &&
+        employeeCountRange !== filters.employeeCount
+      ) {
+        return false;
+      }
+
+      // Specialities filter
+      if (filters.specialities.length > 0) {
+        const hasAllSpecialities = filters.specialities.every((speciality) =>
+          specialities.some((s) => s.includes(speciality.toLowerCase()))
+        );
+        if (!hasAllSpecialities) return false;
       }
 
       return true;
     });
   };
 
-  const getExperienceLevel = (years: number): string => {
-    if (years === 0) return "Intern";
-    if (years <= 2) return "Entry Level";
-    if (years <= 5) return "Mid Level";
-    if (years <= 12) return "Senior Level";
-    return "Executive Level";
-  };
-
-  const filteredCandidates = filterCandidates(candidates);
+  const filteredCompanies = filterCompanies(companies);
 
   if (loading) {
     return (
       <div className="HomeImageCt">
         <div className="container-fluid">
           <div className="row">
-            {/* Sidebar */}
             <div className="col-lg-3 col-xl-2 px-0">
               <SidebarSkeleton isLightMode={isLightMode} />
             </div>
-            {/* Main Content */}
             <div className="col-lg-9 col-xl-10 mt-4">
               <div className="container py-4">
-                {/* Header Section */}
                 <HeaderSkeleton isLightMode={isLightMode} />
-                {/* Profile Cards Grid */}
                 <div className="row">
                   {[1, 2, 3, 4, 5, 6].map((index) => (
-                    <ProfileCardSkeleton
+                    <CompanyCardSkeleton
                       key={index}
                       isLightMode={isLightMode}
                     />
@@ -218,21 +201,22 @@ const CompanyListPage = () => {
       <div className="container-fluid">
         <Navbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} />
         <div className="row">
-          {/* Search Sidebar */}
           <div className="col-lg-3 col-xl-2 px-0">
-            <SearchSidebar
+            <CompanySearchSidebar
               isLightMode={isLightMode}
               filters={filters}
-              candidates={candidates} // Add this line
+              companies={companies.map(company => ({
+                industry: company.companyData?.industry,
+                employeeCount: company.companyData?.employeeCount,
+                specialities: company.companyData?.specialities,
+              }))}
               onFilterChange={handleFilterChange}
               onClearFilters={clearFilters}
             />
           </div>
 
-          {/* Main Content */}
           <div className="col-lg-9 col-xl-10 mt-5">
             <div className="container py-4">
-              {/* Header Section */}
               <div className="row mb-4">
                 <div className="col">
                   <h1
@@ -240,34 +224,29 @@ const CompanyListPage = () => {
                       isLightMode ? "text-white" : "text-white"
                     }`}
                   >
-                    DISCOVER PROMISING CANDIDATES
+                    EXPLORE TOP COMPANIES
                   </h1>
                   <h4
                     className={`custom-h4 mb-4 ${
                       isLightMode ? "text-white" : "text-white"
                     }`}
                   >
-                    Find Top Candidates Tailored to Your Needs
+                    Discover Leading Companies in Your Industry
                   </h4>
                 </div>
               </div>
 
-              {/* Results Section */}
               <div className="row">
-                {filteredCandidates.length > 0 ? (
-                  filteredCandidates.map((candidate) => (
-                    <ProfileCard
-                      key={candidate.id}
-                      id={candidate.id}
-                      photoUrl={candidate.linkedInData?.person.photoUrl}
-                      name={`${candidate.linkedInData?.person.firstName} ${candidate.linkedInData?.person.lastName}`}
-                      headline={candidate.linkedInData?.person.headline}
-                      location={candidate.linkedInData?.person.location}
-                      schoolName={
-                        candidate.linkedInData?.person.schools
-                          ?.educationHistory?.[0]?.schoolName
-                      }
-                      score={candidate.score} // Add this line
+                {filteredCompanies.length > 0 ? (
+                  filteredCompanies.map((company) => (
+                    <CompanyCard
+                      key={company.id}
+                      id={company.id}
+                      logo={company.companyData?.logo}
+                      name={company.companyData?.name || ""}
+                      industry={company.companyData?.industry}
+                      location={`${company.companyData?.headquarter?.city}, ${company.companyData?.headquarter?.geographicArea}`}
+                      employeeCount={company.companyData?.employeeCount}
                       isLightMode={isLightMode}
                     />
                   ))
@@ -279,7 +258,7 @@ const CompanyListPage = () => {
                         isLightMode ? "text-gray-600" : "text-gray-400"
                       }
                     >
-                      <p>No candidates found matching your search criteria.</p>
+                      <p>No companies found matching your search criteria.</p>
                       <button
                         onClick={clearFilters}
                         className="btn btn-primary gradient-button mt-3"
