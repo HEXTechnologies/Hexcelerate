@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { House } from "react-bootstrap-icons";
 import { BarChart4, ChevronLeft, LayoutGrid, Settings, LogOut } from "lucide-react";
+import "../../styles.css";
 
 const Sidebar = ({ isLightMode, isSidebarOpen, setIsSidebarOpen }) => (
   <div
@@ -23,7 +24,6 @@ const Sidebar = ({ isLightMode, isSidebarOpen, setIsSidebarOpen }) => (
     <button
       onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       className="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4"
-      style={{ width: "45px", height: "45px" }}
     >
       <ChevronLeft
         size={18}
@@ -47,14 +47,14 @@ const Sidebar = ({ isLightMode, isSidebarOpen, setIsSidebarOpen }) => (
       </Link>
 
       <Link
-        href="../Project"
+        href="../Projects"
         className="d-flex align-items-center text-decoration-none text-white gap-3"
       >
         <div className="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center"
              style={{ width: "45px", height: "45px" }}>
           <BarChart4 size={18} />
         </div>
-        {isSidebarOpen && <span className="fs-5">Dashboard</span>}
+        {isSidebarOpen && <span className="fs-5">Projects</span>}
       </Link>
 
       <Link
