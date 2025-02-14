@@ -45,8 +45,12 @@ export default function Register() {
                 <div className="text-center mb-3 mt-5">
                   <button
                     onClick={() => handleRoleSelection("Companies")}
-                    className="btn btn-outline-light m-2"
-                    style={{ borderRadius: "20px", padding: "10px 150px" }}
+                    className="btn btn-outline-light m-2 w-100 w-md-auto"
+                    style={{
+                      borderRadius: "20px",
+                      padding: "10px 20px",
+                      maxWidth: "400px",
+                    }}
                   >
                     Companies
                   </button>
@@ -54,8 +58,12 @@ export default function Register() {
                 <div className="text-center mb-5">
                   <button
                     onClick={() => handleRoleSelection("Candidates")}
-                    className="btn btn-outline-light m-2"
-                    style={{ borderRadius: "20px", padding: "10px 150px" }}
+                    className="btn btn-outline-light m-2 w-100 w-md-auto"
+                    style={{
+                      borderRadius: "20px",
+                      padding: "10px 20px",
+                      maxWidth: "400px",
+                    }}
                   >
                     Candidates
                   </button>
