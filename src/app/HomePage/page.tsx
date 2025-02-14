@@ -136,6 +136,8 @@ const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
           />
         </div>
       </div>
+      <div className="bottom-light left-light"></div>
+      <div className="bottom-light right-light"></div>
     </div>
   );
 };
@@ -335,10 +337,6 @@ const CombinedDisplay: React.FC<{ isLightMode: boolean }> = React.memo(() => {
           </Link>
         ))}
       </div>
-
-      <div className="spotlight-center"></div>
-      <div className="spotlight-left"></div>
-      <div className="spotlight-right"></div>
 
       <div
         className="nav-buttons mt-4"
