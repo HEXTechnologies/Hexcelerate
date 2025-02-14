@@ -19,7 +19,7 @@
     transparent 70%
   );
   filter: blur(clamp(20px, 4vw, 30px));
-  left: 50%;
+  left: 0%;
   bottom: clamp(10%, 20%, 20%); /* Adjust bottom position responsively */
   transform: translateX(-50%); /* Center the element horizontally */
   animation: pulsing-glow 15s infinite;

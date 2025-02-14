@@ -136,8 +136,6 @@ const HomeImage: React.FC<{ isLightMode: boolean }> = ({ isLightMode }) => {
           />
         </div>
       </div>
-      <div className="bottom-light left-light"></div>
-      <div className="bottom-light right-light"></div>
     </div>
   );
 };

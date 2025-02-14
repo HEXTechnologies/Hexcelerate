@@ -82,8 +82,6 @@ const ProfileDashboard = ({
         <div className="container py-4 mt-5 mb-5">
           <div className="row justify-content-center mt-5 mb-5">
             <div className="col-12 col-lg-10">
-              <div className="bottom-light left-light"></div>
-              <div className="bottom-light right-light"></div>
               <ProfileSkeletons isLightMode={isLightMode} />
             </div>
           </div>
@@ -98,8 +96,6 @@ const ProfileDashboard = ({
         <div className="container py-4 mt-5 mb-5">
           <div className="row justify-content-center mt-5 mb-5">
             <div className="col-12 col-lg-10">
-              <div className="bottom-light left-light"></div>
-              <div className="bottom-light right-light"></div>
               <Navbar
                 isLightMode={isLightMode}
                 setIsLightMode={setIsLightMode}
@@ -124,8 +120,6 @@ const ProfileDashboard = ({
         {" "}
         <div className="row justify-content-center mt-5 mb-5">
           <div className="col-12">
-            <div className="bottom-light left-light"></div>
-            <div className="bottom-light right-light"></div>
             <Navbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} />
 
             <div className="row">
