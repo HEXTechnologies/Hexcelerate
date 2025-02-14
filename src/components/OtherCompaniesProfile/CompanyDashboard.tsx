@@ -76,8 +76,6 @@ const CompanyDashboard = ({
         <div className="container py-4 mt-5 mb-5">
           <div className="row justify-content-center mt-5 mb-5">
             <div className="col-12 col-lg-10">
-              <div className="bottom-light left-light"></div>
-              <div className="bottom-light right-light"></div>
               <CompanySkeletons isLightMode={isLightMode} />
             </div>
           </div>
@@ -92,8 +90,6 @@ const CompanyDashboard = ({
         <div className="container py-4 mt-5 mb-5">
           <div className="row justify-content-center mt-5 mb-5">
             <div className="col-12 col-lg-10">
-              <div className="bottom-light left-light"></div>
-              <div className="bottom-light right-light"></div>
               <Navbar
                 isLightMode={isLightMode}
                 setIsLightMode={setIsLightMode}
@@ -115,8 +111,6 @@ const CompanyDashboard = ({
       <div className="container py-4 mt-5 mb-5" style={{ paddingLeft: "30px" }}>
         <div className="row justify-content-center mt-5 mb-5">
           <div className="col-12">
-            <div className="bottom-light left-light"></div>
-            <div className="bottom-light right-light"></div>
             <Navbar isLightMode={isLightMode} setIsLightMode={setIsLightMode} />
 
             <div className="row">
