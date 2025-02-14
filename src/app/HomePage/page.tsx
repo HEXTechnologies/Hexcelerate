@@ -299,6 +299,7 @@ const CombinedDisplay: React.FC<{ isLightMode: boolean }> = React.memo(() => {
     <div
       id="Category"
       className="circular-categories-container text-center py-5 container-fluid"
+      style={{ overflow: "hidden" }}
     >
       <h1 className="custom-h1 mb-4 mt-4">
         {showCandidates
@@ -335,10 +336,6 @@ const CombinedDisplay: React.FC<{ isLightMode: boolean }> = React.memo(() => {
           </Link>
         ))}
       </div>
-
-      <div className="spotlight-center"></div>
-      <div className="spotlight-left"></div>
-      <div className="spotlight-right"></div>
 
       <div
         className="nav-buttons mt-4"

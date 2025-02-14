@@ -11,7 +11,7 @@ const HowItWorks: React.FC = () => {
     company: {
       heading: "Find Your Next Star Employee with AI-Powered Matching!",
       subheading:
-      "Fast, Smart, and Flexible! Choose between hiring gold standard talent directly or having us manage your project with UH Manoa's top talent...",
+        "Fast, Smart, and Flexible! Choose between hiring gold standard talent directly or having us manage your project with UH Manoa's top talent...",
       steps: [
         { number: 1, text: "EXPLORE CANDIDATE MATCHES", link: "Waitlist" },
         { number: 2, text: "CHOOSE MANAGEMENT STYLE", link: "Waitlist" },
@@ -21,7 +21,7 @@ const HowItWorks: React.FC = () => {
     candidate: {
       heading: "Fast-Track Your Career With AI-Powered Job Matching!",
       subheading:
-      "Connect your LinkedIn profile to get matched with companies for direct hire, or join our elite development team for managed projects...",
+        "Connect your LinkedIn profile to get matched with companies for direct hire, or join our elite development team for managed projects...",
       steps: [
         { number: 1, text: "CONNECT YOUR LINKEDIN", link: "Waitlist" },
         {
@@ -65,7 +65,7 @@ const HowItWorks: React.FC = () => {
   const currentContent = isCompanyView ? content.company : content.candidate;
 
   return (
-    <div className="HowItWorksDiv px-5 pt-5">
+    <div className="HowItWorksDiv px-5 pt-5" style={{ overflow: "hidden" }}>
       <div id="HowItWorks" className="how-it-works-section">
         <div className="d-flex flex-column align-items-center justify-content-center">
           <h1
@@ -120,12 +120,12 @@ const HowItWorks: React.FC = () => {
                 transition: "all 0.5s ease 0.4s",
               }}
             >
-                <img
+              <img
                 className="HowItWorksVideo"
                 style={{ width: "100%", height: "auto" }}
                 src={isCompanyView ? "/Company.png" : "/Employee.png"}
                 alt={isCompanyView ? "Employee matching" : "Company matching"}
-                />
+              />
             </div>
           </Col>
         </Row>
